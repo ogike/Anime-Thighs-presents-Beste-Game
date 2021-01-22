@@ -6,6 +6,7 @@ public class EnemyBasicFollow : MonoBehaviour
 {
     public float moveSpeed;
     public float distToStop; //if within this distance from the player, we wont move
+    public float distToStart; //if farther than this distance from the player, we wont move
     public float plusRotation; //rotation value thats always applied
 
     //TEMPORARY, csak arra van hogyha megnyitod a játékot ne egybõl rohanjanak
@@ -47,7 +48,7 @@ public class EnemyBasicFollow : MonoBehaviour
 
         RotateIn2D(dirToTarget);
 
-        if (distToTarget > distToStop)
+        if (distToTarget > distToStop && distToStart > distToTarget)
         {
             MoveInDir(dirToTarget);
         }
