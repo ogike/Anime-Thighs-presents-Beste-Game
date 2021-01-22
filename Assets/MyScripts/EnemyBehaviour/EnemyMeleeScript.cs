@@ -5,26 +5,26 @@ using UnityEngine;
 public class EnemyMeleeScript : MonoBehaviour
 {
     public int   damage = 50;
-    public float distToAttack = 1;
-    public float attackRange = 1.25f;
     public float attackCooldown = 1;
-
-    public Transform meleeRayPos;  //this is where the line-of-sight check will be start from for the melee attack
-    public LayerMask attackLayers; //TODO: explain this
 
     EnemyHandler myHandler;
     Vector3 dirToTarget; //the normalized direction
-  public float distToTarget;
 
-  public float curCooldown;
+  public float curCooldown; //public for debug
+    public bool isAttacking;
+
+    HealthScript playerHealth;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        myHandler = GetComponent<EnemyHandler>();
+        myHandler = transform.parent.GetComponent<EnemyHandler>(); //nem a legszebb megoldás, once again
+        playerHealth = GameManagerScript.Instance.playerHealth;
 
         curCooldown = attackCooldown;
+        isAttacking = false;
     }
 
     // Update is called once per frame
@@ -38,13 +38,12 @@ public class EnemyMeleeScript : MonoBehaviour
         }
 
         //pass these variables as references to the method (like pointers)
-        myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (curCooldown > 0)
         {
             curCooldown -= Time.deltaTime;
         }
-        else if(distToTarget < distToAttack)
+        else if(isAttacking)
 		{
             Attack();
             curCooldown = attackCooldown;
@@ -53,28 +52,23 @@ public class EnemyMeleeScript : MonoBehaviour
 
     void Attack()
 	{
-        //should replace this whole thing with triggers instead
-        RaycastHit2D hit = Physics2D.Raycast(meleeRayPos.position, dirToTarget, attackRange, attackLayers);
-        //Color color;
-        if (hit.collider != null)
-        {
-            if (hit.collider.tag == "Player")
-            {
-                hit.transform.GetComponent<HealthScript>().TakeDamage(damage);
-            //    color = Color.yellow;
-            }
-            //else
-            //    color = Color.green;
-            //Debug.DrawLine(meleeRayPos.position, hit.point, color, attackCooldown);
-        }
+        playerHealth.TakeDamage(damage);
+        
     }
 
-	/*private void OnCollisionEnter2D(Collision2D collision)
+	private void OnTriggerEnter2D(Collider2D collider)
 	{
-        //very placeholder, should be done with distance checks later!!!
-		if(collision.gameObject.tag == "Player")
+		if(collider.gameObject.tag == "Player")
 		{
-            collision.gameObject.GetComponent<HealthScript>().TakeDamage(damage);
+            isAttacking = true;
         }
-	}*/
+	}
+
+	private void OnTriggerExit2D(Collider2D collider)
+	{
+        if (collider.gameObject.tag == "Player") //double checking, if the collision matrix is set properly it shouldnt be necessary
+        {
+            isAttacking = false;
+        }
+    }
 }
