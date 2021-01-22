@@ -22,7 +22,7 @@ TagManager:
   - EnemyBullet
   - DoorGeneralBlocker
   - DoorPlayerBlocker
-  - 
+  - EnemyMeleeTrigger
   - 
   - 
   - 

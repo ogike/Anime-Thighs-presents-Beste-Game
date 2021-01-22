@@ -6209,6 +6209,7 @@ MonoBehaviour:
   cameraZPosition: -10
   playerZPosition: 0
   winReward: {fileID: 357924338}
+  playerHealth: {fileID: 0}
 --- !u!4 &1913244103
 Transform:
   m_ObjectHideFlags: 0
