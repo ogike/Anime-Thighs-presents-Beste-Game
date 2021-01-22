@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 20.0f;
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
         //A rigidBody2D az a komponens, ami kezeli a physics-et
         myRigidbody = GetComponent<Rigidbody2D>();
 
-        //Az 
+        //Az fuck off
         myCam = GameManagerScript.Instance.mainCamera;
 
         //A Transform komponens kezeli a GameObject pozícióját/rotációját
