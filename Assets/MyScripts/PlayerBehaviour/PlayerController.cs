@@ -23,7 +23,11 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 0.5f;
     public float curCooldown;
 
-    
+    [SerializeField]
+    float dashTimeMod = 0.3f;
+
+    HealthScript myHealthScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +40,8 @@ public class PlayerController : MonoBehaviour
 
         //A Transform komponens kezeli a GameObject pozícióját/rotációját
         myTrans = GetComponent<Transform>();
+
+        myHealthScript = GetComponent<HealthScript>();
 
         //instant lehessen dashelni startkor
         curCooldown = 0;
@@ -51,18 +57,19 @@ public class PlayerController : MonoBehaviour
             curCooldown -= Time.deltaTime;
         }
 
-        
-        //ha CD-n van a dash akkor nem tudsz
         if (Input.GetKeyDown(KeyCode.LeftShift) && curCooldown <= 0)
         {
             Dash();
         }
 
+        //ha CD-n van a dash akkor nem tudsz
+
+
 
         MovePlayer();
         LookAtMouse();
     }
-
+  
     void MovePlayer ()
 	{
         //get movement inputs as floats
@@ -72,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
         //az inputot egy irányvektorrá alakítjuk
         inputDir = new Vector2(inputHorizontal, inputVertical);
+        inputDir = inputDir.normalized;
 
         //ez megadja a fizikai komponensek hogy mi legyen a mostani sebessége (irány * sebesség)
         //késõbb lehet át kéne alakítani hogy csak sima lökést adjon a rigidbody.AddForce()-al
@@ -100,8 +108,10 @@ public class PlayerController : MonoBehaviour
         inputHorizontal = Input.GetAxisRaw("Horizontal");
         inputVertical = Input.GetAxisRaw("Vertical");
         dashDir = new Vector2(inputHorizontal, inputVertical);
+        dashDir = dashDir.normalized;
         //megtolja az adott irányba a playert
-        myRigidbody.velocity = dashDir * dashSpeed;
+        myRigidbody.velocity = dashDir * dashSpeed * Time.fixedDeltaTime;
+        StartCoroutine(myHealthScript.BecomeInvincible(dashSpeed * dashTimeMod));
 
         //Cooldownra teszi a dasht
         curCooldown = dashCooldown;

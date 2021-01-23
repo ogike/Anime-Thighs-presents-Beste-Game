@@ -7,8 +7,14 @@ public class HealthScript : MonoBehaviour
     public int  maxHealth = 100;
     public bool isPlayer = false;
 
+    //A sebezhetetlenség állapotát tárolja
+    bool isInvincible = false;
+
+    
+
     public int curHealth; //only public for debugging
     bool isDead = false;
+
 
     SpriteRenderer myRenderer; //for temp health display
 
@@ -25,6 +31,10 @@ public class HealthScript : MonoBehaviour
 
 	public void TakeDamage (int dmg)
 	{
+        //ha sebezhetetlen akkor nem fog damaget kapni
+        if (isInvincible)
+            return;
+
         curHealth -= dmg;
 
         if(curHealth <= 0 && !isDead)
@@ -96,4 +106,19 @@ public class HealthScript : MonoBehaviour
             Destroy(gameObject);
         }
 	}
+
+    public IEnumerator BecomeInvincible(float iTime)
+    {
+        if (!isInvincible)
+        {
+            isInvincible = true;
+            Debug.Log("Invincible");
+
+            yield return new WaitForSeconds(iTime);
+
+            isInvincible = false;
+            Debug.Log("No longer invincible");
+        }
+    }
+    
 }
