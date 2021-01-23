@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 0.5f;
     public float curCooldown;
 
+    public float dashSpeed = 50;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,7 +97,7 @@ public class PlayerController : MonoBehaviour
             inputDir = new Vector2(inputHorizontal, inputVertical);
             
             //megtolja az adott irányba a playert
-            myRigidbody.velocity = inputDir * 50;
+            myRigidbody.velocity = inputDir * dashSpeed;
             
             //Cooldownra teszi a dasht
             curCooldown = dashCooldown;
