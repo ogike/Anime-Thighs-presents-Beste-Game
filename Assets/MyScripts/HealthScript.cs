@@ -41,6 +41,21 @@ public class HealthScript : MonoBehaviour
 		}
 	}
 
+
+    // handles health increase by value
+    public void Heal(int healing)
+    {
+        if(!isDead)
+        {
+            curHealth += healing;
+        }
+
+        if(curHealth > maxHealth)
+        {
+            curHealth = maxHealth;
+        }
+    }
+
     void Die()
 	{
         if (isPlayer)
