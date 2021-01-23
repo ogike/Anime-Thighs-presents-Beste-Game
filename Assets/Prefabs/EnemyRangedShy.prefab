@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 6798928049399388272}
   - component: {fileID: 2816921144513639867}
   - component: {fileID: 6798928049399388279}
-  - component: {fileID: 731872934412790848}
+  - component: {fileID: -5416722657260494792}
   - component: {fileID: 3411413870922187330}
   - component: {fileID: 6798928049399388277}
   - component: {fileID: 6798928049399388274}
@@ -174,7 +174,7 @@ MonoBehaviour:
   maxHealth: 100
   isPlayer: 0
   curHealth: 0
---- !u!114 &731872934412790848
+--- !u!114 &-5416722657260494792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,13 +183,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6798928049399388275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 731d29840f8a971449f024e0912a2887, type: 3}
+  m_Script: {fileID: 11500000, guid: 54683d027de57eb48b2b35672d5ce67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
   cooldown: 0.75
-  distToAttack: 10
-  projectileSpeed: 10
+  distToAttack: 20
+  projectileSpeed: 20
+  spreadAngle: 100
   shootPosTrans: {fileID: 440967445764253399}
   projectilePrefab: {fileID: 7064120841711388497, guid: 923d6833809e1f84d9f195c17970514f,
     type: 3}
@@ -312,7 +313,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6e5d90db2cac443469df0cca6c50302d, type: 3}
-  m_Color: {r: 0.9716981, g: 0.94647294, b: 0.1054201, a: 1}
+  m_Color: {r: 0.023584902, g: 0.68040717, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
