@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 6798928049399388274}
   - component: {fileID: 6798928049399388276}
   - component: {fileID: 6798928049399388273}
+  - component: {fileID: 5909214581007907007}
   m_Layer: 9
   m_Name: EnemyRanged
   m_TagString: Enemy
@@ -205,7 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4000
   distToStop: 4
-  plusRotation: -90
+  distToStart: 0
 --- !u!61 &6798928049399388274
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -304,3 +305,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5909214581007907007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798928049399388275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36d520cb82440b498f611385a40c322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plusRotation: 90
