@@ -35,10 +35,9 @@ public class HealthScript : MonoBehaviour
 		}
         else if (isPlayer && !isDead)
 		{
-            //placeholder, the less health the more red
-            float newNonRedColor = (float)curHealth / maxHealth;
-            myRenderer.color = new Color(1, newNonRedColor, newNonRedColor); //color-s values are between 0 and 1
-		}
+            UpdateHealthVisuals();
+
+        }
 	}
 
 
@@ -54,6 +53,15 @@ public class HealthScript : MonoBehaviour
         {
             curHealth = maxHealth;
         }
+
+        UpdateHealthVisuals();
+    }
+
+    void UpdateHealthVisuals ()
+	{
+        //placeholder, the less health the more red
+        float newNonRedColor = (float)curHealth / maxHealth;
+        myRenderer.color = new Color(1, newNonRedColor, newNonRedColor); //color-s values are between 0 and 1
     }
 
     void Die()
