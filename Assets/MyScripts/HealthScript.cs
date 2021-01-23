@@ -13,19 +13,17 @@ public class HealthScript : MonoBehaviour
     SpriteRenderer myRenderer; //for temp health display
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        curHealth = maxHealth;
+        //curHealth = maxHealth;
         myRenderer = GetComponent<SpriteRenderer>();
+
+        //a plaert a playerHandler-ben healeljük
+        if(!isPlayer)
+            HealToMax();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void TakeDamage (int dmg)
+	public void TakeDamage (int dmg)
 	{
         curHealth -= dmg;
 
@@ -40,6 +38,17 @@ public class HealthScript : MonoBehaviour
         }
 	}
 
+    public void HealToMax ()
+	{
+        if(!isDead)
+		{
+            curHealth = maxHealth;
+		}
+        if (isPlayer)
+        {
+            UpdateHealthVisuals();
+        }
+	}
 
     // handles health increase by value
     public void Heal(int healing)
@@ -57,10 +66,11 @@ public class HealthScript : MonoBehaviour
         UpdateHealthVisuals();
     }
 
-    void UpdateHealthVisuals ()
+    public void UpdateHealthVisuals ()
 	{
         //placeholder, the less health the more red
         float newNonRedColor = (float)curHealth / maxHealth;
+        //Debug.Log("new percent =" + newNonRedColor);
         myRenderer.color = new Color(1, newNonRedColor, newNonRedColor); //color-s values are between 0 and 1
     }
 
