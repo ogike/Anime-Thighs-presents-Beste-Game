@@ -10,6 +10,8 @@ public class HealthScript : MonoBehaviour
     //A sebezhetetlenség állapotát tárolja
     bool isInvincible = false;
 
+    [SerializeField]
+    float iTimeWhenDamageTaken = 0.3f; // meddig tart a sebezhetetlenség ha damaget kapsz
     
 
     public int curHealth; //only public for debugging
@@ -36,8 +38,10 @@ public class HealthScript : MonoBehaviour
             return;
 
         curHealth -= dmg;
+        if (isPlayer) //csak player kap sebezhetetlenséget ha damaget kap
+            StartCoroutine(BecomeInvincible(iTimeWhenDamageTaken));
 
-        if(curHealth <= 0 && !isDead)
+        if (curHealth <= 0 && !isDead)
 		{
             Die();
 		}
@@ -114,7 +118,9 @@ public class HealthScript : MonoBehaviour
             isInvincible = true;
             Debug.Log("Invincible");
 
+            
             yield return new WaitForSeconds(iTime);
+
 
             isInvincible = false;
             Debug.Log("No longer invincible");
