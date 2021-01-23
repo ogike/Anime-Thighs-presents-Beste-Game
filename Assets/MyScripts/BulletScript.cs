@@ -31,6 +31,7 @@ public class BulletScript : MonoBehaviour
         if (other.tag == targetTag)
         {
             HealthScript targetHealth = other.GetComponent<HealthScript>();
+            //Debug.Log(targetTag + " has taken " + damage + " dmg");
             targetHealth.TakeDamage(damage);
         }
         Destroy(gameObject);

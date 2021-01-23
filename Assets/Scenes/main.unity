@@ -3363,6 +3363,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &866400901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1618199547395706252, guid: a4275d05b819b234085f144f70a518a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1647346324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &866400902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866400901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aea67f120ea1034fa0d60282f09f5be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statBoosts:
+  - name: 0
+    multiplierDifference: 0
+    valueDifference: 20
 --- !u!1 &870397101
 GameObject:
   m_ObjectHideFlags: 0
@@ -3618,7 +3640,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &965169096 stripped
 Transform:
@@ -3921,7 +3943,7 @@ PrefabInstance:
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
@@ -5561,7 +5583,7 @@ Transform:
   - {fileID: 1520253246}
   - {fileID: 357924339}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1530926271
 PrefabInstance:
@@ -6395,6 +6417,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 350457158}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1647346324
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1618199547395706252, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_Name
+      value: MaxHealthBooster
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.8241363
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.7653266
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858761054224638782, guid: a4275d05b819b234085f144f70a518a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a4275d05b819b234085f144f70a518a7, type: 3}
 --- !u!1 &1681977854
 GameObject:
   m_ObjectHideFlags: 0
@@ -7338,6 +7429,7 @@ MonoBehaviour:
   playerZPosition: 0
   winReward: {fileID: 357924338}
   playerHealth: {fileID: 0}
+  playerHandler: {fileID: 0}
 --- !u!4 &1913244103
 Transform:
   m_ObjectHideFlags: 0
@@ -10281,10 +10373,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5956717819387653671, guid: f0a8fbb7922c2664cbd5553dbcc30002,
+        type: 3}
+      propertyPath: skillStats.Array.data[2].originalValue
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8711418262968779819, guid: f0a8fbb7922c2664cbd5553dbcc30002,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8711418262968779819, guid: f0a8fbb7922c2664cbd5553dbcc30002,
         type: 3}
@@ -10343,6 +10440,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0a8fbb7922c2664cbd5553dbcc30002, type: 3}
+--- !u!1 &8711418262607013242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8711418262968779831, guid: f0a8fbb7922c2664cbd5553dbcc30002,
+    type: 3}
+  m_PrefabInstance: {fileID: 8711418262607013241}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8711418262607013243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711418262607013242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d6443cf0c20e2845b1c0f8c804d8659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillStats: []
 --- !u!61 &8776235033463420009
 BoxCollider2D:
   m_ObjectHideFlags: 0
