@@ -6,12 +6,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 20.0f;
+    public float dashSpeed = 50;
 
     public float plusRotationalAngle = 90;
 
     float inputHorizontal;
     float inputVertical;
     Vector2 inputDir;
+    Vector2 dashDir; 
 
     Rigidbody2D myRigidbody;
     Camera      myCam;
@@ -21,8 +23,7 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 0.5f;
     public float curCooldown;
 
-    public float dashSpeed = 50;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +39,9 @@ public class PlayerController : MonoBehaviour
 
         //instant lehessen dashelni startkor
         curCooldown = 0;
-    }
+
+        
+     }
 
     // Update is called once per frame
     void Update()
@@ -47,11 +50,14 @@ public class PlayerController : MonoBehaviour
         {
             curCooldown -= Time.deltaTime;
         }
+
+        
         //ha CD-n van a dash akkor nem tudsz
         if (Input.GetKeyDown(KeyCode.LeftShift) && curCooldown <= 0)
         {
             Dash();
         }
+
 
         MovePlayer();
         LookAtMouse();
@@ -90,19 +96,18 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-            //Ugyanaz mint a MovePlayer az irány meghatározásához
-            inputHorizontal = Input.GetAxisRaw("Horizontal"); 
-            inputVertical = Input.GetAxisRaw("Vertical");       
+        //Ugyanaz mint a MovePlayer az irány meghatározásához
+        inputHorizontal = Input.GetAxisRaw("Horizontal");
+        inputVertical = Input.GetAxisRaw("Vertical");
+        dashDir = new Vector2(inputHorizontal, inputVertical);
+        //megtolja az adott irányba a playert
+        myRigidbody.velocity = dashDir * dashSpeed;
 
-            inputDir = new Vector2(inputHorizontal, inputVertical);
+        //Cooldownra teszi a dasht
+        curCooldown = dashCooldown;
             
-            //megtolja az adott irányba a playert
-            myRigidbody.velocity = inputDir * dashSpeed;
-            
-            //Cooldownra teszi a dasht
-            curCooldown = dashCooldown;
-    
     }
+    
 }
     
     
