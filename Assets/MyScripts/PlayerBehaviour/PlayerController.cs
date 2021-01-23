@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour
     Camera      myCam;
     Transform   myTrans;
 
+    //A dash base és jelenlegi cooldownját tárolja
+    public float dashCooldown = 0.5f;
+    public float curCooldown;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,11 +33,24 @@ public class PlayerController : MonoBehaviour
 
         //A Transform komponens kezeli a GameObject pozícióját/rotációját
         myTrans = GetComponent<Transform>();
+
+        //instant lehessen dashelni startkor
+        curCooldown = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (curCooldown > 0)
+        {
+            curCooldown -= Time.deltaTime;
+        }
+        //ha CD-n van a dash akkor nem tudsz
+        if (Input.GetKeyDown(KeyCode.LeftShift) && curCooldown <= 0)
+        {
+            Dash();
+        }
+
         MovePlayer();
         LookAtMouse();
     }
@@ -68,4 +85,22 @@ public class PlayerController : MonoBehaviour
         myTrans.rotation = Quaternion.Euler(0, 0, aimRotZ + plusRotationalAngle);
         //myTrans.rotation = Quaternion.AngleAxis(aimRotZ, Vector3.forward);
     }
+
+    void Dash()
+    {
+            //Ugyanaz mint a MovePlayer az irány meghatározásához
+            inputHorizontal = Input.GetAxisRaw("Horizontal"); 
+            inputVertical = Input.GetAxisRaw("Vertical");       
+
+            inputDir = new Vector2(inputHorizontal, inputVertical);
+            
+            //megtolja az adott irányba a playert
+            myRigidbody.velocity = inputDir * 50;
+            
+            //Cooldownra teszi a dasht
+            curCooldown = dashCooldown;
+    
+    }
 }
+    
+    
