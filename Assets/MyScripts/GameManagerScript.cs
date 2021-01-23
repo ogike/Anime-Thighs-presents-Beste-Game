@@ -19,6 +19,8 @@ public class GameManagerScript : MonoBehaviour
 
     Transform camTrans;
     public HealthScript playerHealth; //automatically set
+    public ShootingScript playerShoot;
+
     //public bool isPlayerDead;
     //score
 
@@ -29,7 +31,8 @@ public class GameManagerScript : MonoBehaviour
 
         camTrans = mainCamera.GetComponent<Transform>();
 
-        playerHealth = playerTransform.GetComponent<HealthScript>(); //nem a legszebb megoldás
+        playerHealth = playerTransform.GetComponent<HealthScript>(); //nem a legszebb megoldï¿½s
+        playerShoot = playerTransform.GetComponent<ShootingScript>();
 
         winReward.SetActive(false); //PLACEHOLDER
 	}

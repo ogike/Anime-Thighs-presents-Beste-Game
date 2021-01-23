@@ -59,4 +59,19 @@ public class ShootingScript : MonoBehaviour
         curBulletScript.speed  = bulletSpeed;
         curBulletScript.damage = damage;
     }
+
+
+    //dmgup statboost, for a given duration
+    public void dmgIncrease(float time, int dmg)
+    {
+        damage += dmg;
+        StartCoroutine(DecreaseDmgAfterTime(time, dmg));
+    }
+
+    //dmgdown delay coroutine
+    IEnumerator DecreaseDmgAfterTime(float time, int dmg)
+    {
+        yield return new WaitForSeconds(time);
+        damage -= dmg;
+    }
 }
