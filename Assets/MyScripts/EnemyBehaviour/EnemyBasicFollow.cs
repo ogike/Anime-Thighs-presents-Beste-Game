@@ -6,11 +6,8 @@ public class EnemyBasicFollow : MonoBehaviour
 {
     public float moveSpeed;
     public float distToStop; //if within this distance from the player, we wont move
-<<<<<<< Updated upstream
     public float plusRotation; //rotation value thats always applied
-=======
     public float distToStart; //if farther than this distance from the player, we wont move
->>>>>>> Stashed changes
 
     //TEMPORARY, csak arra van hogyha megnyitod a játékot ne egybõl rohanjanak
 
@@ -49,13 +46,7 @@ public class EnemyBasicFollow : MonoBehaviour
         //pass these variables as references to the method (like pointers)
         myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
-<<<<<<< Updated upstream
-        RotateIn2D(dirToTarget);
-
-        if (distToTarget > distToStop)
-=======
         if (distToTarget > distToStop && distToStart > distToTarget)
->>>>>>> Stashed changes
         {
             MoveInDir(dirToTarget);
         }
