@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBasicFollow : MonoBehaviour
+public class EnemyAvoidMovement : MonoBehaviour
 {
     public float moveSpeed;
     public float distToStop; //if within this distance from the player, we wont move
     public float distToStart; //if farther than this distance from the player, we wont move
-
-    //TEMPORARY, csak arra van hogyha megnyitod a játékot ne egybõl rohanjanak
 
     EnemyHandler myHandler;
 
@@ -17,14 +15,14 @@ public class EnemyBasicFollow : MonoBehaviour
     Rigidbody2D myRigidbody;
 
     Vector3 dirToTarget; //the normalized direction
-    float   distToTarget;
+    float distToTarget;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        myHandler   = GetComponent<EnemyHandler>();
-        myTrans     = GetComponent<Transform>();
+        myHandler = GetComponent<EnemyHandler>();
+        myTrans = GetComponent<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
 
         targetTrans = GameManagerScript.Instance.playerTransform; //automatically set it as the player thru the gameManager
@@ -36,23 +34,18 @@ public class EnemyBasicFollow : MonoBehaviour
     // LateUpdate is the same, but its called after the normal Update()-s, which means it will be after the EnemyScripts's Update, and that all the variables will be up-to-date
     void LateUpdate()
     {
-        if (!myHandler.IsAwake()) //could optimize this, instead of calling another script every frame
-        {
-            //if asleep, dont do anything
-            return;
-        }
-
         //pass these variables as references to the method (like pointers)
         myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (distToTarget > distToStop && distToStart > distToTarget)
         {
-            MoveInDir(dirToTarget);
+            Vector3 oppositeDir = new Vector3(-1 * dirToTarget.x, -1 * dirToTarget.y, 0);
+            MoveInDir(oppositeDir);
         }
     }
 
-    void MoveInDir (Vector3 dir)
-	{
+    void MoveInDir(Vector3 dir)
+    {
         myRigidbody.AddForce(dir * moveSpeed * Time.deltaTime);
     }
 }
