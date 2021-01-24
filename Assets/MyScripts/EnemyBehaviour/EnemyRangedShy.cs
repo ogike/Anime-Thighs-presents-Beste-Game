@@ -8,7 +8,7 @@ public class EnemyRangedShy : MonoBehaviour
     public float cooldown;
     public float distToAttack;
     public float projectileSpeed;
-    public float spreadAngle;
+    public float spreadAngle; //the degree of spread
     float spreadOverDistance;
     float randomizedSpread;
 
@@ -52,14 +52,6 @@ public class EnemyRangedShy : MonoBehaviour
             curCooldown = cooldown;
         }
     }
-
-    /*
-    float RandomSpread(float min, float max)
-    {
-        Random rnd = new Random();
-        return (float)rnd.NextDouble(min, max);
-    }
-    */
 
     void Attack()
     {
