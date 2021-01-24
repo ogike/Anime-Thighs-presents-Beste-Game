@@ -190,7 +190,7 @@ MonoBehaviour:
   cooldown: 0.75
   distToAttack: 20
   projectileSpeed: 20
-  spreadAngle: 100
+  spreadAngle: 20
   shootPosTrans: {fileID: 440967445764253399}
   projectilePrefab: {fileID: 7064120841711388497, guid: 923d6833809e1f84d9f195c17970514f,
     type: 3}

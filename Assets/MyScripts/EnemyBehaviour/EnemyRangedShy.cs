@@ -66,15 +66,20 @@ public class EnemyRangedShy : MonoBehaviour
         spreadOverDistance = (spreadAngle / distToTarget);
         spreadOverDistance *= spreadOverDistance;
         randomizedSpread = Random.Range(-1 * spreadOverDistance, spreadOverDistance);
-        Vector3 spreadDir = new Vector3(dirToTarget.x + randomizedSpread, dirToTarget.y + randomizedSpread, 0);
-        ShootOnce(spreadDir);
+        float dirAngle = Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1); //turns the direction vector into a rotation angle (the z rotation in the editor)
+            //majd átváltjuk fokká
+            //nem tudom miért kell beszorozni (-1)-el???? csak így mûködik tho
+        dirAngle += randomizedSpread; //applying spread to the angle
+        ShootOnce(dirAngle);
     }
 
-    void ShootOnce(Vector3 dir)
+    void ShootOnce(float dirAngle)
     {
+        //az irányvektorok helyett inkább z tengelyes rotation-nal kezeljük a forgatást, ez a dirAngle
+        Quaternion shootRot = Quaternion.Euler(0, 0, dirAngle); //turn the shootingDirectionAngle into a Quaternion, amit használ a unity iss
+
         //shootPosTrans is the GameObject/Transform which stores where the bullets should spawn
         //its a children of the Player GameObject, so its position is relative to the parent
-        Quaternion shootRot = Quaternion.LookRotation(dir, Vector3.forward); //TODO: make this use dir somehow??
         Vector3 shootPos = shootPosTrans.position;
 
         //GameObject.Instantiate: spawns a GameObject basically
