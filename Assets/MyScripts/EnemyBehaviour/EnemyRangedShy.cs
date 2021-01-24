@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRangedBasic : MonoBehaviour
+public class EnemyRangedShy : MonoBehaviour
 {
-    public int   damage;
+    public int damage;
     public float cooldown;
     public float distToAttack;
     public float projectileSpeed;
+    public float spreadAngle; //the degree of spread
+    float spreadOverDistance;
+    float randomizedSpread;
 
     public Transform shootPosTrans; //where the projectiles will spawn;
     public GameObject projectilePrefab;
@@ -51,18 +54,21 @@ public class EnemyRangedBasic : MonoBehaviour
     }
 
     void Attack()
-	{
-        //this is where you would implement crazier stuff like multi-directional shots, etc etcû
-        float angleToTarget =  Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1); //turns the direction vector into a rotation angle (the z rotation in the editor)
+    {
+        spreadOverDistance = (spreadAngle / distToTarget);
+        spreadOverDistance *= spreadOverDistance;
+        randomizedSpread = Random.Range(-1 * spreadOverDistance, spreadOverDistance);
+        float dirAngle = Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1); //turns the direction vector into a rotation angle (the z rotation in the editor)
             //majd átváltjuk fokká
             //nem tudom miért kell beszorozni (-1)-el???? csak így mûködik tho
-        ShootOnce(angleToTarget);
+        dirAngle += randomizedSpread; //applying spread to the angle
+        ShootOnce(dirAngle);
     }
 
-    void ShootOnce(float angleToTarget)
-	{
-        //az irányvektorok helyett inkább z tengelyes rotation-nal kezeljük a forgatást, ez a angleToTarget
-        Quaternion shootRot = Quaternion.Euler(0, 0, angleToTarget); //turn the shootingDirectionAngle into a Quaternion, amit használ a unity iss
+    void ShootOnce(float dirAngle)
+    {
+        //az irányvektorok helyett inkább z tengelyes rotation-nal kezeljük a forgatást, ez a dirAngle
+        Quaternion shootRot = Quaternion.Euler(0, 0, dirAngle); //turn the shootingDirectionAngle into a Quaternion, amit használ a unity iss
 
         //shootPosTrans is the GameObject/Transform which stores where the bullets should spawn
         //its a children of the Player GameObject, so its position is relative to the parent
