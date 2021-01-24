@@ -53,15 +53,19 @@ public class EnemyRangedBasic : MonoBehaviour
     void Attack()
 	{
         //this is where you would implement crazier stuff like multi-directional shots, etc etcû
-
-        ShootOnce(dirToTarget);
+        float angleToTarget =  Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1); //turns the direction vector into a rotation angle (the z rotation in the editor)
+            //majd átváltjuk fokká
+            //nem tudom miért kell beszorozni (-1)-el???? csak így mûködik tho
+        ShootOnce(angleToTarget);
     }
 
-    void ShootOnce(Vector3 dir)
+    void ShootOnce(float angleToTarget)
 	{
+        //az irányvektorok helyett inkább z tengelyes rotation-nal kezeljük a forgatást, ez a angleToTarget
+        Quaternion shootRot = Quaternion.Euler(0, 0, angleToTarget); //turn the shootingDirectionAngle into a Quaternion, amit használ a unity iss
+
         //shootPosTrans is the GameObject/Transform which stores where the bullets should spawn
         //its a children of the Player GameObject, so its position is relative to the parent
-        Quaternion shootRot = shootPosTrans.rotation; //TODO: make this use dir somehow??
         Vector3 shootPos = shootPosTrans.position;
 
         //GameObject.Instantiate: spawns a GameObject basically
