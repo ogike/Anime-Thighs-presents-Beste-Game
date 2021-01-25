@@ -136,20 +136,14 @@ MonoBehaviour:
     originalValue: 34
     curStatMultiplier: 1
     curStatAdder: 0
-    curPowerUpModifier: 1
-    curPowerupAdder: 0
   - name: 1
     originalValue: 6000
     curStatMultiplier: 1
     curStatAdder: 0
-    curPowerUpModifier: 1
-    curPowerupAdder: 0
   - name: 2
     originalValue: 100
     curStatMultiplier: 1
     curStatAdder: 0
-    curPowerUpModifier: 1
-    curPowerupAdder: 0
 --- !u!114 &8711418262968779818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,7 +157,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6000
+  dashSpeed: 3000
   plusRotationalAngle: 90
+  dashCooldown: 0.5
+  curCooldown: 0
+  dashTimeMod: 0.00006
 --- !u!114 &8711418262968779821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   isPlayer: 1
+  iTimeWhenDamageTaken: 0.3
   curHealth: 0
 --- !u!58 &8711418262968779817
 CircleCollider2D:
