@@ -10,8 +10,10 @@ public class RoomHandler : MonoBehaviour
 
     public GameObject playerBlockers;
 
-    public GameObject rewards; //the gameObject to activate when all the enemies are dead in this room
+    //public GameObject rewards; //the gameObject to activate when all the enemies are dead in this room
                                //optional
+
+    public List<GameObject> rewards;
 
     public int enemiesInThisRoom;
 
@@ -65,7 +67,12 @@ public class RoomHandler : MonoBehaviour
 	{
         enemiesInThisRoom = 0;
 
-        if (rewards != null)
-            rewards.SetActive(true);
+        bool test = rewards.Any();
+        if (test == true)
+        {
+            int index = Random.Range(0, rewards.Count);
+            rewards[index].SetActive(true);
+        }
+            
     }
 }
