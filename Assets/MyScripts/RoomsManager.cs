@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//basically just deactivates all the rooms
-//probably should be simply part of gameManager???
+/* Should be put on the GameManager GameObject in the scene
+ * Also a Singleton, the same way as the game manager is, so this can be accesed from anywhere with RoomsManager.Instance
+ * Handles switching between different rooms, and communicates between different RoomHandler-s on room change
+ * !!Every existing room inthe scene should be added to the "rooms" list!!!
+ */
+
 public class RoomsManager : MonoBehaviour
 {
     public static RoomsManager Instance { get; private set; } //makes this a singleton, the same as with GameManager
@@ -22,12 +26,13 @@ public class RoomsManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+        //deactivate all the rooms
         for (int i = 0; i < rooms.Count; i++)
 		{
             rooms[i].DeactivateRoom();
         }
 
-        rooms[0].ActivateRoom();
+        rooms[0].ActivateRoom(); //activate the first room
     }
 
     public void ChangeActiveRoom (RoomHandler newRoom)

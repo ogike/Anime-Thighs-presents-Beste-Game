@@ -8,19 +8,19 @@ public enum SkillStatName
     BaseDamageMultiplier,
     MoveSpeed,
     MaxHealth,
-    ShootingCooldown,
-    BulletSpeed
+    ShootingCooldownMultiplier,
+    BulletSpeedMultiplier
 }
 
 [System.Serializable] //editor is meg tudja jelen�teni
-//ezt a class-t haszn�ljuk minden Player Stat-hoz, amit b�rhonann n�velni/v�ltoztatni akarunk
+//ezt a class-t haszáljuk minden Player Stat-hoz, amit bárhonann növelni/változtatni akarunk
 public class SkillStat
 {
     public SkillStatName name;
 
     public float originalValue = 1;
     public float curStatMultiplier = 1;
-    public float curStatAdder = 0; //ha szorz�s helyett hozz� akarunk adni valamennyit az �rt�khez
+    public float curStatAdder = 0; //ha szorzás helyett hozzá akarunk adni valamennyit az értékhez
 
     //public float curPowerUpModifier = 1;
     //public float curPowerupAdder = 0;
@@ -58,10 +58,9 @@ public class SkillStatBoost
 public class PlayerHandler : MonoBehaviour
 {
     public List<SkillStat> skillStats;
-    //the list of different stats the player has
-    //IMPORTANT!! cantt have duplicates!!
+        //the list of different stats the player has
+        //IMPORTANT!! cant have duplicates!!
 
-    //ShootingScript myShooterScript;
     WeaponManager myWeaponManager;
     HealthScript myHealthScript;
     PlayerController myControllerScript;
@@ -74,30 +73,30 @@ public class PlayerHandler : MonoBehaviour
         myHealthScript = GetComponent<HealthScript>();
         myControllerScript = GetComponent<PlayerController>();
 
+        //applying all the stats
+        //note: this overwrites these bitches so far: movementSpeed, maxHealth, and the weapon stat multipliers
 		for (int i = 0; i < skillStats.Count; i++)
 		{
             ApplyStatChange(skillStats[i].name);
 		}
 
-        //setting the starting health for the player
+        //setting the starting health for the player, after setting the maxHealthStat
         myHealthScript.HealToMax();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    //ezt h�vjuk meg amikor v�ltoztatni akarjuk a statokat
+    //ezt hívjuk meg amikor változtatni akarjuk a statokat
     public void ApplyStatBoost (SkillStatBoost statBoost)
 	{
-        SkillStat curStat = skillStats.Find(x => x.name == statBoost.name);
+        SkillStat curStat = skillStats.Find(x => x.name == statBoost.name); //megkeressük a változtatnivaló stat-ot a listában
 
         curStat.ModifyStatValues(statBoost.multiplierDifference, statBoost.valueDifference);
+            //modify-oljuk ezt a statot
+            //(magában a SkillStat class-ban van ez a függvény)
 
         ApplyStatChange(statBoost.name);
 
+        //ha powerup, akkor a powerupDuration után reverse-elni akarjuk
         if(statBoost.isPowerup)
         {
             StartCoroutine(ResetAfterTime(statBoost.duration, curStat, statBoost));
@@ -126,31 +125,33 @@ public class PlayerHandler : MonoBehaviour
                 myWeaponManager.UpdateCurWeaponStats();
                 break;
 
-            case SkillStatName.ShootingCooldown:
+            case SkillStatName.ShootingCooldownMultiplier:
                 myWeaponManager.cooldownMultiplier = newValue;
                 myWeaponManager.UpdateCurWeaponStats();
                 break;
 
-            case SkillStatName.BulletSpeed:
+            case SkillStatName.BulletSpeedMultiplier:
                 myWeaponManager.bulletSpeedMultiplier = newValue;
                 myWeaponManager.UpdateCurWeaponStats();
                 break;
 
             default:
-                Debug.LogError("Thats fucked up lol");
+                Debug.LogError("You probably havent set up your new SkillStat here properly");
                 break;
         }
 	}
 
-    //Ez a currentHealth-et v�ltoztatja, nem a maxHealth-et! teh�t csak egy healthPickup ezt h�vja meg
-    public void BoostHealth (int plusHealth)
+    //Ez a currentHealth-et változtatja, nem a maxHealth-et! tehát egy healthPickup ezt hívja meg
+    public void HealPlayer (int plusHealth)
 	{
         myHealthScript.Heal(plusHealth);
     }
 
+    //for deactivating powerups
     IEnumerator ResetAfterTime(float time, SkillStat curStat, SkillStatBoost statBoost)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time); //csak a "time" után folytatódik ez a függvény
+
         curStat.ModifyStatValues(statBoost.multiplierDifference*(-1), statBoost.valueDifference*(-1));
         ApplyStatChange(statBoost.name);
     }

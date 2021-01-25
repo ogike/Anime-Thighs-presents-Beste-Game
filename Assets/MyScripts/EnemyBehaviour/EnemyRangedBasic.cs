@@ -2,6 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Shoots the given projectilePrefab-s at the player
+ * Can be used as a template for other ranged enemy attack behaviour
+ * Uses the EnemyHandler to get the direction/distance to the player
+ *      Needs to be on the same GameObject with this
+ * The direction to shoot in is handled as a rotation angle (the z value in the editor)
+ *      Can be really easy to expand by adding/subtraction values from it, like addig:
+ *          spread
+ *          multi-directional shooting (either shotguns, or going around in a 360 angle)
+ *          etc etc
+ */
+
 public class EnemyRangedBasic : MonoBehaviour
 {
     public int   damage;
@@ -9,12 +20,12 @@ public class EnemyRangedBasic : MonoBehaviour
     public float distToAttack;
     public float projectileSpeed;
 
-    public Transform shootPosTrans; //where the projectiles will spawn;
-    public GameObject projectilePrefab;
+    public Transform shootPosTrans;     //where the projectiles will spawn;
+    public GameObject projectilePrefab; //the projectile to spawn
 
     EnemyHandler myHandler;
     Vector3 dirToTarget; //the normalized direction
-    float distToTarget;
+    float distToTarget;  //the distance to the player
 
     float curCooldown;
 
@@ -30,13 +41,7 @@ public class EnemyRangedBasic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!myHandler.IsAwake()) //could optimize this, instead of calling another script every frame
-        {
-            //if asleep, dont do anything
-            return;
-        }
-
-        //pass these variables as references to the method (like pointers)
+        //pass these variables as references to the method (like pointers) in EnemyHandler to update them 
         myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (curCooldown > 0)
@@ -52,13 +57,17 @@ public class EnemyRangedBasic : MonoBehaviour
 
     void Attack()
 	{
-        //this is where you would implement crazier stuff like multi-directional shots, etc etcû
-        float angleToTarget =  Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1); //turns the direction vector into a rotation angle (the z rotation in the editor)
+        //this is where you would implement crazier stuff like multi-directional shots, etc etc
+
+        float angleToTarget =  Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1);
+            //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
             //majd átváltjuk fokká
             //nem tudom miért kell beszorozni (-1)-el???? csak így mûködik tho
+
         ShootOnce(angleToTarget);
     }
 
+    //called for every projectile
     void ShootOnce(float angleToTarget)
 	{
         //az irányvektorok helyett inkább z tengelyes rotation-nal kezeljük a forgatást, ez a angleToTarget
@@ -71,6 +80,7 @@ public class EnemyRangedBasic : MonoBehaviour
         //GameObject.Instantiate: spawns a GameObject basically
         GameObject curBullet = GameObject.Instantiate(projectilePrefab, shootPos, shootRot);
 
+        //update the bullet stats
         BulletScript curBulletScript = curBullet.GetComponent<BulletScript>();
         curBulletScript.speed = projectileSpeed;
         curBulletScript.damage = damage;

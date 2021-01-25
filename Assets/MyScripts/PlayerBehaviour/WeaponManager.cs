@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* This handles the switching between different weapons, and also the updating of the different weapon stats (from the PlayerHandler)
+ * Has to be on the player, and the different weapons should be empty GameObjects (children of the player)
+ * The first (0-th indexed) weapon is the default/starting weapon
+ * Weapon pickup zones should communicate with this script
+ */
+
 public class WeaponManager : MonoBehaviour
 {
     //set by the playerHandler--------
@@ -15,9 +21,9 @@ public class WeaponManager : MonoBehaviour
                                          //these should be attached to different GameObjects that are the children of the Player GameObject
                                          //set manually
 
-    //TODO
+    //TODO:
     //List<GameObject> weaponObjects; //this is set automatically
-                                    //for disabling/enabling the actual gameObjects, for if they have Sprites too for example
+                                      //for disabling/enabling the actual gameObjects, for if they have Sprites too for example
 
 
     int curWeaponIndex;
@@ -26,21 +32,20 @@ public class WeaponManager : MonoBehaviour
     {
         if(weapons.Count == 0)
 		{
-            Debug.LogError("No weapons added to the player!");
+            Debug.LogError("No weapons added to the WeaponManager!");
 		}
 
-		for (int i = 0; i < weapons.Count; i++)
+        //disabling all the weapons other than the first
+            //the 0th weapon is the deafult starting weapon!
+		for (int i = 1; i < weapons.Count; i++)
 		{
             weapons[i].enabled = false;
 		}
 
-        SwitchWeapons(0);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //setting up the first weapon----------------------------------
+        curWeaponIndex = 0;
+        weapons[curWeaponIndex].enabled = true; //enabling the weapon
+        UpdateCurWeaponStats(); //setting the base stats for the weapon
     }
     
     public void SwitchWeapons(int newWeaponIndex)
@@ -49,7 +54,7 @@ public class WeaponManager : MonoBehaviour
 		{
             Debug.Log("Switched to the same weapon");
             //idk what we should do here tbh
-            //return;
+            return;
 		}
 
         if(newWeaponIndex >= weapons.Count)

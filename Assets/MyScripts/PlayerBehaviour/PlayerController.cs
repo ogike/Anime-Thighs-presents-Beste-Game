@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Handles all the player movement/rotation
+ * Dash added by Marci
+ * 
+ */
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 20.0f;
+    [HideInInspector] public float moveSpeed = 20.0f; //this is set by the PlayerHandler
 
     public float plusRotationalAngle = 90;
 
@@ -19,9 +23,9 @@ public class PlayerController : MonoBehaviour
 
     //A dash base és jelenlegi cooldownját tárolja
     public float dashCooldown = 0.5f;
-    public float curCooldown;
-
     public float dashSpeed = 50;
+
+    float curCooldown; //for dash
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +51,8 @@ public class PlayerController : MonoBehaviour
         {
             curCooldown -= Time.deltaTime;
         }
-        //ha CD-n van a dash akkor nem tudsz
+
+        //ha CD-n van a dash akkor nem tudsz //(CoolDown-on ig)
         if (Input.GetKeyDown(KeyCode.LeftShift) && curCooldown <= 0)
         {
             Dash();
@@ -67,25 +72,22 @@ public class PlayerController : MonoBehaviour
         //az inputot egy irányvektorrá alakítjuk
         inputDir = new Vector2(inputHorizontal, inputVertical);
 
-        //ez megadja a fizikai komponensek hogy mi legyen a mostani sebessége (irány * sebesség)
-        //késõbb lehet át kéne alakítani hogy csak sima lökést adjon a rigidbody.AddForce()-al
-        //myRigidbody.velocity = inputDir * moveSpeed;// * Time.deltaTime;
-
+        //ez ad a fizikai komponensek egy lökést, a mostani movement-erõt sebességgel
         myRigidbody.AddForce(inputDir * moveSpeed * Time.deltaTime);
     }
 
     void LookAtMouse ()
 	{
-        //paszta from my older project
+                      //myCam.ScreenToWorldPoint(Input.mousePosition): the world position the mouse is pointing at
         Vector3 diff = (myCam.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+            //basically get the direction vector from player to mouse
 
         float aimRotZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
+            //majd átváltjuk fokká
 
-        //plusRotValue???
-
-        //honestly i have no fucking idea have euler-s work anymore
-        myTrans.rotation = Quaternion.Euler(0, 0, aimRotZ + plusRotationalAngle);
-        //myTrans.rotation = Quaternion.AngleAxis(aimRotZ, Vector3.forward);
+        //plusRotationalAngle: the added compensation for the playermodel rotation
+        myTrans.rotation = Quaternion.Euler(0, 0, aimRotZ + plusRotationalAngle); //sets the player Z rotation with Quaternions
     }
 
     void Dash()
@@ -101,7 +103,6 @@ public class PlayerController : MonoBehaviour
             
             //Cooldownra teszi a dasht
             curCooldown = dashCooldown;
-    
     }
 }
     

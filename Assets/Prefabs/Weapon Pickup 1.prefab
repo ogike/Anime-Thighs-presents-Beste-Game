@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6390608968861651832}
   - component: {fileID: 8776311925152360378}
   - component: {fileID: 2942089338047485851}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Weapon Pickup 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

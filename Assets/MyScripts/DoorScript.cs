@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Ezt kell rátenni az ajtókra
+ * Ez kezeli a szobák közti váltást gyakorlatilag
+ * Basztatnivaló ember: ogike
+ */
+
 public class DoorScript : MonoBehaviour
 {
     public Transform teleportDestinationTrans;
@@ -9,19 +14,6 @@ public class DoorScript : MonoBehaviour
     //QOL: could get this from the parent of the teleportDest in Start()
     public RoomHandler destRoomScript;
 
-   // public GameObject playerBlocker;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
