@@ -30,8 +30,8 @@ public class GameManagerScript : MonoBehaviour
 
         camTrans = mainCamera.GetComponent<Transform>();
 
-        playerHealth = playerTransform.GetComponent<HealthScript>(); //nem a legszebb megoldás
-        playerHandler = playerTransform.GetComponent<PlayerHandler>(); //nem a legszebb megoldás v2.0
+        playerHealth = playerTransform.GetComponent<HealthScript>(); //nem a legszebb megoldï¿½s
+        playerHandler = playerTransform.GetComponent<PlayerHandler>(); //nem a legszebb megoldï¿½s v2.0
 
         winReward.SetActive(false); //PLACEHOLDER
 	}

@@ -70,6 +70,24 @@ public class WeaponScript : MonoBehaviour
         curBulletScript.damage = curDamage;
     }
 
+    //Geri code start----------------------------------------
+    //im pretty sure this is overwritten in the new powerup thing in the PlayerHandler??
+    //dmgup statboost, for a given duration
+    public void dmgIncrease(float time, int dmg)
+    {
+        damage += dmg;
+        StartCoroutine(DecreaseDmgAfterTime(time, dmg));
+    }
+
+
+    //dmgdown delay coroutine
+    IEnumerator DecreaseDmgAfterTime(float time, int dmg)
+    {
+        yield return new WaitForSeconds(time);
+        damage -= dmg;
+    }
+    //Geri code end-----------------------------------------
+
     public void UpdateStats (float cooldownMultiplier, float bulletSpeedModifier, float damageMultiplier)
 	{
         curMaxCooldown = cooldown    * cooldownMultiplier;

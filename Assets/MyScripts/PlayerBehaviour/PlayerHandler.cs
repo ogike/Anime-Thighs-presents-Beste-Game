@@ -12,15 +12,15 @@ public enum SkillStatName
     BulletSpeed
 }
 
-[System.Serializable] //editor is meg tudja jeleníteni
-//ezt a class-t használjuk minden Player Stat-hoz, amit bárhonann növelni/változtatni akarunk
+[System.Serializable] //editor is meg tudja jelenï¿½teni
+//ezt a class-t hasznï¿½ljuk minden Player Stat-hoz, amit bï¿½rhonann nï¿½velni/vï¿½ltoztatni akarunk
 public class SkillStat
 {
     public SkillStatName name;
 
     public float originalValue = 1;
     public float curStatMultiplier = 1;
-    public float curStatAdder = 0; //ha szorzás helyett hozzá akarunk adni valamennyit az értékhez
+    public float curStatAdder = 0; //ha szorzï¿½s helyett hozzï¿½ akarunk adni valamennyit az ï¿½rtï¿½khez
 
     //public float curPowerUpModifier = 1;
     //public float curPowerupAdder = 0;
@@ -50,6 +50,8 @@ public class SkillStatBoost
 
     public float multiplierDifference;
     public float valueDifference;
+    public bool isPowerup;
+    public float duration;
 }
 
 //the actual script-----------------------
@@ -87,7 +89,7 @@ public class PlayerHandler : MonoBehaviour
         
     }
 
-    //ezt hívjuk meg amikor változtatni akarjuk a statokat
+    //ezt hï¿½vjuk meg amikor vï¿½ltoztatni akarjuk a statokat
     public void ApplyStatBoost (SkillStatBoost statBoost)
 	{
         SkillStat curStat = skillStats.Find(x => x.name == statBoost.name);
@@ -95,6 +97,11 @@ public class PlayerHandler : MonoBehaviour
         curStat.ModifyStatValues(statBoost.multiplierDifference, statBoost.valueDifference);
 
         ApplyStatChange(statBoost.name);
+
+        if(statBoost.isPowerup)
+        {
+            StartCoroutine(ResetAfterTime(statBoost.duration, curStat, statBoost));
+        }
 	}
 
     public void ApplyStatChange(SkillStatName skillName)
@@ -107,7 +114,7 @@ public class PlayerHandler : MonoBehaviour
 		{
             case SkillStatName.MaxHealth:
                 myHealthScript.maxHealth = (int)newValue;
-                myHealthScript.UpdateHealthVisuals(); //ha megváltozik a maxHealth, a visual representation is más lesz
+                myHealthScript.UpdateHealthVisuals(); //ha megvï¿½ltozik a maxHealth, a visual representation is mï¿½s lesz
                 break;
 
             case SkillStatName.MoveSpeed:
@@ -135,9 +142,16 @@ public class PlayerHandler : MonoBehaviour
         }
 	}
 
-    //Ez a currentHealth-et változtatja, nem a maxHealth-et! tehát csak egy healthPickup ezt hívja meg
+    //Ez a currentHealth-et vï¿½ltoztatja, nem a maxHealth-et! tehï¿½t csak egy healthPickup ezt hï¿½vja meg
     public void BoostHealth (int plusHealth)
 	{
         myHealthScript.Heal(plusHealth);
+    }
+
+    IEnumerator ResetAfterTime(float time, SkillStat curStat, SkillStatBoost statBoost)
+    {
+        yield return new WaitForSeconds(time);
+        curStat.ModifyStatValues(statBoost.multiplierDifference*(-1), statBoost.valueDifference*(-1));
+        ApplyStatChange(statBoost.name);
     }
 }
