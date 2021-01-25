@@ -10,7 +10,7 @@ public class WeaponManager : MonoBehaviour
     public float damageMultiplier;
     //--------------------------------
 
-    public List<ShootingScript> weapons; //all the possible weapons we can switch between if needed
+    public List<WeaponScript> weapons; //all the possible weapons we can switch between if needed
                                          //should rename this later into a weaponScript later
                                          //these should be attached to different GameObjects that are the children of the Player GameObject
                                          //set manually
@@ -65,6 +65,12 @@ public class WeaponManager : MonoBehaviour
 
         UpdateCurWeaponStats(); //if the weapon stats changed since last time the weapon was active, we should update them
     }
+
+    //when we die, the HealthScript calls this function
+    public void DisableCurWeapon()
+	{
+        weapons[curWeaponIndex].enabled = false;
+	}
 
     //for updating the current weapon's stats
     public void UpdateCurWeaponStats ()

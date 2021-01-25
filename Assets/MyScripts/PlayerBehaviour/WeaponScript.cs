@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootingScript : MonoBehaviour
+public class WeaponScript : MonoBehaviour
 {
     public Transform shootPosTrans; //Have to set this in the scene
     public GameObject bulletPrefab;

@@ -82,7 +82,7 @@ public class HealthScript : MonoBehaviour
             Debug.Log("You died. bruh");
             //Time.timeScale = 0; //stop time
             GetComponent<PlayerController>().enabled = false; //disable player controller, cos we fucking dead
-            GetComponent<ShootingScript>().enabled   = false;
+            GetComponent<WeaponManager>().DisableCurWeapon(); //disable shooting as well
             myRenderer.color = Color.red;
             isDead = true;
         }
