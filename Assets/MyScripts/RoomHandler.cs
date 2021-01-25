@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class RoomHandler : MonoBehaviour
 {
@@ -46,8 +47,14 @@ public class RoomHandler : MonoBehaviour
         //should only be called at the start of the game for the unopened rooms
         enemiesToWakeOnEnter.SetActive(false); //deactivate enemies
 
-        if(rewards != null)
-            rewards.SetActive(false); //deactivate rewards
+        //deactivate rewards
+        /*if(rewards.Any())
+        {
+            for(int i = 0;i < rewards.Count;i++)
+            {
+                rewards[i].SetActive(false);
+            }
+        }*/
 
         CloseDoors();
     }
@@ -67,11 +74,11 @@ public class RoomHandler : MonoBehaviour
 	{
         enemiesInThisRoom = 0;
 
-        bool test = rewards.Any();
-        if (test == true)
+        if (rewards.Any())
         {
             int index = Random.Range(0, rewards.Count);
-            rewards[index].SetActive(true);
+            Instantiate( rewards[index], cameraPosTrans);
+            //rewards[index].SetActive(true);
         }
             
     }

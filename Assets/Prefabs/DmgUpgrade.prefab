@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9058240681022034072}
   - component: {fileID: 3361763738209568900}
   m_Layer: 0
-  m_Name: MaxHealthBooster
+  m_Name: DmgUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1618199547395706252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -126,3 +126,5 @@ MonoBehaviour:
   - name: 0
     multiplierDifference: 0
     valueDifference: 20
+    isPowerup: 0
+    duration: 0
