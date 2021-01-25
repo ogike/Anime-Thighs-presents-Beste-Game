@@ -22,7 +22,7 @@ public class WeaponScript : MonoBehaviour
     int curDamage;
     //---------------------------------------------------------------------
 
-    public float curRemainingCooldown; //stores how much time there is until we can shoot again
+    float curRemainingCooldown; //stores how much time there is until we can shoot again
 
     // Start is called before the first frame update
     void Start()

@@ -5,9 +5,9 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     //set by the playerHandler--------
-    public float cooldownMultiplier;
-    public float bulletSpeedMultiplier;
-    public float damageMultiplier;
+    [HideInInspector] public float cooldownMultiplier;
+    [HideInInspector] public float bulletSpeedMultiplier;
+    [HideInInspector] public float damageMultiplier;
     //--------------------------------
 
     public List<WeaponScript> weapons; //all the possible weapons we can switch between if needed
