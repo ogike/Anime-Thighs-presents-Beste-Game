@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Looks at the player every frame
+ * Gets the direction to the player from the PlayerHandler
+ *      Needs to be on this GameObject to work!!
+ * 
+ */
 public class EnemyLookAtPlayer : MonoBehaviour
 {
     public float plusRotation; //rotation value thats always applied
@@ -29,24 +34,16 @@ public class EnemyLookAtPlayer : MonoBehaviour
     // LateUpdate is the same, but its called after the normal Update()-s, which means it will be after the EnemyScripts's Update, and that all the variables will be up-to-date
     void LateUpdate()
     {
-        if (!myHandler.IsAwake()) //could optimize this, instead of calling another script every frame
-        {
-            //if asleep, dont do anything
-            return;
-        }
-
         //pass these variables as references to the method (like pointers)
         myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         RotateIn2D(dirToTarget);
     }
 
-    //should make this a seperate script/monobehaviour sometime
-    //fuck oop tho, im too dumb
     void RotateIn2D(Vector3 dir)
     {
-        float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        myTrans.rotation = Quaternion.Euler(0, 0, rotZ - plusRotation);
+        float rotZ = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;  //turn the direction vector into an angle with trigonometry
+        myTrans.rotation = Quaternion.Euler(0, 0, rotZ - plusRotation); //set the z rotation
     }
 }
 

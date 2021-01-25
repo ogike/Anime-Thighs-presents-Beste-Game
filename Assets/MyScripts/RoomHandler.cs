@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+/* Script to put onto every Room GameObject
+ * Also every instance of these should be added to the "rooms" list in the RoomManager
+ * Handles activating/deactivating stuff in the room on entering
+ */
+
 public class RoomHandler : MonoBehaviour
 {
     public Transform cameraPosTrans; //the position where the camera should be in this room

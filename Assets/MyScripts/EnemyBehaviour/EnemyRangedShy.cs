@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Credit to Meem
+ * Basically the EnemyRanged expanded (read that code for more explanations)
+ *      added spread
+ *      the closer the player is, the more inaccurate it becomes
+ */
+
 public class EnemyRangedShy : MonoBehaviour
 {
     public int damage;
@@ -9,6 +15,7 @@ public class EnemyRangedShy : MonoBehaviour
     public float distToAttack;
     public float projectileSpeed;
     public float spreadAngle; //the degree of spread
+
     float spreadOverDistance;
     float randomizedSpread;
 
@@ -16,8 +23,8 @@ public class EnemyRangedShy : MonoBehaviour
     public GameObject projectilePrefab;
 
     EnemyHandler myHandler;
-    Vector3 dirToTarget; //the normalized direction
-    float distToTarget;
+    Vector3 dirToTarget; //the normalized direction to the player
+    float distToTarget;  //the distance to the player
 
     float curCooldown;
 
@@ -33,13 +40,7 @@ public class EnemyRangedShy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!myHandler.IsAwake()) //could optimize this, instead of calling another script every frame
-        {
-            //if asleep, dont do anything
-            return;
-        }
-
-        //pass these variables as references to the method (like pointers)
+        //pass these variables as references to the method (like pointers) to update them
         myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (curCooldown > 0)
@@ -55,13 +56,16 @@ public class EnemyRangedShy : MonoBehaviour
 
     void Attack()
     {
-        spreadOverDistance = (spreadAngle / distToTarget);
-        spreadOverDistance *= spreadOverDistance;
-        randomizedSpread = Random.Range(-1 * spreadOverDistance, spreadOverDistance);
-        float dirAngle = Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1); //turns the direction vector into a rotation angle (the z rotation in the editor)
+        float dirAngle = Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1);
+            //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
             //majd átváltjuk fokká
             //nem tudom miért kell beszorozni (-1)-el???? csak így mûködik tho
-        dirAngle += randomizedSpread; //applying spread to the angle
+
+        spreadOverDistance = (spreadAngle / distToTarget);  //calculate the spread with distance??
+        spreadOverDistance *= spreadOverDistance;           //négyzeteljök az értéket (ask meem why)
+        randomizedSpread = Random.Range(-1 * spreadOverDistance, spreadOverDistance); //random spread value
+
+        dirAngle += randomizedSpread; //applying spread to the direction angle
         ShootOnce(dirAngle);
     }
 
@@ -77,6 +81,7 @@ public class EnemyRangedShy : MonoBehaviour
         //GameObject.Instantiate: spawns a GameObject basically
         GameObject curBullet = GameObject.Instantiate(projectilePrefab, shootPos, shootRot);
 
+        //update the spawned bullet's stats
         BulletScript curBulletScript = curBullet.GetComponent<BulletScript>();
         curBulletScript.speed = projectileSpeed;
         curBulletScript.damage = damage;

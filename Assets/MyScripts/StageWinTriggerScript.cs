@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Placeholder
+ * If the player enters the Trigger attached to this gameObject, the game is won
+ */
+
 public class StageWinTriggerScript : MonoBehaviour
 {
     bool alreadyWon;

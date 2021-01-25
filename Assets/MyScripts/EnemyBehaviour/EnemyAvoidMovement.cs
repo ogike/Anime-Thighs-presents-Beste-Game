@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Credit to Meem
+ * Enemy movement behaviour, avoid the player by always going in the opposite direction
+ * Similiar to EnemyBasicFollow
+ */
+
 public class EnemyAvoidMovement : MonoBehaviour
 {
     public float moveSpeed;

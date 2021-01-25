@@ -273,7 +273,8 @@ MonoBehaviour:
   plusRotationalAngle: 90
   dashCooldown: 0.5
   curCooldown: 0
-  dashSpeed: 50
+  dashTimeMod: 0.00006
+  dashSpeed: 3000
 --- !u!114 &8711418262968779821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   isPlayer: 1
+  iTimeWhenDamageTaken: 0.3
   curHealth: 0
 --- !u!114 &833093343670269082
 MonoBehaviour:

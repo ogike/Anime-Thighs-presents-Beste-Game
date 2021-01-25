@@ -7603,11 +7603,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbe4fc0761a2abc4da61f28a1ae4d869, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1989173586}
+  playerObject: {fileID: 8711418262607013242}
   mainCamera: {fileID: 929224938}
   cameraZPosition: -10
   playerZPosition: 0
   winReward: {fileID: 357924338}
+  playerTransform: {fileID: 1989173586}
   playerHealth: {fileID: 0}
   playerHandler: {fileID: 0}
 --- !u!4 &1913244103
@@ -8064,7 +8065,7 @@ GameObject:
   - component: {fileID: 2086836089}
   - component: {fileID: 2086836088}
   - component: {fileID: 2086836087}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorEast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8518,7 +8519,7 @@ GameObject:
   - component: {fileID: 1284197386477436803}
   - component: {fileID: 3384417854765322813}
   - component: {fileID: 3059896396112826979}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorNorth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8715,7 +8716,7 @@ GameObject:
   - component: {fileID: 2677977645306467103}
   - component: {fileID: 1877907419935538849}
   - component: {fileID: 2201868025552486143}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorEast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8734,7 +8735,7 @@ GameObject:
   - component: {fileID: 2677977644565705872}
   - component: {fileID: 1877907419602393390}
   - component: {fileID: 2201868026426677616}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorNorth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8753,7 +8754,7 @@ GameObject:
   - component: {fileID: 2648075000200853874}
   - component: {fileID: 1989014941938373836}
   - component: {fileID: 2241481007723517074}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorSouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8998,7 +8999,7 @@ GameObject:
   - component: {fileID: 3308800292961159337}
   - component: {fileID: 1355166731996669207}
   - component: {fileID: 1607703027041297737}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorSouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9211,7 +9212,7 @@ GameObject:
   - component: {fileID: 3735057846046964940}
   - component: {fileID: 932293441106481522}
   - component: {fileID: 608296446178840876}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorNorth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10391,7 +10392,7 @@ GameObject:
   - component: {fileID: 8339826621797224424}
   - component: {fileID: 5519364219447796310}
   - component: {fileID: 5195334377716097544}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DoorWest
   m_TagString: Untagged
   m_Icon: {fileID: 0}

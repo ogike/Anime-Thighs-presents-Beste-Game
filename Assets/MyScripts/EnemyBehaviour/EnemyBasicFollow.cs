@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Can be used as a template for new movement behaviours
+ * Gets the direction/distance to player from the EnemyHandler every frame
+ *      So this needs an "EnemyHandler" component on the same GameObject this is attached to, or it wont work!
+ * Moves towards player in a straight lines
+ *      Only if the distance to playes is smaller than "distToStart", and bigger than "distToStop"
+ */
+
 public class EnemyBasicFollow : MonoBehaviour
 {
     public float moveSpeed;
@@ -36,13 +43,7 @@ public class EnemyBasicFollow : MonoBehaviour
     // LateUpdate is the same, but its called after the normal Update()-s, which means it will be after the EnemyScripts's Update, and that all the variables will be up-to-date
     void LateUpdate()
     {
-        if (!myHandler.IsAwake()) //could optimize this, instead of calling another script every frame
-        {
-            //if asleep, dont do anything
-            return;
-        }
-
-        //pass these variables as references to the method (like pointers)
+        //pass these variables as references to the method (like pointers) to update them
         myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (distToTarget > distToStop && distToStart > distToTarget)
