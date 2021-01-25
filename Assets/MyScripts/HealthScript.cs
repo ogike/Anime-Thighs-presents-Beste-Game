@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Handles Health and dying for both players and enemies
+ * Healing and stat updates for the player should be called from the PlayerHandler
+ * 
+ */
+
 public class HealthScript : MonoBehaviour
 {
-    public int  maxHealth = 100;
+    public int  maxHealth = 100; //ezt playernek a playerHandler írja felül
+                                 //with enemies, should be set in the inpsector
     public bool isPlayer = false;
 
     //A sebezhetetlenség állapotát tárolja
@@ -26,7 +32,7 @@ public class HealthScript : MonoBehaviour
         //curHealth = maxHealth;
         myRenderer = GetComponent<SpriteRenderer>();
 
-        //a plaert a playerHandler-ben healeljük
+        //a playert a playerHandler-ben healeljük (mert ott állítjuk be a HealthStatokat is)
         if(!isPlayer)
             HealToMax();
     }
@@ -65,6 +71,7 @@ public class HealthScript : MonoBehaviour
 	}
 
     // handles health increase by value
+    // should be called from the PlayerHandler
     public void Heal(int healing)
     {
         if(!isDead)
@@ -96,7 +103,7 @@ public class HealthScript : MonoBehaviour
             Debug.Log("You died. bruh");
             //Time.timeScale = 0; //stop time
             GetComponent<PlayerController>().enabled = false; //disable player controller, cos we fucking dead
-            GetComponent<ShootingScript>().enabled   = false;
+            GetComponent<WeaponManager>().DisableCurWeapon(); //disable shooting as well
             myRenderer.color = Color.red;
             isDead = true;
         }

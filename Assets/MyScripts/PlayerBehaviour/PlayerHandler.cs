@@ -5,20 +5,22 @@ using UnityEngine;
 //should make this a header file or whatever, for readability
 public enum SkillStatName
 {
-    Damage,
+    BaseDamageMultiplier,
     MoveSpeed,
-    MaxHealth
+    MaxHealth,
+    ShootingCooldownMultiplier,
+    BulletSpeedMultiplier
 }
 
-[System.Serializable] //editor is meg tudja jelenÌteni
-//ezt a class-t haszn·ljuk minden Player Stat-hoz, amit b·rhonann nˆvelni/v·ltoztatni akarunk
+[System.Serializable] //editor is meg tudja jelenÔøΩteni
+//ezt a class-t hasz√°ljuk minden Player Stat-hoz, amit b√°rhonann n√∂velni/v√°ltoztatni akarunk
 public class SkillStat
 {
     public SkillStatName name;
 
     public float originalValue = 1;
     public float curStatMultiplier = 1;
-    public float curStatAdder = 0; //ha szorz·s helyett hozz· akarunk adni valamennyit az ÈrtÈkhez
+    public float curStatAdder = 0; //ha szorz√°s helyett hozz√° akarunk adni valamennyit az √©rt√©khez
 
     //public float curPowerUpModifier = 1;
     //public float curPowerupAdder = 0;
@@ -48,6 +50,8 @@ public class SkillStatBoost
 
     public float multiplierDifference;
     public float valueDifference;
+    public bool isPowerup;
+    public float duration;
 }
 
 //the actual script-----------------------
@@ -55,9 +59,9 @@ public class PlayerHandler : MonoBehaviour
 {
     public List<SkillStat> skillStats;
         //the list of different stats the player has
-        //IMPORTANT!! cantt have duplicates!!
+        //IMPORTANT!! cant have duplicates!!
 
-    ShootingScript myShooterScript;
+    WeaponManager myWeaponManager;
     HealthScript myHealthScript;
     PlayerController myControllerScript;
 
@@ -65,33 +69,38 @@ public class PlayerHandler : MonoBehaviour
     void Start()
     {
         //getting all the needed components, that we want to change/modify later
-        myShooterScript = GetComponent<ShootingScript>();
+        myWeaponManager = GetComponent<WeaponManager>();
         myHealthScript = GetComponent<HealthScript>();
         myControllerScript = GetComponent<PlayerController>();
 
+        //applying all the stats
+        //note: this overwrites these bitches so far: movementSpeed, maxHealth, and the weapon stat multipliers
 		for (int i = 0; i < skillStats.Count; i++)
 		{
             ApplyStatChange(skillStats[i].name);
 		}
 
-        //setting the starting health for the player
+        //setting the starting health for the player, after setting the maxHealthStat
         myHealthScript.HealToMax();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    //ezt hÌvjuk meg amikor v·ltoztatni akarjuk a statokat
+    //ezt h√≠vjuk meg amikor v√°ltoztatni akarjuk a statokat
     public void ApplyStatBoost (SkillStatBoost statBoost)
 	{
-        SkillStat curStat = skillStats.Find(x => x.name == statBoost.name);
+        SkillStat curStat = skillStats.Find(x => x.name == statBoost.name); //megkeress√ºk a v√°ltoztatnival√≥ stat-ot a list√°ban
 
         curStat.ModifyStatValues(statBoost.multiplierDifference, statBoost.valueDifference);
+            //modify-oljuk ezt a statot
+            //(mag√°ban a SkillStat class-ban van ez a f√ºggv√©ny)
 
         ApplyStatChange(statBoost.name);
+
+        //ha powerup, akkor a powerupDuration ut√°n reverse-elni akarjuk
+        if(statBoost.isPowerup)
+        {
+            StartCoroutine(ResetAfterTime(statBoost.duration, curStat, statBoost));
+        }
 	}
 
     public void ApplyStatChange(SkillStatName skillName)
@@ -102,25 +111,48 @@ public class PlayerHandler : MonoBehaviour
 
         switch (skillName)
 		{
-            case SkillStatName.Damage:
-                myShooterScript.damage = (int)newValue;
-                break;
             case SkillStatName.MaxHealth:
                 myHealthScript.maxHealth = (int)newValue;
-                myHealthScript.UpdateHealthVisuals(); //ha megv·ltozik a maxHealth, a visual representation is m·s lesz
+                myHealthScript.UpdateHealthVisuals(); //ha megvÔøΩltozik a maxHealth, a visual representation is mÔøΩs lesz
                 break;
+
             case SkillStatName.MoveSpeed:
                 myControllerScript.moveSpeed = newValue;
                 break;
+
+            case SkillStatName.BaseDamageMultiplier:
+                myWeaponManager.damageMultiplier = newValue;
+                myWeaponManager.UpdateCurWeaponStats();
+                break;
+
+            case SkillStatName.ShootingCooldownMultiplier:
+                myWeaponManager.cooldownMultiplier = newValue;
+                myWeaponManager.UpdateCurWeaponStats();
+                break;
+
+            case SkillStatName.BulletSpeedMultiplier:
+                myWeaponManager.bulletSpeedMultiplier = newValue;
+                myWeaponManager.UpdateCurWeaponStats();
+                break;
+
             default:
-                Debug.LogError("Thats fucked up lol");
+                Debug.LogError("You probably havent set up your new SkillStat here properly");
                 break;
         }
 	}
 
-    //Ez a currentHealth-et v·ltoztatja, nem a maxHealth-et! teh·t csak egy healthPickup ezt hÌvja meg
-    public void BoostHealth (int plusHealth)
+    //Ez a currentHealth-et v√°ltoztatja, nem a maxHealth-et! teh√°t egy healthPickup ezt h√≠vja meg
+    public void HealPlayer (int plusHealth)
 	{
         myHealthScript.Heal(plusHealth);
+    }
+
+    //for deactivating powerups
+    IEnumerator ResetAfterTime(float time, SkillStat curStat, SkillStatBoost statBoost)
+    {
+        yield return new WaitForSeconds(time); //csak a "time" ut√°n folytat√≥dik ez a f√ºggv√©ny
+
+        curStat.ModifyStatValues(statBoost.multiplierDifference*(-1), statBoost.valueDifference*(-1));
+        ApplyStatChange(statBoost.name);
     }
 }

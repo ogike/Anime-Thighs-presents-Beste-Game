@@ -21,8 +21,8 @@ TagManager:
   - Enemy
   - EnemyBullet
   - DoorGeneralBlocker
-  - DoorPlayerBlocker
-  - EnemyMeleeTrigger
+  - OnlyInteractWithPlayer
+  - 
   - 
   - 
   - 
