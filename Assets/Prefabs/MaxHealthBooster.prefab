@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4858761054224638782}
   - component: {fileID: 8720427545198349160}
   - component: {fileID: 9058240681022034072}
+  - component: {fileID: 866400902}
   m_Layer: 0
   m_Name: MaxHealthBooster
   m_TagString: Untagged
@@ -109,3 +110,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8.2, y: 8.7}
   m_EdgeRadius: 0
+--- !u!114 &866400902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618199547395706252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aea67f120ea1034fa0d60282f09f5be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statBoosts:
+  - name: 0
+    multiplierDifference: 0.5
+    valueDifference: 0
