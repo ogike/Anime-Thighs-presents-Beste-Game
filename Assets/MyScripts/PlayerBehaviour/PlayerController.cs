@@ -26,8 +26,6 @@ public class PlayerController : MonoBehaviour
     public float dashCooldown = 0.5f;
     public float dashSpeed = 50;
     
-    float curCooldown;
-
     [SerializeField]
     float dashTimeMod = 0.3f;
 
