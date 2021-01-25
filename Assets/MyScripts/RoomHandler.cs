@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 /* Script to put onto every Room GameObject
  * Also every instance of these should be added to the "rooms" list in the RoomManager
@@ -15,8 +16,10 @@ public class RoomHandler : MonoBehaviour
 
     public GameObject playerBlockers;
 
-    public GameObject rewards; //the gameObject to activate when all the enemies are dead in this room
+    //public GameObject rewards; //the gameObject to activate when all the enemies are dead in this room
                                //optional
+
+    public List<GameObject> rewards;
 
     public int enemiesInThisRoom;
 
@@ -49,8 +52,14 @@ public class RoomHandler : MonoBehaviour
         //should only be called at the start of the game for the unopened rooms
         enemiesToWakeOnEnter.SetActive(false); //deactivate enemies
 
-        if(rewards != null)
-            rewards.SetActive(false); //deactivate rewards
+        //deactivate rewards
+        /*if(rewards.Any())
+        {
+            for(int i = 0;i < rewards.Count;i++)
+            {
+                rewards[i].SetActive(false);
+            }
+        }*/
 
         CloseDoors();
     }
@@ -70,7 +79,12 @@ public class RoomHandler : MonoBehaviour
 	{
         enemiesInThisRoom = 0;
 
-        if (rewards != null)
-            rewards.SetActive(true);
+        if (rewards.Any())
+        {
+            int index = Random.Range(0, rewards.Count);
+            Instantiate( rewards[index], cameraPosTrans);
+            //rewards[index].SetActive(true);
+        }
+            
     }
 }
