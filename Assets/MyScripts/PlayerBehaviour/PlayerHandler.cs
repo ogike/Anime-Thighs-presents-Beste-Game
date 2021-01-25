@@ -5,9 +5,11 @@ using UnityEngine;
 //should make this a header file or whatever, for readability
 public enum SkillStatName
 {
-    Damage,
+    BaseDamageMultiplier,
     MoveSpeed,
-    MaxHealth
+    MaxHealth,
+    ShootingCooldown,
+    BulletSpeed
 }
 
 [System.Serializable] //editor is meg tudja jelen�teni
@@ -56,10 +58,11 @@ public class SkillStatBoost
 public class PlayerHandler : MonoBehaviour
 {
     public List<SkillStat> skillStats;
-        //the list of different stats the player has
-        //IMPORTANT!! cantt have duplicates!!
+    //the list of different stats the player has
+    //IMPORTANT!! cantt have duplicates!!
 
-    ShootingScript myShooterScript;
+    //ShootingScript myShooterScript;
+    WeaponManager myWeaponManager;
     HealthScript myHealthScript;
     PlayerController myControllerScript;
 
@@ -67,7 +70,7 @@ public class PlayerHandler : MonoBehaviour
     void Start()
     {
         //getting all the needed components, that we want to change/modify later
-        myShooterScript = GetComponent<ShootingScript>();
+        myWeaponManager = GetComponent<WeaponManager>();
         myHealthScript = GetComponent<HealthScript>();
         myControllerScript = GetComponent<PlayerController>();
 
@@ -109,16 +112,30 @@ public class PlayerHandler : MonoBehaviour
 
         switch (skillName)
 		{
-            case SkillStatName.Damage:
-                myShooterScript.damage = (int)newValue;
-                break;
             case SkillStatName.MaxHealth:
                 myHealthScript.maxHealth = (int)newValue;
                 myHealthScript.UpdateHealthVisuals(); //ha megv�ltozik a maxHealth, a visual representation is m�s lesz
                 break;
+
             case SkillStatName.MoveSpeed:
                 myControllerScript.moveSpeed = newValue;
                 break;
+
+            case SkillStatName.BaseDamageMultiplier:
+                myWeaponManager.damageMultiplier = newValue;
+                myWeaponManager.UpdateCurWeaponStats();
+                break;
+
+            case SkillStatName.ShootingCooldown:
+                myWeaponManager.cooldownMultiplier = newValue;
+                myWeaponManager.UpdateCurWeaponStats();
+                break;
+
+            case SkillStatName.BulletSpeed:
+                myWeaponManager.bulletSpeedMultiplier = newValue;
+                myWeaponManager.UpdateCurWeaponStats();
+                break;
+
             default:
                 Debug.LogError("Thats fucked up lol");
                 break;
