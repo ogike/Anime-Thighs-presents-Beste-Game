@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -6573546574439329331}
   - component: {fileID: -4936661641522291251}
   - component: {fileID: -2704743724840582121}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SpeedUpgrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
