@@ -13,8 +13,16 @@ public class HealthScript : MonoBehaviour
                                  //with enemies, should be set in the inpsector
     public bool isPlayer = false;
 
+    //A sebezhetetlenség állapotát tárolja
+    bool isInvincible = false;
+
+    [SerializeField]
+    float iTimeWhenDamageTaken = 0.3f; // meddig tart a sebezhetetlenség ha damaget kapsz
+    
+
     public int curHealth; //only public for debugging
     bool isDead = false;
+
 
     SpriteRenderer myRenderer; //for temp health display
 
@@ -31,9 +39,15 @@ public class HealthScript : MonoBehaviour
 
 	public void TakeDamage (int dmg)
 	{
-        curHealth -= dmg;
+        //ha sebezhetetlen akkor nem fog damaget kapni
+        if (isInvincible)
+            return;
 
-        if(curHealth <= 0 && !isDead)
+        curHealth -= dmg;
+        if (isPlayer) //csak player kap sebezhetetlenséget ha damaget kap
+            StartCoroutine(BecomeInvincible(iTimeWhenDamageTaken));
+
+        if (curHealth <= 0 && !isDead)
 		{
             Die();
 		}
@@ -103,4 +117,21 @@ public class HealthScript : MonoBehaviour
             Destroy(gameObject);
         }
 	}
+
+    public IEnumerator BecomeInvincible(float iTime)
+    {
+        if (!isInvincible)
+        {
+            isInvincible = true;
+            Debug.Log("Invincible");
+
+            
+            yield return new WaitForSeconds(iTime);
+
+
+            isInvincible = false;
+            Debug.Log("No longer invincible");
+        }
+    }
+    
 }

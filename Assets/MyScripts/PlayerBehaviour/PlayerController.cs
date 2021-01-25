@@ -16,33 +16,43 @@ public class PlayerController : MonoBehaviour
     float inputHorizontal;
     float inputVertical;
     Vector2 inputDir;
+    Vector2 dashDir; 
 
     Rigidbody2D myRigidbody;
     Camera      myCam;
     Transform   myTrans;
 
-    //A dash base Ès jelenlegi cooldownj·t t·rolja
+    //A dash base √©s jelenlegi cooldownj√°t t√°rolja
     public float dashCooldown = 0.5f;
     public float dashSpeed = 50;
+    
+    float curCooldown;
+
+    [SerializeField]
+    float dashTimeMod = 0.3f;
+
+    HealthScript myHealthScript;
 
     float curCooldown; //for dash
 
     // Start is called before the first frame update
     void Start()
     {
-        //A GetComponent-el Èrsz hozz· annak a gameObjectnek a komponensÈhez, amihez hozz· van csatolva ez a script
+        //A GetComponent-el √©rsz hozz√° annak a gameObjectnek a komponens√©hez, amihez hozz√° van csatolva ez a script
         //A rigidBody2D az a komponens, ami kezeli a physics-et
         myRigidbody = GetComponent<Rigidbody2D>();
 
         //Az fuck off
         myCam = GameManagerScript.Instance.mainCamera;
 
-        //A Transform komponens kezeli a GameObject pozÌciÛj·t/rot·ciÛj·t
+        //A Transform komponens kezeli a GameObject poz√≠ci√≥j√°t/rot√°ci√≥j√°t
         myTrans = GetComponent<Transform>();
+
+        myHealthScript = GetComponent<HealthScript>();
 
         //instant lehessen dashelni startkor
         curCooldown = 0;
-    }
+     }
 
     // Update is called once per frame
     void Update()
@@ -61,7 +71,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
         LookAtMouse();
     }
-
+  
     void MovePlayer ()
 	{
         //get movement inputs as floats
@@ -69,10 +79,11 @@ public class PlayerController : MonoBehaviour
         inputVertical = Input.GetAxisRaw("Vertical");
 
 
-        //az inputot egy ir·nyvektorr· alakÌtjuk
+        //az inputot egy ir√°nyvektorr√° alak√≠tjuk
         inputDir = new Vector2(inputHorizontal, inputVertical);
+        inputDir = inputDir.normalized;
 
-        //ez ad a fizikai komponensek egy lˆkÈst, a mostani movement-erıt sebessÈggel
+        //ez ad a fizikai komponensek egy l√∂k√©st, a mostani movement-er√µt sebess√©ggel
         myRigidbody.AddForce(inputDir * moveSpeed * Time.deltaTime);
     }
 
@@ -84,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
         float aimRotZ = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
             //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
-            //majd ·tv·ltjuk fokk·
+            //majd √°tv√°ltjuk fokk√°
 
         //plusRotationalAngle: the added compensation for the playermodel rotation
         myTrans.rotation = Quaternion.Euler(0, 0, aimRotZ + plusRotationalAngle); //sets the player Z rotation with Quaternions
@@ -92,18 +103,19 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-            //Ugyanaz mint a MovePlayer az ir·ny meghat·roz·s·hoz
-            inputHorizontal = Input.GetAxisRaw("Horizontal"); 
-            inputVertical = Input.GetAxisRaw("Vertical");       
+        //Ugyanaz mint a MovePlayer az ir√°ny meghat√°roz√°s√°hoz
+        inputHorizontal = Input.GetAxisRaw("Horizontal");
+        inputVertical = Input.GetAxisRaw("Vertical");
+        dashDir = new Vector2(inputHorizontal, inputVertical);
+        dashDir = dashDir.normalized;
+        //megtolja az adott ir√°nyba a playert
+        myRigidbody.velocity = dashDir * dashSpeed * Time.fixedDeltaTime;
+        StartCoroutine(myHealthScript.BecomeInvincible(dashSpeed * dashTimeMod));
 
-            inputDir = new Vector2(inputHorizontal, inputVertical);
-            
-            //megtolja az adott ir·nyba a playert
-            myRigidbody.velocity = inputDir * dashSpeed;
-            
-            //Cooldownra teszi a dasht
-            curCooldown = dashCooldown;
+        //Cooldownra teszi a dasht
+        curCooldown = dashCooldown;
     }
+    
 }
     
     
