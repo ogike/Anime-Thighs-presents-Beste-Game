@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8720427545198349160}
   - component: {fileID: 9058240681022034072}
   - component: {fileID: 3361763738209568900}
+  - component: {fileID: -2779475536323069878}
   m_Layer: 12
   m_Name: DmgUpgrade
   m_TagString: Untagged
@@ -128,3 +129,16 @@ MonoBehaviour:
     valueDifference: 0
     isPowerup: 1
     duration: 10
+--- !u!114 &-2779475536323069878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618199547395706252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcdf2ab8b70ddb4f9d5060543cb5d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.01

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -6573546574439329331}
   - component: {fileID: -4936661641522291251}
   - component: {fileID: -2704743724840582121}
+  - component: {fileID: -7993369641341962798}
   m_Layer: 12
   m_Name: SpeedUpgrade
   m_TagString: Untagged
@@ -128,3 +129,16 @@ MonoBehaviour:
     valueDifference: 2000
     isPowerup: 0
     duration: 0
+--- !u!114 &-7993369641341962798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3990487911384478674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dcdf2ab8b70ddb4f9d5060543cb5d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0.01
