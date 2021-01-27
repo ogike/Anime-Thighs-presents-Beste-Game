@@ -15,6 +15,8 @@ public class GameManagerScript : MonoBehaviour
     //the get/set thing is so everyone can access this, but only this script can set this static variable (which happens in Awake)
     public static GameManagerScript Instance { get; private set; } //basically make this a singleton
 
+    public float cameraTransitionTime = 1;
+
     public GameObject playerObject; //need to be set manually
     public Camera    mainCamera;
     public float     cameraZPosition = -10; //where the camera should be on the Z axis
@@ -24,16 +26,20 @@ public class GameManagerScript : MonoBehaviour
                                  //This is what gets activated when we win
 
     Transform camTrans;
+    CameraScript camScript;
     [HideInInspector] public Transform playerTransform;
     [HideInInspector] public HealthScript playerHealth; //automatically set
     [HideInInspector] public PlayerHandler playerHandler;
 
+    //Vector3 lerpHelperVelocity = Vector3.zero; //this is for the Vector3.SmoothDamp in the CameraTranstion(), unity handles it
+
     //Awake is called before start
-	private void Awake()
+    private void Awake()
 	{
         Instance = this;
 
-        camTrans = mainCamera.GetComponent<Transform>();
+        camTrans  = mainCamera.GetComponent<Transform>();
+        camScript = mainCamera.GetComponent<CameraScript>();
 
         playerTransform = playerObject.GetComponent<Transform>();
         playerHealth    = playerObject.GetComponent<HealthScript>();
@@ -42,11 +48,39 @@ public class GameManagerScript : MonoBehaviour
         winReward.SetActive(false); //PLACEHOLDER
 	}
 
-    public void SetCameraPosition (Vector3 newPos)
+    public void SetCameraPosition (Vector3 targetPosition)
 	{
         //should make this fancy later, and within the CameraScript
-        camTrans.position = new Vector3(newPos.x, newPos.y, cameraZPosition);
+
+        targetPosition.z = cameraZPosition; //setting the target Z position to the correct value
+
+        camScript.UpdateTargetPosition(targetPosition);
+
+        //StartCoroutine(CameraTranstion(targetPosition, cameraTransitionTime));
     }
+
+    IEnumerator CameraTranstion (Vector3 targetPos, float transitionTime)
+	{
+        //should be modified or put into the CameraScript when making camera shake
+
+        float timeElapsed = 0;
+        Vector3 lerpHelperVelocity = Vector3.zero;
+
+        while (timeElapsed < transitionTime)
+		{
+            timeElapsed += Time.deltaTime;
+
+            camTrans.position = Vector3.SmoothDamp(camTrans.position, targetPos, ref lerpHelperVelocity, transitionTime);
+
+            Debug.Log("time elapsed: " + timeElapsed + ", curpos:" + camTrans.position + ", targetPos: " + targetPos);
+
+            yield return null;
+		}
+
+        //camTrans.position = targetPos; //maybe not needed???
+	}
+
+
 
     public void SetPlayerPosition (Vector3 newPos)
 	{

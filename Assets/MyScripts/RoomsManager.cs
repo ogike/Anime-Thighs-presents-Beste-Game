@@ -16,7 +16,8 @@ public class RoomsManager : MonoBehaviour
     public List<RoomHandler> rooms; //0-th has to be the starting room!
 
     public int curEnemyCountInRoom; //only public for debug
-    int curRoomIndex;
+    int curRoomIndex; //what is the index of the current room in the "rooms" list
+                      //-1 = its hasnt been set
 
 	private void Awake()
 	{
@@ -32,20 +33,30 @@ public class RoomsManager : MonoBehaviour
             rooms[i].DeactivateRoom();
         }
 
-        rooms[0].ActivateRoom(); //activate the first room
+        curRoomIndex = -1; //saying this is the first room
+        ChangeActiveRoom(rooms[0], Vector3.zero); //activating the first room
+                                                  //the second parameter is where the player will be spawned basically (without actual spawning)
     }
 
-    public void ChangeActiveRoom (RoomHandler newRoom)
+    public void ChangeActiveRoom (RoomHandler newRoom, Vector3 newPlayerPosition)
 	{
+        if(curRoomIndex != -1) //if its not the first room
+            rooms[curRoomIndex].LeaveRoom();
+
         //bejön a haskell névtelen függvények
         //FindIndex: a listában keres elemet amire igaz a predikátum
-        //(maybe it would be worth optimizing, so that we always store and pass room indexes too???)
+        //(maybe it would be worth optimizing, so that we always store and pass room indexes too???
         curRoomIndex = rooms.FindIndex(x => (x == newRoom));
-
-        if(curRoomIndex == -1)
-		{
+        if (curRoomIndex == -1)
+        {
             Debug.LogError("Valamit elbasztál, nincsen a keresett szoba a listában");
-		}
+        }
+
+        GameManagerScript.Instance.SetPlayerPosition(newPlayerPosition);
+        GameManagerScript.Instance.SetCameraPosition(rooms[curRoomIndex].cameraPosTrans.position);
+
+        curEnemyCountInRoom = rooms[curRoomIndex].enemiesInThisRoom; //updating the enemy counter to the new room
+        rooms[curRoomIndex].EnterRoom();
     }
 
     //all this should be refactored with get/set classes
@@ -57,8 +68,7 @@ public class RoomsManager : MonoBehaviour
 
         if (curEnemyCountInRoom <= 0) //if there are no more enemies in this room
         {
-            rooms[curRoomIndex].OpenDoors();
-            rooms[curRoomIndex].NoMoreEnemies();
+            rooms[curRoomIndex].CompleteRoom();
         }
     }
 }
