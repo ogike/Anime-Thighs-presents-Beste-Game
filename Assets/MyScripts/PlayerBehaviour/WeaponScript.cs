@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* The basic shooting weapon script, using projectiles
+ * Can be used as a template, but also simply expanded for other new functionality (like being a shotgun), and then turned off in a variable
+ */
+
 public class WeaponScript : MonoBehaviour
 {
     public Transform shootPosTrans; //Where the bullets should spawn

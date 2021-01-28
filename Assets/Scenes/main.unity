@@ -10647,11 +10647,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5956717819387653671, guid: f0a8fbb7922c2664cbd5553dbcc30002,
-        type: 3}
-      propertyPath: skillStats.Array.data[2].originalValue
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 8711418262968779819, guid: f0a8fbb7922c2664cbd5553dbcc30002,
         type: 3}
       propertyPath: m_RootOrder
@@ -10720,19 +10715,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8711418262607013241}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8711418262607013243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8711418262607013242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d6443cf0c20e2845b1c0f8c804d8659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillStats: []
 --- !u!61 &8776235033463420009
 BoxCollider2D:
   m_ObjectHideFlags: 0
