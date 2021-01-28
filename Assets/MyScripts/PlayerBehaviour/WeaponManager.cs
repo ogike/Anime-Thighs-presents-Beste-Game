@@ -16,35 +16,36 @@ public class WeaponManager : MonoBehaviour
     [HideInInspector] public float damageMultiplier;
     //--------------------------------
 
-    public List<WeaponScript> weapons; //all the possible weapons we can switch between if needed
-                                         //should rename this later into a weaponScript later
-                                         //these should be attached to different GameObjects that are the children of the Player GameObject
-                                         //set manually
+    public List<GameObject> weaponObjects; //this is set manually, just drag and drop
+                                           //all the possible weapons we can switch between if needed
+                                           //for disabling/enabling the actual gameObjects, for if they have Sprites too for example
 
-    //TODO:
-    //List<GameObject> weaponObjects; //this is set automatically
-                                      //for disabling/enabling the actual gameObjects, for if they have Sprites too for example
+    List<WeaponHandler> weaponHandlers; //the weaponHandler is whats needed to update the stats, so every type can be managed inside of taht
+                                        //these should be attached to different GameObjects that are the children of the Player GameObject
+                                        //set automatically
 
 
     int curWeaponIndex;
 
     void Awake()
     {
-        if(weapons.Count == 0)
+        weaponHandlers = new List<WeaponHandler>(); //initializing the list
+
+        if (weaponObjects.Count == 0)
 		{
             Debug.LogError("No weapons added to the WeaponManager!");
 		}
 
-        //disabling all the weapons other than the first
-            //the 0th weapon is the deafult starting weapon!
-		for (int i = 1; i < weapons.Count; i++)
+        //disabling all the weapons, and getting all the weaponHandlers
+		for (int i = 0; i < weaponObjects.Count; i++)
 		{
-            weapons[i].enabled = false;
+            weaponHandlers.Add(weaponObjects[i].GetComponent<WeaponHandler>());
+            weaponObjects[i].SetActive(false);
 		}
 
         //setting up the first weapon----------------------------------
         curWeaponIndex = 0;
-        weapons[curWeaponIndex].enabled = true; //enabling the weapon
+        weaponObjects[curWeaponIndex].SetActive(true); //enabling the weapon
         UpdateCurWeaponStats(); //setting the base stats for the weapon
     }
     
@@ -57,16 +58,16 @@ public class WeaponManager : MonoBehaviour
             return;
 		}
 
-        if(newWeaponIndex >= weapons.Count)
+        if(newWeaponIndex >= weaponObjects.Count)
 		{
             Debug.LogError("Olyan fegyverre akarsz váltani, ami nincs beállítva a WeaponManagerben");
             return;
 		}
 
-        weapons[curWeaponIndex].enabled = false; //disabling the current weapon
+        weaponObjects[curWeaponIndex].SetActive(false); //disabling the current weapon
 
         curWeaponIndex = newWeaponIndex;
-        weapons[curWeaponIndex].enabled = true; //enabling the new weapon
+        weaponObjects[curWeaponIndex].SetActive(true); //enabling the new weapon
 
         UpdateCurWeaponStats(); //if the weapon stats changed since last time the weapon was active, we should update them
     }
@@ -74,12 +75,12 @@ public class WeaponManager : MonoBehaviour
     //when we die, the HealthScript calls this function
     public void DisableCurWeapon()
 	{
-        weapons[curWeaponIndex].enabled = false;
-	}
+        weaponObjects[curWeaponIndex].SetActive(false);
+    }
 
     //for updating the current weapon's stats
     public void UpdateCurWeaponStats ()
 	{
-        weapons[curWeaponIndex].UpdateStats(cooldownMultiplier, bulletSpeedMultiplier, damageMultiplier);
+        weaponHandlers[curWeaponIndex].UpdateMyWeaponsStats(cooldownMultiplier, bulletSpeedMultiplier, damageMultiplier);
     }
 }
