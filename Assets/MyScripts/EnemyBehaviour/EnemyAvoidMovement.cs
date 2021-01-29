@@ -39,8 +39,11 @@ public class EnemyAvoidMovement : MonoBehaviour
     // LateUpdate is the same, but its called after the normal Update()-s, which means it will be after the EnemyScripts's Update, and that all the variables will be up-to-date
     void LateUpdate()
     {
-        //pass these variables as references to the method (like pointers)
-        myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+        //get the vector data from the enemy handler
+        dirToTarget  = myHandler.GetDirToPlayer();
+        distToTarget = myHandler.GetDistToTarget();
+
+        //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (distToTarget > distToStop && distToStart > distToTarget)
         {

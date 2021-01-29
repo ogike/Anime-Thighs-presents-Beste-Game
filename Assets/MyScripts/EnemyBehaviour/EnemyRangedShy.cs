@@ -40,8 +40,11 @@ public class EnemyRangedShy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //pass these variables as references to the method (like pointers) to update them
-        myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+        //get the vector data from the enemy handler
+        dirToTarget = myHandler.GetDirToPlayer();
+        distToTarget = myHandler.GetDistToTarget();
+
+        //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (curCooldown > 0)
         {

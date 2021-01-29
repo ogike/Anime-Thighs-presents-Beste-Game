@@ -32,6 +32,15 @@ public class EnemyHandler : MonoBehaviour
         dirToTarget = dirToTarget.normalized; //utána már csak a normalizált irányvektor érdekel minket
     }
 
+    public Vector3 GetDirToPlayer ()
+	{
+        return dirToTarget;
+	}
+
+    public float GetDistToTarget ()
+	{
+        return distToTarget;
+	}
 
     //parameters are references, which are like pointers
     //basically "ref" in c# = "&" in c++
