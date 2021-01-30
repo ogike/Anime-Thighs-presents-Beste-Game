@@ -6,7 +6,7 @@ using UnityEngine;
  * This should be put on every bullet prefab, enemy and player too
  * This is what handles damaging the enemy
  * Its stats are set by the script spawing it (WeaponScript/EnemyRanged)
- * Basztatnivaló ember: ogike
+ * Basztatnivalï¿½ ember: ogike
  */
 public class BulletScript : MonoBehaviour
 {
@@ -16,6 +16,7 @@ public class BulletScript : MonoBehaviour
     [HideInInspector] public float speed;
     [HideInInspector] public int   damage;
     public string targetTag = "Enemy";
+    [HideInInspector] public int knockbackStrength;
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +37,11 @@ public class BulletScript : MonoBehaviour
     {
         if (other.tag == targetTag)
         {
+            Vector3 tempKnockbackDir = (other.transform.position - myTrans.position).normalized;
+            Vector2 knockbackDir = new Vector2(tempKnockbackDir.x, tempKnockbackDir.y);
             HealthScript targetHealth = other.GetComponent<HealthScript>();
             //Debug.Log(targetTag + " has taken " + damage + " dmg");
-            targetHealth.TakeDamage(damage);
+            targetHealth.TakeDamage(damage, knockbackDir, knockbackStrength);
         }
         Destroy(gameObject);
     }

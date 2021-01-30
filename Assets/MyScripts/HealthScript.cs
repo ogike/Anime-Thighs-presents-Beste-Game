@@ -36,6 +36,8 @@ public class HealthScript : MonoBehaviour
 
     Transform myTransform;
 
+    Rigidbody2D myRigidbody;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,13 +49,18 @@ public class HealthScript : MonoBehaviour
             HealToMax();
 
         myTransform = GetComponent<Transform>();
+
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
-	public void TakeDamage (int dmg)
+	public void TakeDamage (int dmg, Vector2 knockbackDir, int knockbackStrength)
 	{
+
         //ha sebezhetetlen akkor nem fog damaget kapni
         if (isInvincible)
             return;
+
+        Knockback(knockbackDir, knockbackStrength);
 
         curHealth -= dmg;
         if (isPlayer) //csak player kap sebezhetetlenséget ha damaget kap
@@ -66,9 +73,14 @@ public class HealthScript : MonoBehaviour
         else if (isPlayer && !isDead)
 		{
             UpdateHealthVisuals();
-
         }
 	}
+
+    public void Knockback(Vector2 knockbackDir, int knockbackStrength)
+    {
+        myRigidbody.AddForce(knockbackDir * knockbackStrength);
+        Debug.Log(knockbackStrength);
+    }
 
     public void HealToMax ()
 	{

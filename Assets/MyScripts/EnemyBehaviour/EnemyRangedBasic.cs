@@ -17,6 +17,7 @@ public class EnemyRangedBasic : MonoBehaviour
 {
     public int   damage;
     public float cooldown;
+    public int knockbackStrength;
     //public float distToAttack;
     public float projectileSpeed;
 
@@ -64,8 +65,8 @@ public class EnemyRangedBasic : MonoBehaviour
 
         float angleToTarget =  Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1);
             //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
-            //majd átváltjuk fokká
-            //nem tudom miért kell beszorozni (-1)-el???? csak így mûködik tho
+            //majd ï¿½tvï¿½ltjuk fokkï¿½
+            //nem tudom miï¿½rt kell beszorozni (-1)-el???? csak ï¿½gy mï¿½kï¿½dik tho
 
         ShootOnce(angleToTarget);
     }
@@ -73,8 +74,8 @@ public class EnemyRangedBasic : MonoBehaviour
     //called for every projectile
     void ShootOnce(float angleToTarget)
 	{
-        //az irányvektorok helyett inkább z tengelyes rotation-nal kezeljük a forgatást, ez a angleToTarget
-        Quaternion shootRot = Quaternion.Euler(0, 0, angleToTarget); //turn the shootingDirectionAngle into a Quaternion, amit használ a unity iss
+        //az irï¿½nyvektorok helyett inkï¿½bb z tengelyes rotation-nal kezeljï¿½k a forgatï¿½st, ez a angleToTarget
+        Quaternion shootRot = Quaternion.Euler(0, 0, angleToTarget); //turn the shootingDirectionAngle into a Quaternion, amit hasznï¿½l a unity iss
 
         //shootPosTrans is the GameObject/Transform which stores where the bullets should spawn
         //its a children of the Player GameObject, so its position is relative to the parent
@@ -87,5 +88,6 @@ public class EnemyRangedBasic : MonoBehaviour
         BulletScript curBulletScript = curBullet.GetComponent<BulletScript>();
         curBulletScript.speed = projectileSpeed;
         curBulletScript.damage = damage;
+        curBulletScript.knockbackStrength = knockbackStrength;
     }
 }

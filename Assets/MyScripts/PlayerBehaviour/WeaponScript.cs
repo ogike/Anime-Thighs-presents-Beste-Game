@@ -18,6 +18,7 @@ public class WeaponScript : MonoBehaviour
                                      //Todo: make this use RPM instead
     public float bulletSpeed = 10;
     public int   damage      = 34;
+    public int   knockbackStrength = 10;
     //---------------------------------------------------------------------
 
 
@@ -26,6 +27,7 @@ public class WeaponScript : MonoBehaviour
     float curMaxCooldown;
     float curBulletSpeed;
     int curDamage;
+    //int curKnockbackStrength;
     //---------------------------------------------------------------------
 
     float curRemainingCooldown; //stores how much time there is until we can shoot again
@@ -74,6 +76,7 @@ public class WeaponScript : MonoBehaviour
         BulletScript curBulletScript = curBullet.GetComponent<BulletScript>();
         curBulletScript.speed  = curBulletSpeed;
         curBulletScript.damage = curDamage;
+        curBulletScript.knockbackStrength = knockbackStrength;
     }
 
     //called from the weapon manager to update weapons
