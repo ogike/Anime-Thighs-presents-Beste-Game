@@ -17,7 +17,7 @@ public class EnemyRangedBasic : MonoBehaviour
 {
     public int   damage;
     public float cooldown;
-    public float distToAttack;
+    //public float distToAttack;
     public float projectileSpeed;
 
     public Transform shootPosTrans;     //where the projectiles will spawn;
@@ -51,7 +51,7 @@ public class EnemyRangedBasic : MonoBehaviour
         {
             curCooldown -= Time.deltaTime;
         }
-        else if (distToTarget < distToAttack)
+        else// if (distToTarget < distToAttack)
         {
             Attack();
             curCooldown = cooldown;

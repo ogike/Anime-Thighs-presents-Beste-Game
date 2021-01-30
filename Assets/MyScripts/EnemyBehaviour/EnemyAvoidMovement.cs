@@ -10,8 +10,8 @@ using UnityEngine;
 public class EnemyAvoidMovement : MonoBehaviour
 {
     public float moveSpeed;
-    public float distToStop; //if within this distance from the player, we wont move
-    public float distToStart; //if farther than this distance from the player, we wont move
+    //public float distToStop; //if within this distance from the player, we wont move
+    //public float distToStart; //if farther than this distance from the player, we wont move
 
     EnemyHandler myHandler;
 
@@ -45,7 +45,7 @@ public class EnemyAvoidMovement : MonoBehaviour
 
         //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
-        if (distToTarget > distToStop && distToStart > distToTarget)
+        //if (distToTarget > distToStop && distToStart > distToTarget)
         {
             Vector3 oppositeDir = new Vector3(-1 * dirToTarget.x, -1 * dirToTarget.y, 0);
             MoveInDir(oppositeDir);

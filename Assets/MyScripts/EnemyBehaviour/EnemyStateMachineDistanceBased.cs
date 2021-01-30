@@ -44,6 +44,9 @@ public class EnemyStateMachineDistanceBased : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (states.Count == 0)
+            Debug.Log("No states configured!");
+
         myHandler = GetComponent<EnemyHandler>();
 
         isAwake = false;
@@ -96,6 +99,11 @@ public class EnemyStateMachineDistanceBased : MonoBehaviour
 		{
             if (distToPlayer <= states[i].maxDist)
                 newIndex = i;
+		}
+        //if we didnt fin it, the distToPlayer is too high, so we should set the current state to be the most distant
+        if (newIndex == -1)
+		{
+            newIndex = states.Count - 1;
 		}
 
         if (newIndex != curStateIndex)

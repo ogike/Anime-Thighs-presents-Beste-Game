@@ -12,8 +12,8 @@ using UnityEngine;
 public class EnemyBasicFollow : MonoBehaviour
 {
     public float moveSpeed;
-    public float distToStop; //if within this distance from the player, we wont move
-    public float distToStart; //if farther than this distance from the player, we wont move
+    //public float distToStop; //if within this distance from the player, we wont move
+    //public float distToStart; //if farther than this distance from the player, we wont move
 
     //TEMPORARY, csak arra van hogyha megnyitod a játékot ne egybõl rohanjanak
 
@@ -49,7 +49,7 @@ public class EnemyBasicFollow : MonoBehaviour
 
         //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
-        if (distToTarget > distToStop && distToStart > distToTarget)
+        //if (distToTarget > distToStop && distToStart > distToTarget)
         {
             MoveInDir(dirToTarget);
         }

@@ -12,7 +12,7 @@ public class EnemyRangedShy : MonoBehaviour
 {
     public int damage;
     public float cooldown;
-    public float distToAttack;
+    //public float distToAttack;
     public float projectileSpeed;
     public float spreadAngle; //the degree of spread
 
@@ -50,7 +50,7 @@ public class EnemyRangedShy : MonoBehaviour
         {
             curCooldown -= Time.deltaTime;
         }
-        else if (distToTarget < distToAttack)
+        else// if (distToTarget < distToAttack)
         {
             Attack();
             curCooldown = cooldown;
