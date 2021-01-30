@@ -7,24 +7,34 @@ using UnityEngine;
  * 
  */
 
+[System.Serializable]
+public class SpawnOnDeath
+{
+    public GameObject Object;
+    [Range(0, 100)]public int Chance; //chance of spawning
+    public bool isEnemy;
+}
+
 public class HealthScript : MonoBehaviour
 {
-    public int  maxHealth = 100; //ezt playernek a playerHandler írja felül
+    public int  maxHealth = 100; //ezt playernek a playerHandler ï¿½rja felï¿½l
                                  //with enemies, should be set in the inpsector
     public bool isPlayer = false;
 
-    //A sebezhetetlenség állapotát tárolja
+    //A sebezhetetlensÃ©g ï¿½llapotï¿½t tï¿½rolja
     bool isInvincible = false;
 
     [SerializeField]
-    float iTimeWhenDamageTaken = 0.3f; // meddig tart a sebezhetetlenség ha damaget kapsz
-    
+    float iTimeWhenDamageTaken = 0.3f; // meddig tart a sebezhetetlensï¿½g ha damaget kapsz
 
     public int curHealth; //only public for debugging
     bool isDead = false;
 
+    public List<SpawnOnDeath> ObjectsToSpawn;
 
     SpriteRenderer myRenderer; //for temp health display
+
+    Transform myTransform;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,9 +42,11 @@ public class HealthScript : MonoBehaviour
         //curHealth = maxHealth;
         myRenderer = GetComponent<SpriteRenderer>();
 
-        //a playert a playerHandler-ben healeljük (mert ott állítjuk be a HealthStatokat is)
+        //a playert a playerHandler-ben healeljï¿½k (mert ott ï¿½llï¿½tjuk be a HealthStatokat is)
         if(!isPlayer)
             HealToMax();
+
+        myTransform = GetComponent<Transform>();
     }
 
 	public void TakeDamage (int dmg)
@@ -44,7 +56,7 @@ public class HealthScript : MonoBehaviour
             return;
 
         curHealth -= dmg;
-        if (isPlayer) //csak player kap sebezhetetlenséget ha damaget kap
+        if (isPlayer) //csak player kap sebezhetetlensÃ©get ha damaget kap
             StartCoroutine(BecomeInvincible(iTimeWhenDamageTaken));
 
         if (curHealth <= 0 && !isDead)
@@ -109,6 +121,22 @@ public class HealthScript : MonoBehaviour
         }
         else //if enemy
         {
+            // Spawns GameObjects on death at the parents position and rotation
+
+            for(int i = 0;i < ObjectsToSpawn.Count;i++)
+            {
+                int chanceRoll = Random.Range(1, 100); // inlcusive has to be 1-100
+                if(chanceRoll <= ObjectsToSpawn[i].Chance)
+                {
+                    Instantiate(ObjectsToSpawn[i].Object, myTransform.position, myTransform.rotation);
+                    if(ObjectsToSpawn[i].isEnemy)
+                    {
+                        RoomsManager.Instance.ChangeActiveEnemiesToCount(+1); //increase the current enemiesInThisRoom
+                    }
+                }
+            }
+
+            //this has to be here otherwise doors open prematurely
             RoomsManager.Instance.ChangeActiveEnemiesToCount(-1); //decreasing the current enemiesInThisRoom
 
             //gameObject: the GameObject this component is linked to
