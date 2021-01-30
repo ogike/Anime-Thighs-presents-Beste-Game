@@ -10,8 +10,8 @@ using UnityEngine;
 public class EnemyAvoidMovement : MonoBehaviour
 {
     public float moveSpeed;
-    public float distToStop; //if within this distance from the player, we wont move
-    public float distToStart; //if farther than this distance from the player, we wont move
+    //public float distToStop; //if within this distance from the player, we wont move
+    //public float distToStart; //if farther than this distance from the player, we wont move
 
     EnemyHandler myHandler;
 
@@ -39,10 +39,13 @@ public class EnemyAvoidMovement : MonoBehaviour
     // LateUpdate is the same, but its called after the normal Update()-s, which means it will be after the EnemyScripts's Update, and that all the variables will be up-to-date
     void LateUpdate()
     {
-        //pass these variables as references to the method (like pointers)
-        myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+        //get the vector data from the enemy handler
+        dirToTarget  = myHandler.GetDirToPlayer();
+        distToTarget = myHandler.GetDistToTarget();
 
-        if (distToTarget > distToStop && distToStart > distToTarget)
+        //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+
+        //if (distToTarget > distToStop && distToStart > distToTarget)
         {
             Vector3 oppositeDir = new Vector3(-1 * dirToTarget.x, -1 * dirToTarget.y, 0);
             MoveInDir(oppositeDir);

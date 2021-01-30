@@ -4150,6 +4150,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTest
       objectReference: {fileID: 0}
+    - target: {fileID: 6798928049399388275, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798928049399388277, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
 --- !u!4 &1038336120 stripped
