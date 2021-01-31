@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 34
   attackCooldown: 1
+  knockbackStrength: 1000
 --- !u!1 &6798928049399388275
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,6 +149,7 @@ MonoBehaviour:
   isPlayer: 0
   iTimeWhenDamageTaken: 1
   curHealth: 0
+  ObjectsToSpawn: []
 --- !u!114 &2816921144513639867
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,15 +17,15 @@ public class SpawnOnDeath
 
 public class HealthScript : MonoBehaviour
 {
-    public int  maxHealth = 100; //ezt playernek a playerHandler �rja fel�l
+    public int  maxHealth = 100; //ezt playernek a playerHandler irja felul
                                  //with enemies, should be set in the inpsector
     public bool isPlayer = false;
 
-    //A sebezhetetlenség �llapot�t t�rolja
+    //A sebezhetetlenség allapotat tarolja
     bool isInvincible = false;
 
     [SerializeField]
-    float iTimeWhenDamageTaken = 0.3f; // meddig tart a sebezhetetlens�g ha damaget kapsz
+    float iTimeWhenDamageTaken = 0.3f; // meddig tart a sebezhetetlenseg ha damaget kapsz
 
     public int curHealth; //only public for debugging
     bool isDead = false;
@@ -36,24 +36,31 @@ public class HealthScript : MonoBehaviour
 
     Transform myTransform;
 
+    Rigidbody2D myRigidbody;
+
     // Start is called before the first frame update
     void Awake()
     {
         //curHealth = maxHealth;
         myRenderer = GetComponent<SpriteRenderer>();
 
-        //a playert a playerHandler-ben healelj�k (mert ott �ll�tjuk be a HealthStatokat is)
+        //a playert a playerHandler-ben healeljuk (mert ott allitjuk be a HealthStatokat is)
         if(!isPlayer)
             HealToMax();
 
         myTransform = GetComponent<Transform>();
+
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
-	public void TakeDamage (int dmg)
+	public void TakeDamage (int dmg, Vector2 knockbackDir, int knockbackStrength)
 	{
+
         //ha sebezhetetlen akkor nem fog damaget kapni
         if (isInvincible)
             return;
+
+        Knockback(knockbackDir, knockbackStrength);
 
         curHealth -= dmg;
         if (isPlayer) //csak player kap sebezhetetlenséget ha damaget kap
@@ -66,9 +73,14 @@ public class HealthScript : MonoBehaviour
         else if (isPlayer && !isDead)
 		{
             UpdateHealthVisuals();
-
         }
 	}
+
+    public void Knockback(Vector2 knockbackDir, int knockbackStrength)
+    {
+        myRigidbody.AddForce(knockbackDir * knockbackStrength);
+        //Debug.Log(knockbackStrength);
+    }
 
     public void HealToMax ()
 	{

@@ -13,18 +13,22 @@ public class EnemyMeleeScript : MonoBehaviour
 {
     public int   damage = 50;
     public float attackCooldown = 1;
+    public int knockbackStrength = 0;
 
     float curCooldown;
     bool isAttacking;
 
     HealthScript playerHealth;
 
-
+    Transform playerTrans;
+    Transform myTrans;
 
     // Start is called before the first frame update
     void Start()
     {
         playerHealth = GameManagerScript.Instance.playerHealth;
+        playerTrans = GameManagerScript.Instance.playerTransform;
+        myTrans = GetComponent<Transform>();
 
         curCooldown = attackCooldown;
         isAttacking = false;
@@ -47,7 +51,9 @@ public class EnemyMeleeScript : MonoBehaviour
 
     void Attack()
 	{
-        playerHealth.TakeDamage(damage);
+        Vector3 tempKnockbackDir = (playerTrans.position - myTrans.position).normalized; //calculating the direction between us and the enemy, and using it for knockback
+        Vector2 knockbackDir = new Vector2(tempKnockbackDir.x, tempKnockbackDir.y);
+        playerHealth.TakeDamage(damage, knockbackDir, knockbackStrength);
     }
 
     //the player enters the trigger

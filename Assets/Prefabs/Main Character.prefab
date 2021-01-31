@@ -51,6 +51,7 @@ MonoBehaviour:
   cooldown: 0.1
   bulletSpeed: 15
   damage: 34
+  knockbackStrength: 1000
 --- !u!114 &4266661549426514106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +116,7 @@ MonoBehaviour:
   cooldown: 0.5
   bulletSpeed: 8
   damage: 150
+  knockbackStrength: 1000
 --- !u!114 &1007083159957019152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,7 +172,6 @@ GameObject:
   - component: {fileID: 8711418262968779816}
   - component: {fileID: 5956717819387653671}
   - component: {fileID: 8711418262968779818}
-  - component: {fileID: 8711418262968779821}
   - component: {fileID: 8711418262968779820}
   - component: {fileID: 833093343670269082}
   - component: {fileID: 8711418262968779817}
@@ -301,25 +302,6 @@ MonoBehaviour:
   dashCooldown: 0.5
   dashSpeed: 3000
   dashTimeMod: 0.00006
---- !u!114 &8711418262968779821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8711418262968779831}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9ed9aa107d226247859c94aca6f88ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootPosTrans: {fileID: 8711418262277516408}
-  bulletPrefab: {fileID: 2288382152185448251, guid: 6bc236fd756e9574b8a0b6a1aae19e23,
-    type: 3}
-  isAuto: 1
-  cooldown: 0.1
-  bulletSpeed: 15
-  damage: 34
 --- !u!114 &8711418262968779820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +318,7 @@ MonoBehaviour:
   isPlayer: 1
   iTimeWhenDamageTaken: 0.3
   curHealth: 0
+  ObjectsToSpawn: []
 --- !u!114 &833093343670269082
 MonoBehaviour:
   m_ObjectHideFlags: 0
