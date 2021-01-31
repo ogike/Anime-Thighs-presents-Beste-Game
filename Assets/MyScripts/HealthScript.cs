@@ -38,6 +38,8 @@ public class HealthScript : MonoBehaviour
 
     Rigidbody2D myRigidbody;
 
+    AudioSource myAudioSource;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -45,8 +47,10 @@ public class HealthScript : MonoBehaviour
         myRenderer = GetComponent<SpriteRenderer>();
 
         //a playert a playerHandler-ben healeljuk (mert ott allitjuk be a HealthStatokat is)
-        if(!isPlayer)
+        if (!isPlayer)
             HealToMax();
+        else
+            myAudioSource = GetComponent<AudioSource>();
 
         myTransform = GetComponent<Transform>();
 
@@ -64,7 +68,10 @@ public class HealthScript : MonoBehaviour
 
         curHealth -= dmg;
         if (isPlayer) //csak player kap sebezhetetlenséget ha damaget kap
+        {
+            myAudioSource.Play();
             StartCoroutine(BecomeInvincible(iTimeWhenDamageTaken));
+        }
 
         if (curHealth <= 0 && !isDead)
 		{
