@@ -51,7 +51,7 @@ public class EnemyMeleeScript : MonoBehaviour
 
     void Attack()
 	{
-        Vector3 tempKnockbackDir = (playerTrans.position - myTrans.position).normalized;
+        Vector3 tempKnockbackDir = (playerTrans.position - myTrans.position).normalized; //calculating the direction between us and the enemy, and using it for knockback
         Vector2 knockbackDir = new Vector2(tempKnockbackDir.x, tempKnockbackDir.y);
         playerHealth.TakeDamage(damage, knockbackDir, knockbackStrength);
     }
