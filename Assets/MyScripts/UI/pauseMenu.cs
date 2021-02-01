@@ -37,20 +37,22 @@ public class pauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+        //handling stuff specific to the menu system
         PauseMenu.SetActive(true);
-         isPaused = true;
-        Time.timeScale = 0f;
-       
+        isPaused = true;
+
+        //handling stuff specific to the Player/Gameplay
+        GameManagerScript.Instance.PauseGame();
     }
 
     public void ResumeGame()
     {
+        //handling stuff specific to the menu system
         PauseMenu.SetActive(false);
-        
-        Time.timeScale = 1;
-
         isPaused = false;
-        
+
+        //handling stuff specific to the Player/Gameplay
+        GameManagerScript.Instance.ResumeGame();
     }
 
     public void Restart()

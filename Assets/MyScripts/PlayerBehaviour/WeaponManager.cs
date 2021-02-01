@@ -72,10 +72,17 @@ public class WeaponManager : MonoBehaviour
     }
 
     //when we die, the HealthScript calls this function
+    //and also the GameManager when pausing
     public void DisableCurWeapon()
 	{
         weapons[curWeaponIndex].enabled = false;
 	}
+
+    //GameManager calls this when we resume the game
+    public void EnableCurWeapon()
+	{
+        weapons[curWeaponIndex].enabled = true;
+    }
 
     //for updating the current weapon's stats
     public void UpdateCurWeaponStats ()

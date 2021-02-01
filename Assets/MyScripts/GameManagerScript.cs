@@ -27,6 +27,10 @@ public class GameManagerScript : MonoBehaviour
     [HideInInspector] public Transform playerTransform;
     [HideInInspector] public HealthScript playerHealth; //automatically set
     [HideInInspector] public PlayerHandler playerHandler;
+    [HideInInspector] public PlayerController playerController;
+    [HideInInspector] public WeaponManager playerWeaponManager;
+
+    [HideInInspector] public bool isPaused; //not using this yet but might be useful later
 
     //Awake is called before start
 	private void Awake()
@@ -35,9 +39,11 @@ public class GameManagerScript : MonoBehaviour
 
         camTrans = mainCamera.GetComponent<Transform>();
 
-        playerTransform = playerObject.GetComponent<Transform>();
-        playerHealth    = playerObject.GetComponent<HealthScript>();
-        playerHandler   = playerObject.GetComponent<PlayerHandler>();
+        playerTransform     = playerObject.GetComponent<Transform>();
+        playerHealth        = playerObject.GetComponent<HealthScript>();
+        playerHandler       = playerObject.GetComponent<PlayerHandler>();
+        playerController    = playerObject.GetComponent<PlayerController>();
+        playerWeaponManager = playerObject.GetComponent<WeaponManager>();
 
         winReward.SetActive(false); //PLACEHOLDER
 	}
@@ -60,4 +66,22 @@ public class GameManagerScript : MonoBehaviour
 	{
         winReward.SetActive(true);
 	}
+
+    public void PauseGame ()
+	{
+        isPaused = true;
+        Time.timeScale = 0f;
+
+        playerController.enabled = false; //disable player controls
+        playerWeaponManager.DisableCurWeapon(); //disable shooting as well
+    }
+
+    public void ResumeGame ()
+	{
+        isPaused = false;
+        Time.timeScale = 1;
+
+        playerController.enabled = true; //reenable player controls
+        playerWeaponManager.EnableCurWeapon(); //reenable shooting as well
+    }
 }
