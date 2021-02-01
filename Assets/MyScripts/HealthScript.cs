@@ -100,10 +100,8 @@ public class HealthScript : MonoBehaviour
         if (isPlayer)
         {
             //special GameOver stuff
-            Debug.Log("You died. bruh");
-            //Time.timeScale = 0; //stop time
-            GetComponent<PlayerController>().enabled = false; //disable player controller, cos we fucking dead
-            GetComponent<WeaponManager>().DisableCurWeapon(); //disable shooting as well
+            GameManagerScript.Instance.PlayerDie();
+
             myRenderer.color = Color.red;
             isDead = true;
         }

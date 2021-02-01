@@ -31,6 +31,7 @@ public class GameManagerScript : MonoBehaviour
     [HideInInspector] public WeaponManager playerWeaponManager;
 
     [HideInInspector] public bool isPaused; //not using this yet but might be useful later
+    [HideInInspector] public bool isDead;
 
     //Awake is called before start
 	private void Awake()
@@ -46,6 +47,9 @@ public class GameManagerScript : MonoBehaviour
         playerWeaponManager = playerObject.GetComponent<WeaponManager>();
 
         winReward.SetActive(false); //PLACEHOLDER
+
+        isPaused = false;
+        isDead   = false;
 	}
 
     public void SetCameraPosition (Vector3 newPos)
@@ -66,6 +70,14 @@ public class GameManagerScript : MonoBehaviour
 	{
         winReward.SetActive(true);
 	}
+
+    public void PlayerDie()
+	{
+        isDead = true;
+        Debug.Log("You died. bruh");
+        playerController.enabled = false; //disable player controls
+        playerWeaponManager.DisableCurWeapon(); //disable shooting as well
+    }
 
     public void PauseGame ()
 	{

@@ -7,8 +7,6 @@ public class pauseMenu : MonoBehaviour
 {
     // the basic version of pause menu, use ESC to activate
     // spagoot cooked by ReRo OwO 
-    // only current issue is that u can still forog and (kinf of, not really) shoot when game is paused
-    // the code responsible for shooting will need to be tweaked slightly for the latter
 
     public GameObject PauseMenu;
 
@@ -16,14 +14,12 @@ public class pauseMenu : MonoBehaviour
     void Start()
     {
         PauseMenu.SetActive(false);
-
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !GameManagerScript.Instance.isDead)
         {
             if (isPaused)
             {
