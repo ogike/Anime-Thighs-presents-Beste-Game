@@ -24,6 +24,7 @@ public class WeaponManager : MonoBehaviour
                                         //these should be attached to different GameObjects that are the children of the Player GameObject
                                         //set automatically
 
+    public SoundClass weaponSwitchSound;
 
     int curWeaponIndex;
 
@@ -70,6 +71,8 @@ public class WeaponManager : MonoBehaviour
         weaponObjects[curWeaponIndex].SetActive(true); //enabling the new weapon
 
         UpdateCurWeaponStats(); //if the weapon stats changed since last time the weapon was active, we should update them
+
+        AudioManager.Instance.PlayFXSound(weaponSwitchSound);
     }
 
     //when we die, the HealthScript calls this function

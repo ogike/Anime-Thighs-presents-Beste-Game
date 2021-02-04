@@ -46,6 +46,8 @@ public class RoomHandler : MonoBehaviour
         if (!completed)
         {
             enemiesToWakeOnEnter.SetActive(true);
+
+            RoomsManager.Instance.CloseDoors(); //for sound fx
         }
         else
 		{
@@ -87,6 +89,7 @@ public class RoomHandler : MonoBehaviour
             //rewards[index].SetActive(true);
         }
 
+        RoomsManager.Instance.OpenDoors(); //for sound fx
     }
 
     //should only be called at the start of the game for the unopened rooms

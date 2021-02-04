@@ -73,6 +73,10 @@ MonoBehaviour:
   damage: 50
   attackCooldown: 0.8
   knockbackStrength: 0
+  meleeSound:
+    name: 
+    clip: {fileID: 8300000, guid: deb3390742aa5f04f82a0d2bb7730924, type: 3}
+    volume: 0.722
 --- !u!1 &6798928049399388275
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +157,7 @@ MonoBehaviour:
   hurtSound:
     name: 
     clip: {fileID: 8300000, guid: 3fd74ec8db742bc4ebcdbf541f703423, type: 3}
-    volume: 0.388
+    volume: 0.501
   deathSound:
     name: 
     clip: {fileID: 8300000, guid: 10edc81df93860f46b3a675ec1e248ef, type: 3}

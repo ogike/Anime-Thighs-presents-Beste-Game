@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3361763738209568900}
   - component: {fileID: -2779475536323069878}
   m_Layer: 12
-  m_Name: DmgUpgrade
+  m_Name: DmgPowerup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,6 +129,10 @@ MonoBehaviour:
     valueDifference: 0
     isPowerup: 1
     duration: 10
+  pickupSound:
+    name: 
+    clip: {fileID: 8300000, guid: 6d0c0e0755f3626498d67e0eba0b8d96, type: 3}
+    volume: 0.602
 --- !u!114 &-2779475536323069878
 MonoBehaviour:
   m_ObjectHideFlags: 0

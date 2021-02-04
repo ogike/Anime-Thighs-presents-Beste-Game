@@ -7679,7 +7679,6 @@ GameObject:
   - component: {fileID: 1913244102}
   - component: {fileID: 1913244104}
   - component: {fileID: 1913244105}
-  - component: {fileID: 1913244106}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7740,6 +7739,14 @@ MonoBehaviour:
   - {fileID: 1421323308}
   - {fileID: 1891017899}
   - {fileID: 1520253247}
+  openDoorsSound:
+    name: 
+    clip: {fileID: 8300000, guid: 645d32feac06066418fcef0afff76654, type: 3}
+    volume: 1
+  closeDoorsSound:
+    name: 
+    clip: {fileID: 8300000, guid: 50cb693d08b486a4480179e937489404, type: 3}
+    volume: 0.793
   curEnemyCountInRoom: 0
 --- !u!114 &1913244105
 MonoBehaviour:
@@ -7753,102 +7760,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e9d7d75d07c7d49b3d14790a91d8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!82 &1913244106
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1913244101}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  mainMusic:
+    name: Main theme
+    clip: {fileID: 8300000, guid: 5a3bdd64d8cdeaa44b0f4f43f7917ce7, type: 3}
+    volume: 0
+  sfxVolume: 0.507
+  musicVolume: 0.228
 --- !u!1001 &1916639286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10767,6 +10684,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 833093343670269082, guid: f0a8fbb7922c2664cbd5553dbcc30002,
+        type: 3}
+      propertyPath: weaponSwitchSound.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7972c1975238f7d448e45305ff8842e1, type: 3}
     - target: {fileID: 5099791131187098452, guid: f0a8fbb7922c2664cbd5553dbcc30002,
         type: 3}
       propertyPath: m_Volume
@@ -10776,6 +10698,11 @@ PrefabInstance:
         type: 3}
       propertyPath: shootingSound.volume
       value: 0.449
+      objectReference: {fileID: 0}
+    - target: {fileID: 7917777461712252967, guid: f0a8fbb7922c2664cbd5553dbcc30002,
+        type: 3}
+      propertyPath: shootingSound.volume
+      value: 0.415
       objectReference: {fileID: 0}
     - target: {fileID: 8711418262968779819, guid: f0a8fbb7922c2664cbd5553dbcc30002,
         type: 3}

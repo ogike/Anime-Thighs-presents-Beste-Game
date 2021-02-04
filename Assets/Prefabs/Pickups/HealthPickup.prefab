@@ -123,3 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthGiven: 50
+  pickupSound:
+    name: 
+    clip: {fileID: 8300000, guid: fa71097afff123b4ea359851fea88c67, type: 3}
+    volume: 0.765

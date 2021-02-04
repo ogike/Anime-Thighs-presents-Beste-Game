@@ -13,5 +13,5 @@ public class SoundClass
 
     public AudioClip clip; //the audio clip to play
 
-    [Range(0f, 1f)] public float volume;
+    [Range(0f, 1f)] public float volume = 1f;
 }

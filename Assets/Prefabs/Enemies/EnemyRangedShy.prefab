@@ -103,6 +103,10 @@ MonoBehaviour:
   damage: 20
   attackCooldown: 1.3
   knockbackStrength: 0
+  meleeSound:
+    name: 
+    clip: {fileID: 8300000, guid: deb3390742aa5f04f82a0d2bb7730924, type: 3}
+    volume: 1
 --- !u!1 &6798928049399388275
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +191,7 @@ MonoBehaviour:
   hurtSound:
     name: 
     clip: {fileID: 8300000, guid: 3fd74ec8db742bc4ebcdbf541f703423, type: 3}
-    volume: 0.388
+    volume: 0.501
   deathSound:
     name: 
     clip: {fileID: 8300000, guid: 10edc81df93860f46b3a675ec1e248ef, type: 3}
@@ -220,6 +224,10 @@ MonoBehaviour:
   cooldown: 0.75
   projectileSpeed: 20
   spreadAngle: 20
+  shootSound:
+    name: 
+    clip: {fileID: 8300000, guid: 5a5a93c155bb72643b6a6ab76017df8d, type: 3}
+    volume: 1
   shootPosTrans: {fileID: 440967445764253399}
   projectilePrefab: {fileID: 7064120841711388497, guid: 923d6833809e1f84d9f195c17970514f,
     type: 3}
