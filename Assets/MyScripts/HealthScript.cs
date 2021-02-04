@@ -32,12 +32,12 @@ public class HealthScript : MonoBehaviour
 
     public List<SpawnOnDeath> ObjectsToSpawn;
 
+    public SoundClass hurtSound;
+    public SoundClass deathSound;
+
     SpriteRenderer myRenderer; //for temp health display
-
     Transform myTransform;
-
     Rigidbody2D myRigidbody;
-
     AudioSource myAudioSource;
 
     // Start is called before the first frame update
@@ -64,22 +64,28 @@ public class HealthScript : MonoBehaviour
         if (isInvincible)
             return;
 
-        Knockback(knockbackDir, knockbackStrength);
-
-        curHealth -= dmg;
         if (isPlayer) //csak player kap sebezhetetlenséget ha damaget kap
         {
-            myAudioSource.Play();
             StartCoroutine(BecomeInvincible(iTimeWhenDamageTaken));
         }
 
-        if (curHealth <= 0 && !isDead)
-		{
-            Die();
-		}
-        else if (isPlayer && !isDead)
-		{
-            UpdateHealthVisuals();
+        Knockback(knockbackDir, knockbackStrength);
+
+        curHealth -= dmg;
+
+        if (!isDead)
+        {
+            if (curHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                if (isPlayer)
+                    UpdateHealthVisuals();
+
+                myAudioSource.PlayOneShot(hurtSound.clip, hurtSound.volume);
+            }
         }
 	}
 
@@ -128,11 +134,14 @@ public class HealthScript : MonoBehaviour
 
     void Die()
 	{
+        //we are using PlayClipAtThisPoint() because if we played the sound via this GameObject, the sound would stop once this gameObject is destroyed
+        AudioSource.PlayClipAtPoint(deathSound.clip, myTransform.position, deathSound.volume);
+
         if (isPlayer)
         {
             //special GameOver stuff
             Debug.Log("You died. bruh");
-            //Time.timeScale = 0; //stop time
+
             GetComponent<PlayerController>().enabled = false; //disable player controller, cos we fucking dead
             GetComponent<WeaponManager>().DisableCurWeapon(); //disable shooting as well
             myRenderer.color = Color.red;
@@ -140,20 +149,8 @@ public class HealthScript : MonoBehaviour
         }
         else //if enemy
         {
-            // Spawns GameObjects on death at the parents position and rotation
-
-            for(int i = 0;i < ObjectsToSpawn.Count;i++)
-            {
-                int chanceRoll = Random.Range(1, 100); // inlcusive has to be 1-100
-                if(chanceRoll <= ObjectsToSpawn[i].Chance)
-                {
-                    Instantiate(ObjectsToSpawn[i].Object, myTransform.position, myTransform.rotation);
-                    if(ObjectsToSpawn[i].isEnemy)
-                    {
-                        RoomsManager.Instance.ChangeActiveEnemiesToCount(+1); //increase the current enemiesInThisRoom
-                    }
-                }
-            }
+            //spawing randomly from ObjectsToSpawn on death
+            SpawnRandomObjects();
 
             //this has to be here otherwise doors open prematurely
             RoomsManager.Instance.ChangeActiveEnemiesToCount(-1); //decreasing the current enemiesInThisRoom
@@ -164,6 +161,22 @@ public class HealthScript : MonoBehaviour
             Destroy(gameObject);
         }
 	}
+
+    void SpawnRandomObjects ()
+	{
+        for (int i = 0; i < ObjectsToSpawn.Count; i++)
+        {
+            int chanceRoll = Random.Range(1, 100); // inlcusive has to be 1-100
+            if (chanceRoll <= ObjectsToSpawn[i].Chance)
+            {
+                Instantiate(ObjectsToSpawn[i].Object, myTransform.position, myTransform.rotation);
+                if (ObjectsToSpawn[i].isEnemy)
+                {
+                    RoomsManager.Instance.ChangeActiveEnemiesToCount(+1); //increase the current enemiesInThisRoom
+                }
+            }
+        }
+    }
 
     public IEnumerator BecomeInvincible(float iTime)
     {

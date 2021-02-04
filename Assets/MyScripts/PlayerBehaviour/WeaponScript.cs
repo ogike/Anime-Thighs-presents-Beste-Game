@@ -11,6 +11,8 @@ public class WeaponScript : MonoBehaviour
     public Transform shootPosTrans; //Where the bullets should spawn
     public GameObject bulletPrefab; //The bullet prefab to spawn
 
+    public SoundClass shootingSound;
+
     //these are the base stats of the weapon-------------------------------
     public bool  isAuto      = true; //is this weapon automatic-firing?
     public float cooldown    = 0.5f; //should be 0 if its not auto
@@ -24,7 +26,7 @@ public class WeaponScript : MonoBehaviour
 
     //these are the current stats that we should use-----------------------
     //after multiplying them with the different statBoosts
-    float curMaxCooldown;
+    public float curMaxCooldown; //DEBUG PUBLIC
     float curBulletSpeed;
     int curDamage;
     //int curKnockbackStrength;
@@ -32,8 +34,16 @@ public class WeaponScript : MonoBehaviour
 
     float curRemainingCooldown; //stores how much time there is until we can shoot again
 
-    // Start is called before the first frame update
-    void Start()
+    AudioSource audioSource;
+
+	private void Awake()
+	{
+        //we assume that the parent GameObject(the player itself) has an AudioSource attached
+        audioSource = transform.parent.GetComponent<AudioSource>();
+	}
+
+	// Start is called before the first frame update
+	void Start()
     {
         curRemainingCooldown = 0;
     }
@@ -77,7 +87,16 @@ public class WeaponScript : MonoBehaviour
         curBulletScript.speed  = curBulletSpeed;
         curBulletScript.damage = curDamage;
         curBulletScript.knockbackStrength = knockbackStrength;
+
+        PlayShootSound();
     }
+
+    //for now, the sound to be played is set in the audioSource componentb itself(should be changed later)
+    void PlayShootSound ()
+	{
+        //probs should be oneshot()??
+        audioSource.PlayOneShot(shootingSound.clip, shootingSound.volume);
+	}
 
     //called from the weapon manager to update weapons
         //also called at start or when switching weapon
