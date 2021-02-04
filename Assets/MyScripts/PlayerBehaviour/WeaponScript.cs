@@ -34,14 +34,6 @@ public class WeaponScript : MonoBehaviour
 
     float curRemainingCooldown; //stores how much time there is until we can shoot again
 
-    AudioSource audioSource;
-
-	private void Awake()
-	{
-        //we assume that the parent GameObject(the player itself) has an AudioSource attached
-        audioSource = transform.parent.GetComponent<AudioSource>();
-	}
-
 	// Start is called before the first frame update
 	void Start()
     {
@@ -94,8 +86,7 @@ public class WeaponScript : MonoBehaviour
     //for now, the sound to be played is set in the audioSource componentb itself(should be changed later)
     void PlayShootSound ()
 	{
-        //probs should be oneshot()??
-        audioSource.PlayOneShot(shootingSound.clip, shootingSound.volume);
+        AudioManager.Instance.PlayFXSound(shootingSound);
 	}
 
     //called from the weapon manager to update weapons

@@ -38,7 +38,6 @@ public class HealthScript : MonoBehaviour
     SpriteRenderer myRenderer; //for temp health display
     Transform myTransform;
     Rigidbody2D myRigidbody;
-    AudioSource myAudioSource;
 
     // Start is called before the first frame update
     void Awake()
@@ -49,8 +48,6 @@ public class HealthScript : MonoBehaviour
         //a playert a playerHandler-ben healeljuk (mert ott allitjuk be a HealthStatokat is)
         if (!isPlayer)
             HealToMax();
-        else
-            myAudioSource = GetComponent<AudioSource>();
 
         myTransform = GetComponent<Transform>();
 
@@ -84,7 +81,7 @@ public class HealthScript : MonoBehaviour
                 if (isPlayer)
                     UpdateHealthVisuals();
 
-                myAudioSource.PlayOneShot(hurtSound.clip, hurtSound.volume);
+                AudioManager.Instance.PlayFXSound(hurtSound);
             }
         }
 	}
@@ -134,8 +131,7 @@ public class HealthScript : MonoBehaviour
 
     void Die()
 	{
-        //we are using PlayClipAtThisPoint() because if we played the sound via this GameObject, the sound would stop once this gameObject is destroyed
-        AudioSource.PlayClipAtPoint(deathSound.clip, myTransform.position, deathSound.volume);
+        AudioManager.Instance.PlayFXSound(deathSound);
 
         if (isPlayer)
         {
