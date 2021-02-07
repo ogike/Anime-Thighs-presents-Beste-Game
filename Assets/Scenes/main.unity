@@ -7764,8 +7764,8 @@ MonoBehaviour:
     name: Main theme
     clip: {fileID: 8300000, guid: 5a3bdd64d8cdeaa44b0f4f43f7917ce7, type: 3}
     volume: 0
-  sfxVolume: 0
-  musicVolume: 0
+  sfxVolume: 0.057
+  musicVolume: 0.009
 --- !u!1001 &1916639286
 PrefabInstance:
   m_ObjectHideFlags: 0
