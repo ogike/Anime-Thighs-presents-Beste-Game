@@ -17,8 +17,11 @@ public class EnemyRangedBasic : MonoBehaviour
 {
     public int   damage;
     public float cooldown;
-    public float distToAttack;
+    public int knockbackStrength;
+    //public float distToAttack;
     public float projectileSpeed;
+
+    public SoundClass shootSound;
 
     public Transform shootPosTrans;     //where the projectiles will spawn;
     public GameObject projectilePrefab; //the projectile to spawn
@@ -41,14 +44,17 @@ public class EnemyRangedBasic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //pass these variables as references to the method (like pointers) in EnemyHandler to update them 
-        myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+        //get the vector data from the enemy handler
+        dirToTarget = myHandler.GetDirToPlayer();
+        distToTarget = myHandler.GetDistToTarget();
+
+        //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (curCooldown > 0)
         {
             curCooldown -= Time.deltaTime;
         }
-        else if (distToTarget < distToAttack)
+        else// if (distToTarget < distToAttack)
         {
             Attack();
             curCooldown = cooldown;
@@ -60,9 +66,11 @@ public class EnemyRangedBasic : MonoBehaviour
         //this is where you would implement crazier stuff like multi-directional shots, etc etc
 
         float angleToTarget =  Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1);
-            //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
-            //majd átváltjuk fokká
-            //nem tudom miért kell beszorozni (-1)-el???? csak így mûködik tho
+        //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
+        //majd Ã¡tvÃ¡ltjuk fokkÃ¡
+        //nem tudom miÃ©rt kell beszorozni (-1)-el???? csak Ã­gy mÅ±kÅ‘dik tho
+
+        AudioManager.Instance.PlayFXSound(shootSound);
 
         ShootOnce(angleToTarget);
     }
@@ -70,8 +78,8 @@ public class EnemyRangedBasic : MonoBehaviour
     //called for every projectile
     void ShootOnce(float angleToTarget)
 	{
-        //az irányvektorok helyett inkább z tengelyes rotation-nal kezeljük a forgatást, ez a angleToTarget
-        Quaternion shootRot = Quaternion.Euler(0, 0, angleToTarget); //turn the shootingDirectionAngle into a Quaternion, amit használ a unity iss
+        //az irÃ¡nyvektorok helyett inkÃ¡bb z tengelyes rotation-nal kezeljÃ¼k a forgatÃ¡st, ez a angleToTarget
+        Quaternion shootRot = Quaternion.Euler(0, 0, angleToTarget); //turn the shootingDirectionAngle into a Quaternion, amit hasznÃ¡l a unity is
 
         //shootPosTrans is the GameObject/Transform which stores where the bullets should spawn
         //its a children of the Player GameObject, so its position is relative to the parent
@@ -84,5 +92,6 @@ public class EnemyRangedBasic : MonoBehaviour
         BulletScript curBulletScript = curBullet.GetComponent<BulletScript>();
         curBulletScript.speed = projectileSpeed;
         curBulletScript.damage = damage;
+        curBulletScript.knockbackStrength = knockbackStrength;
     }
 }

@@ -7,24 +7,37 @@ using UnityEngine;
  * 
  */
 
+[System.Serializable]
+public class SpawnOnDeath
+{
+    public GameObject Object;
+    [Range(0, 100)]public int Chance; //chance of spawning
+    public bool isEnemy;
+}
+
 public class HealthScript : MonoBehaviour
 {
-    public int  maxHealth = 100; //ezt playernek a playerHandler írja felül
+    public int  maxHealth = 100; //ezt playernek a playerHandler irja felul
                                  //with enemies, should be set in the inpsector
     public bool isPlayer = false;
 
-    //A sebezhetetlenség állapotát tárolja
+    //A sebezhetetlensÃ©g allapotat tarolja
     bool isInvincible = false;
 
     [SerializeField]
-    float iTimeWhenDamageTaken = 0.3f; // meddig tart a sebezhetetlenség ha damaget kapsz
-    
+    float iTimeWhenDamageTaken = 0.3f; // meddig tart a sebezhetetlenseg ha damaget kapsz
 
     public int curHealth; //only public for debugging
     bool isDead = false;
 
+    public List<SpawnOnDeath> ObjectsToSpawn;
+
+    public SoundClass hurtSound;
+    public SoundClass deathSound;
 
     SpriteRenderer myRenderer; //for temp health display
+    Transform myTransform;
+    Rigidbody2D myRigidbody;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,31 +45,52 @@ public class HealthScript : MonoBehaviour
         //curHealth = maxHealth;
         myRenderer = GetComponent<SpriteRenderer>();
 
-        //a playert a playerHandler-ben healeljük (mert ott állítjuk be a HealthStatokat is)
-        if(!isPlayer)
+        //a playert a playerHandler-ben healeljuk (mert ott allitjuk be a HealthStatokat is)
+        if (!isPlayer)
             HealToMax();
+
+        myTransform = GetComponent<Transform>();
+
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
-	public void TakeDamage (int dmg)
+	public void TakeDamage (int dmg, Vector2 knockbackDir, int knockbackStrength)
 	{
+
         //ha sebezhetetlen akkor nem fog damaget kapni
         if (isInvincible)
             return;
 
-        curHealth -= dmg;
-        if (isPlayer) //csak player kap sebezhetetlenséget ha damaget kap
+        if (isPlayer) //csak player kap sebezhetetlensÃ©get ha damaget kap
+        {
             StartCoroutine(BecomeInvincible(iTimeWhenDamageTaken));
+        }
 
-        if (curHealth <= 0 && !isDead)
-		{
-            Die();
-		}
-        else if (isPlayer && !isDead)
-		{
-            UpdateHealthVisuals();
+        Knockback(knockbackDir, knockbackStrength);
 
+        curHealth -= dmg;
+
+        if (!isDead)
+        {
+            if (curHealth <= 0)
+            {
+                Die();
+            }
+            else
+            {
+                if (isPlayer)
+                    UpdateHealthVisuals();
+
+                AudioManager.Instance.PlayFXSound(hurtSound);
+            }
         }
 	}
+
+    public void Knockback(Vector2 knockbackDir, int knockbackStrength)
+    {
+        myRigidbody.AddForce(knockbackDir * knockbackStrength);
+        //Debug.Log(knockbackStrength);
+    }
 
     public void HealToMax ()
 	{
@@ -97,16 +131,22 @@ public class HealthScript : MonoBehaviour
 
     void Die()
 	{
+        AudioManager.Instance.PlayFXSound(deathSound);
+
         if (isPlayer)
         {
             //special GameOver stuff
             GameManagerScript.Instance.PlayerDie();
-
+            
             myRenderer.color = Color.red;
             isDead = true;
         }
         else //if enemy
         {
+            //spawing randomly from ObjectsToSpawn on death
+            SpawnRandomObjects();
+
+            //this has to be here otherwise doors open prematurely
             RoomsManager.Instance.ChangeActiveEnemiesToCount(-1); //decreasing the current enemiesInThisRoom
 
             //gameObject: the GameObject this component is linked to
@@ -115,6 +155,22 @@ public class HealthScript : MonoBehaviour
             Destroy(gameObject);
         }
 	}
+
+    void SpawnRandomObjects ()
+	{
+        for (int i = 0; i < ObjectsToSpawn.Count; i++)
+        {
+            int chanceRoll = Random.Range(1, 100); // inlcusive has to be 1-100
+            if (chanceRoll <= ObjectsToSpawn[i].Chance)
+            {
+                Instantiate(ObjectsToSpawn[i].Object, myTransform.position, myTransform.rotation);
+                if (ObjectsToSpawn[i].isEnemy)
+                {
+                    RoomsManager.Instance.ChangeActiveEnemiesToCount(+1); //increase the current enemiesInThisRoom
+                }
+            }
+        }
+    }
 
     public IEnumerator BecomeInvincible(float iTime)
     {

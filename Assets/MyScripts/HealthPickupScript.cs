@@ -8,13 +8,16 @@ using UnityEngine;
 
 public class HealthPickupScript : MonoBehaviour
 {
-     public int healthGiven = 50;
+	public int healthGiven = 50;
+
+	public SoundClass pickupSound;
 
     private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if(collision.tag == "Player")
 		{
 			GameManagerScript.Instance.playerHandler.HealPlayer(healthGiven);
+			AudioManager.Instance.PlayFXSound(pickupSound);
             Destroy(gameObject);
 		}
 	}

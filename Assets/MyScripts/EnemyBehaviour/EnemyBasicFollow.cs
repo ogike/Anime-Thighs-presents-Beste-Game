@@ -12,8 +12,8 @@ using UnityEngine;
 public class EnemyBasicFollow : MonoBehaviour
 {
     public float moveSpeed;
-    public float distToStop; //if within this distance from the player, we wont move
-    public float distToStart; //if farther than this distance from the player, we wont move
+    //public float distToStop; //if within this distance from the player, we wont move
+    //public float distToStart; //if farther than this distance from the player, we wont move
 
     //TEMPORARY, csak arra van hogyha megnyitod a játékot ne egybõl rohanjanak
 
@@ -43,10 +43,13 @@ public class EnemyBasicFollow : MonoBehaviour
     // LateUpdate is the same, but its called after the normal Update()-s, which means it will be after the EnemyScripts's Update, and that all the variables will be up-to-date
     void LateUpdate()
     {
-        //pass these variables as references to the method (like pointers) to update them
-        myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+        //get the vector data from the enemy handler
+        dirToTarget = myHandler.GetDirToPlayer();
+        distToTarget = myHandler.GetDistToTarget();
 
-        if (distToTarget > distToStop && distToStart > distToTarget)
+        //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+
+        //if (distToTarget > distToStop && distToStart > distToTarget)
         {
             MoveInDir(dirToTarget);
         }
