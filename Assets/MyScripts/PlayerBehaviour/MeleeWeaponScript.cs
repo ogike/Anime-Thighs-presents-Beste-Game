@@ -10,9 +10,9 @@ using UnityEngine;
 public class MeleeWeaponScript : MonoBehaviour
 {
 
-    [HideInInspector] public float speed;
-    [HideInInspector] public int damage;
-    [HideInInspector] public int knockbackStrength;
+    
+    public int damage = 200;
+    public int knockbackStrength = 15;
     // Start is called before the first frame update
     void Start()
     {

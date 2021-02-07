@@ -337,6 +337,7 @@ MonoBehaviour:
   weaponObjects:
   - {fileID: 54687678141253498}
   - {fileID: 5621599523093426748}
+  - {fileID: 5946642174134629939, guid: e861a0d30051516418fdbd40c184b376, type: 3}
 --- !u!58 &8711418262968779817
 CircleCollider2D:
   m_ObjectHideFlags: 0
