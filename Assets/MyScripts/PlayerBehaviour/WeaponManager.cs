@@ -85,7 +85,7 @@ public class WeaponManager : MonoBehaviour
     //GameManager calls this when we resume the game
     public void EnableCurWeapon()
 	{
-        weapons[curWeaponIndex].enabled = true;
+        weaponObjects[curWeaponIndex].SetActive(true);
     }
 
     //for updating the current weapon's stats
