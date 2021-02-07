@@ -78,6 +78,8 @@ GameObject:
   - component: {fileID: 8266770457391979811}
   - component: {fileID: 3267829641113851192}
   - component: {fileID: 588356314222556432}
+  - component: {fileID: 6370312072998769703}
+  - component: {fileID: 8493825246303115498}
   m_Layer: 6
   m_Name: Sword
   m_TagString: Untagged
@@ -177,6 +179,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 200
   knockbackStrength: 15
+  swingCD: 0.3
+  curCD: 0
+  swingSpeed: 200
 --- !u!61 &588356314222556432
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -203,6 +208,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.09, y: 0.2}
   m_EdgeRadius: 0
+--- !u!95 &6370312072998769703
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276808645095264318}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4c7bf8fc788b4bf41a181553f07654d8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8493825246303115498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276808645095264318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7301161d9cddaab48a0a8036aefd0f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5621599523093426748
 GameObject:
   m_ObjectHideFlags: 0

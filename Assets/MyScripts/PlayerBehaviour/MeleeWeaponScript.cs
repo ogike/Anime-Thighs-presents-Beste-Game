@@ -10,7 +10,7 @@ using UnityEngine;
 public class MeleeWeaponScript : MonoBehaviour
 {
 
-    enum Position
+    enum Position //Amelyik oldalon van a kard, azzal ellenkezõ irányba kell swingelni
     {
         Left,
         Right
@@ -42,19 +42,19 @@ public class MeleeWeaponScript : MonoBehaviour
             curCD -= Time.deltaTime;
             if (myPos == Position.Right)
             {
-
-                transform.RotateAround(transform.parent.position, Vector3.forward, swingSpeed * Time.deltaTime);
+                transform.RotateAround(transform.parent.position, Vector3.forward, swingSpeed * -1 * Time.deltaTime);
+                
                 //myTrans.rotation = transform.parent.rotation * Quaternion.Euler(0, 0, 180);
 
                 
             }
             else
             {
+                transform.RotateAround(transform.parent.position, Vector3.forward, swingSpeed * Time.deltaTime);
 
-                transform.RotateAround(transform.parent.position, Vector3.forward, swingSpeed * -1 * Time.deltaTime);
                 //myTrans.rotation = transform.parent.rotation * Quaternion.Euler(0, 0, 180);
 
-                
+
             }
         }
         if (!(curCD > 0) && Input.GetMouseButton(0))
