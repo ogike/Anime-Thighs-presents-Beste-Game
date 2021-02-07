@@ -12,6 +12,8 @@ public class PickupStatChanger : MonoBehaviour
 {
     public List<SkillStatBoost> statBoosts;
 
+    public SoundClass pickupSound;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
@@ -20,6 +22,8 @@ public class PickupStatChanger : MonoBehaviour
 			{
                 GameManagerScript.Instance.playerHandler.ApplyStatBoost(statBoosts[i]);
             }
+
+            AudioManager.Instance.PlayFXSound(pickupSound);
 
             Destroy(gameObject);
         }

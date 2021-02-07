@@ -16,40 +16,85 @@ public class RoomHandler : MonoBehaviour
 
     public GameObject playerBlockers;
 
+    public DoorScript[] doors;
+
     //public GameObject rewards; //the gameObject to activate when all the enemies are dead in this room
                                //optional
 
     public List<GameObject> rewards;
 
-    public int enemiesInThisRoom;
+    [HideInInspector] public int enemiesInThisRoom;
+    [HideInInspector] public bool completed;
 
-	public void Awake()
+    public void Awake()
 	{
         enemiesInThisRoom = enemiesToWakeOnEnter.transform.childCount;
-    }
 
-	public void ActivateRoom()
-	{
-        if (enemiesInThisRoom > 0)
-        {
-            enemiesToWakeOnEnter.SetActive(true); //activate all the enemy GameObjects
-            RoomsManager.Instance.ChangeActiveEnemiesToCount(enemiesInThisRoom); //updating the curEnemiesInRoom
+        if(enemiesInThisRoom == 0) //ha alapból nincs ellenség szobában, egybõl completed
+		{
+            CompleteRoom();
         }
         else
 		{
-            //if there are no enemies, doors should be open
-            OpenDoors();
-            NoMoreEnemies();
-
-        }
-
-        GameManagerScript.Instance.SetCameraPosition(cameraPosTrans.position);
-        RoomsManager.Instance.ChangeActiveRoom(this);
+            completed = false;
+		}
     }
 
+    //called from the RoomManager when entering
+    public void EnterRoom ()
+	{
+        if (!completed)
+        {
+            enemiesToWakeOnEnter.SetActive(true);
+
+            RoomsManager.Instance.CloseDoors(); //for sound fx
+        }
+        else
+		{
+            playerBlockers.SetActive(false); //deactivate the player blockers
+        }
+
+        //activate door scripts, even if they are locked behind the playerBlockers
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].isActive = true; //set the doorscript variable to be true
+        }
+    }
+
+    //called from the RoomManager when leaving
+    public void LeaveRoom ()
+	{
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].isActive = false; //set the doorscript variable to be false
+        }
+    }
+
+    //called when all the enemies are killed in this room
+    public void CompleteRoom()
+    {
+        completed = true;
+        enemiesInThisRoom = 0;
+
+        playerBlockers.SetActive(false); //deactivate the player blockers
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].isActive = true; //activating the doorScript variables, so the player can leave
+        }
+
+        if (rewards.Any())
+        {
+            int index = Random.Range(0, rewards.Count);
+            Instantiate(rewards[index], cameraPosTrans);
+            //rewards[index].SetActive(true);
+        }
+
+        RoomsManager.Instance.OpenDoors(); //for sound fx
+    }
+
+    //should only be called at the start of the game for the unopened rooms
     public void DeactivateRoom()
     {
-        //should only be called at the start of the game for the unopened rooms
         enemiesToWakeOnEnter.SetActive(false); //deactivate enemies
 
         //deactivate rewards
@@ -61,30 +106,10 @@ public class RoomHandler : MonoBehaviour
             }
         }*/
 
-        CloseDoors();
-    }
-
-    public void CloseDoors()
-	{
         playerBlockers.SetActive(true);
-    }
-
-    public void OpenDoors ()
-	{
-        playerBlockers.SetActive(false); //deactivate the player blockers
-    }
-
-    //called when all the enemies are killed in this room
-    public void NoMoreEnemies ()
-	{
-        enemiesInThisRoom = 0;
-
-        if (rewards.Any())
+        for (int i = 0; i < doors.Length; i++)
         {
-            int index = Random.Range(0, rewards.Count);
-            Instantiate( rewards[index], cameraPosTrans);
-            //rewards[index].SetActive(true);
+            doors[i].isActive = false; //set the doorscript variable to be false
         }
-            
     }
 }

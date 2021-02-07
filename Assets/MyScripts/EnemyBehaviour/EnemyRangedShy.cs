@@ -12,12 +12,14 @@ public class EnemyRangedShy : MonoBehaviour
 {
     public int damage;
     public float cooldown;
-    public float distToAttack;
+    //public float distToAttack;
     public float projectileSpeed;
     public float spreadAngle; //the degree of spread
 
     float spreadOverDistance;
     float randomizedSpread;
+
+    public SoundClass shootSound;
 
     public Transform shootPosTrans; //where the projectiles will spawn;
     public GameObject projectilePrefab;
@@ -40,14 +42,17 @@ public class EnemyRangedShy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //pass these variables as references to the method (like pointers) to update them
-        myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+        //get the vector data from the enemy handler
+        dirToTarget = myHandler.GetDirToPlayer();
+        distToTarget = myHandler.GetDistToTarget();
+
+        //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         if (curCooldown > 0)
         {
             curCooldown -= Time.deltaTime;
         }
-        else if (distToTarget < distToAttack)
+        else// if (distToTarget < distToAttack)
         {
             Attack();
             curCooldown = cooldown;
@@ -66,6 +71,9 @@ public class EnemyRangedShy : MonoBehaviour
         randomizedSpread = Random.Range(-1 * spreadOverDistance, spreadOverDistance); //random spread value
 
         dirAngle += randomizedSpread; //applying spread to the direction angle
+
+        AudioManager.Instance.PlayFXSound(shootSound);
+
         ShootOnce(dirAngle);
     }
 

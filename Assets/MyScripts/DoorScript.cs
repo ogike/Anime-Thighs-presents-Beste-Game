@@ -14,15 +14,21 @@ public class DoorScript : MonoBehaviour
     //QOL: could get this from the parent of the teleportDest in Start()
     public RoomHandler destRoomScript;
 
+    /*[HideInInspector]*/ public bool isActive;
+
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
         //when the player enters the door trigger:
-        if (collision.tag == "Player")
+        if (isActive && collision.tag == "Player")
 		{
+            RoomsManager.Instance.ChangeActiveRoom(destRoomScript, teleportDestinationTrans.position);
+
+            /*
             destRoomScript.ActivateRoom(); //activating the new room;
 
             GameManagerScript.Instance.SetPlayerPosition(teleportDestinationTrans.position); //teleport the player
+            */
 		}
 	}
 }

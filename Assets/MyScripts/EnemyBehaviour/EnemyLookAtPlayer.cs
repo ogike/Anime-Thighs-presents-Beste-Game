@@ -17,7 +17,6 @@ public class EnemyLookAtPlayer : MonoBehaviour
     Rigidbody2D myRigidbody;
 
     Vector3 dirToTarget; //the normalized direction
-    float distToTarget;
 
 
     // Start is called before the first frame update
@@ -34,8 +33,10 @@ public class EnemyLookAtPlayer : MonoBehaviour
     // LateUpdate is the same, but its called after the normal Update()-s, which means it will be after the EnemyScripts's Update, and that all the variables will be up-to-date
     void LateUpdate()
     {
-        //pass these variables as references to the method (like pointers)
-        myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
+        //get the vector data from the enemy handler
+        dirToTarget = myHandler.GetDirToPlayer();
+
+        //myHandler.GetTargetVectorData(ref dirToTarget, ref distToTarget);
 
         RotateIn2D(dirToTarget);
     }

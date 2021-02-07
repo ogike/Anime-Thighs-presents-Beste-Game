@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* The basic shooting weapon script, using projectiles
+ * Can be used as a template, but also simply expanded for other new functionality (like being a shotgun), and then turned off in a variable
+ */
+
 public class WeaponScript : MonoBehaviour
 {
     public Transform shootPosTrans; //Where the bullets should spawn
     public GameObject bulletPrefab; //The bullet prefab to spawn
+
+    public SoundClass shootingSound;
 
     //these are the base stats of the weapon-------------------------------
     public bool  isAuto      = true; //is this weapon automatic-firing?
@@ -14,20 +20,22 @@ public class WeaponScript : MonoBehaviour
                                      //Todo: make this use RPM instead
     public float bulletSpeed = 10;
     public int   damage      = 34;
+    public int   knockbackStrength = 10;
     //---------------------------------------------------------------------
 
 
     //these are the current stats that we should use-----------------------
     //after multiplying them with the different statBoosts
-    float curMaxCooldown;
+    public float curMaxCooldown; //DEBUG PUBLIC
     float curBulletSpeed;
     int curDamage;
+    //int curKnockbackStrength;
     //---------------------------------------------------------------------
 
     float curRemainingCooldown; //stores how much time there is until we can shoot again
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
         curRemainingCooldown = 0;
     }
@@ -70,7 +78,16 @@ public class WeaponScript : MonoBehaviour
         BulletScript curBulletScript = curBullet.GetComponent<BulletScript>();
         curBulletScript.speed  = curBulletSpeed;
         curBulletScript.damage = curDamage;
+        curBulletScript.knockbackStrength = knockbackStrength;
+
+        PlayShootSound();
     }
+
+    //for now, the sound to be played is set in the audioSource componentb itself(should be changed later)
+    void PlayShootSound ()
+	{
+        AudioManager.Instance.PlayFXSound(shootingSound);
+	}
 
     //called from the weapon manager to update weapons
         //also called at start or when switching weapon

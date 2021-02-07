@@ -99,6 +99,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   damage: 0
+  targetTag: Enemy
+  targetImpactSound:
+    name: FleshyFireImpact
+    clip: {fileID: 8300000, guid: f4f52ef8c69cba6449c45aeb18c1ca58, type: 3}
+    volume: 0.365
+  wallImpactSound:
+    name: WallFireImpact
+    clip: {fileID: 8300000, guid: f4f52ef8c69cba6449c45aeb18c1ca58, type: 3}
+    volume: 0.555
+  knockbackStrength: 0
 --- !u!61 &2027405568320650751
 BoxCollider2D:
   m_ObjectHideFlags: 0
