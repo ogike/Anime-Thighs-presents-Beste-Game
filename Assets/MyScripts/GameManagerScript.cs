@@ -30,6 +30,11 @@ public class GameManagerScript : MonoBehaviour
     [HideInInspector] public Transform playerTransform;
     [HideInInspector] public HealthScript playerHealth; //automatically set
     [HideInInspector] public PlayerHandler playerHandler;
+    [HideInInspector] public PlayerController playerController;
+    [HideInInspector] public WeaponManager playerWeaponManager;
+
+    [HideInInspector] public bool isPaused; //not using this yet but might be useful later
+    [HideInInspector] public bool isDead;
 
     //Vector3 lerpHelperVelocity = Vector3.zero; //this is for the Vector3.SmoothDamp in the CameraTranstion(), unity handles it
 
@@ -41,11 +46,16 @@ public class GameManagerScript : MonoBehaviour
         camTrans  = mainCamera.GetComponent<Transform>();
         camScript = mainCamera.GetComponent<CameraScript>();
 
-        playerTransform = playerObject.GetComponent<Transform>();
-        playerHealth    = playerObject.GetComponent<HealthScript>();
-        playerHandler   = playerObject.GetComponent<PlayerHandler>();
+        playerTransform     = playerObject.GetComponent<Transform>();
+        playerHealth        = playerObject.GetComponent<HealthScript>();
+        playerHandler       = playerObject.GetComponent<PlayerHandler>();
+        playerController    = playerObject.GetComponent<PlayerController>();
+        playerWeaponManager = playerObject.GetComponent<WeaponManager>();
 
         winReward.SetActive(false); //PLACEHOLDER
+
+        isPaused = false;
+        isDead   = false;
 	}
 
     public void SetCameraPosition (Vector3 targetPosition)
@@ -94,4 +104,30 @@ public class GameManagerScript : MonoBehaviour
 	{
         winReward.SetActive(true);
 	}
+
+    public void PlayerDie()
+	{
+        isDead = true;
+        Debug.Log("You died. bruh");
+        playerController.enabled = false; //disable player controls
+        playerWeaponManager.DisableCurWeapon(); //disable shooting as well
+    }
+
+    public void PauseGame ()
+	{
+        isPaused = true;
+        Time.timeScale = 0f;
+
+        playerController.enabled = false; //disable player controls
+        playerWeaponManager.DisableCurWeapon(); //disable shooting as well
+    }
+
+    public void ResumeGame ()
+	{
+        isPaused = false;
+        Time.timeScale = 1;
+
+        playerController.enabled = true; //reenable player controls
+        playerWeaponManager.EnableCurWeapon(); //reenable shooting as well
+    }
 }
