@@ -17,6 +17,9 @@ public class BulletScript : MonoBehaviour
     [HideInInspector] public int   damage;
     public string targetTag = "Enemy";
 
+    public SoundClass targetImpactSound; //for when we hit our target
+    public SoundClass wallImpactSound;
+
     [HideInInspector] public int knockbackStrength;
 
     // Start is called before the first frame update
@@ -43,7 +46,15 @@ public class BulletScript : MonoBehaviour
             HealthScript targetHealth = other.GetComponent<HealthScript>();
             //Debug.Log(targetTag + " has taken " + damage + " dmg");
             targetHealth.TakeDamage(damage, knockbackDir, knockbackStrength);
+
+            AudioManager.Instance.PlayFXSound(targetImpactSound);
         }
+        else
+		{
+            //if not the targetm we probably hit a wall
+            AudioManager.Instance.PlayFXSound(wallImpactSound);
+		}
+
         Destroy(gameObject);
     }
 }

@@ -21,6 +21,8 @@ public class EnemyRangedBasic : MonoBehaviour
     //public float distToAttack;
     public float projectileSpeed;
 
+    public SoundClass shootSound;
+
     public Transform shootPosTrans;     //where the projectiles will spawn;
     public GameObject projectilePrefab; //the projectile to spawn
 
@@ -64,9 +66,11 @@ public class EnemyRangedBasic : MonoBehaviour
         //this is where you would implement crazier stuff like multi-directional shots, etc etc
 
         float angleToTarget =  Mathf.Atan2(dirToTarget.x, dirToTarget.y) * Mathf.Rad2Deg * (-1);
-            //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
-            //majd átváltjuk fokká
-            //nem tudom miért kell beszorozni (-1)-el???? csak így műkődik tho
+        //turns the direction vector into a rotation angle with trigonometry (the z rotation in the editor)
+        //majd átváltjuk fokká
+        //nem tudom miért kell beszorozni (-1)-el???? csak így műkődik tho
+
+        AudioManager.Instance.PlayFXSound(shootSound);
 
         ShootOnce(angleToTarget);
     }

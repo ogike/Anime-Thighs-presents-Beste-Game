@@ -129,6 +129,10 @@ MonoBehaviour:
     valueDifference: 0
     isPowerup: 0
     duration: 0
+  pickupSound:
+    name: 
+    clip: {fileID: 8300000, guid: 6d0c0e0755f3626498d67e0eba0b8d96, type: 3}
+    volume: 0.602
 --- !u!114 &-484692783892730256
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,8 @@ public class EnemyRangedShy : MonoBehaviour
     float spreadOverDistance;
     float randomizedSpread;
 
+    public SoundClass shootSound;
+
     public Transform shootPosTrans; //where the projectiles will spawn;
     public GameObject projectilePrefab;
 
@@ -69,6 +71,9 @@ public class EnemyRangedShy : MonoBehaviour
         randomizedSpread = Random.Range(-1 * spreadOverDistance, spreadOverDistance); //random spread value
 
         dirAngle += randomizedSpread; //applying spread to the direction angle
+
+        AudioManager.Instance.PlayFXSound(shootSound);
+
         ShootOnce(dirAngle);
     }
 

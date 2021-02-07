@@ -100,6 +100,15 @@ MonoBehaviour:
   speed: 10
   damage: 0
   targetTag: Player
+  targetImpactSound:
+    name: arrowImpactingFlesh
+    clip: {fileID: 8300000, guid: 4c0d13c82085e154fbea7f72c4347a97, type: 3}
+    volume: 0.656
+  wallImpactSound:
+    name: arrowImpactingWall
+    clip: {fileID: 8300000, guid: 4c0d13c82085e154fbea7f72c4347a97, type: 3}
+    volume: 0.195
+  knockbackStrength: 0
 --- !u!61 &7064120841711388496
 BoxCollider2D:
   m_ObjectHideFlags: 0

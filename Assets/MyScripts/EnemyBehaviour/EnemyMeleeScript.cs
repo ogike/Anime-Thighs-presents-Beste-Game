@@ -15,6 +15,8 @@ public class EnemyMeleeScript : MonoBehaviour
     public float attackCooldown = 1;
     public int knockbackStrength = 0;
 
+    public SoundClass meleeSound;
+
     float curCooldown;
     bool isAttacking;
 
@@ -53,7 +55,10 @@ public class EnemyMeleeScript : MonoBehaviour
 	{
         Vector3 tempKnockbackDir = (playerTrans.position - myTrans.position).normalized; //calculating the direction between us and the enemy, and using it for knockback
         Vector2 knockbackDir = new Vector2(tempKnockbackDir.x, tempKnockbackDir.y);
+
         playerHealth.TakeDamage(damage, knockbackDir, knockbackStrength);
+
+        AudioManager.Instance.PlayFXSound(meleeSound);
     }
 
     //the player enters the trigger

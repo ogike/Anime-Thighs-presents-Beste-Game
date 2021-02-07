@@ -15,6 +15,9 @@ public class RoomsManager : MonoBehaviour
 
     public List<RoomHandler> rooms; //0-th has to be the starting room!
 
+    public SoundClass openDoorsSound;
+    public SoundClass closeDoorsSound;
+
     public int curEnemyCountInRoom; //only public for debug
     int curRoomIndex; //what is the index of the current room in the "rooms" list
                       //-1 = its hasnt been set
@@ -71,4 +74,15 @@ public class RoomsManager : MonoBehaviour
             rooms[curRoomIndex].CompleteRoom();
         }
     }
+
+    //for sound effects basically
+    public void OpenDoors()
+	{
+        AudioManager.Instance.PlayFXSound(openDoorsSound);
+	}
+
+    public void CloseDoors()
+	{
+        AudioManager.Instance.PlayFXSound(closeDoorsSound);
+	}
 }
