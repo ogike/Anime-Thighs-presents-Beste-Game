@@ -108,6 +108,10 @@ MonoBehaviour:
     name: arrowImpactingWall
     clip: {fileID: 8300000, guid: 4c0d13c82085e154fbea7f72c4347a97, type: 3}
     volume: 0.195
+  targetImpactParticle: {fileID: 4097319305280026122, guid: e64409a1c1bdf5e4eba933d1f2158e67,
+    type: 3}
+  wallImpactParticle: {fileID: 4097319305280026122, guid: e64409a1c1bdf5e4eba933d1f2158e67,
+    type: 3}
   knockbackStrength: 0
 --- !u!61 &7064120841711388496
 BoxCollider2D:
