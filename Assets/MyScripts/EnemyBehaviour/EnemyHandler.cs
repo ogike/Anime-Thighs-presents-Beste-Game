@@ -33,7 +33,7 @@ public class EnemyHandler : MonoBehaviour
         distToTarget = dirToTarget.magnitude; //kinyerjül ebbõl a távolságot (hosszát a vektornak)
         dirToTarget = dirToTarget.normalized; //utána már csak a normalizált irányvektor érdekel minket
 
-        Debug.Log(dirToTarget.x + ", " + dirToTarget.y + " " + dirToTarget.z);
+        //Debug.Log(dirToTarget.x + ", " + dirToTarget.y + " " + dirToTarget.z);
     }
 
     public Vector3 GetDirToPlayer ()

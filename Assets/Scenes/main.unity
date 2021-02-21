@@ -4234,6 +4234,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 631537226}
     m_Modifications:
+    - target: {fileID: 731872934412790848, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: decideTimeMax
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: decideTimeMin
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: wallAvoidLayers.m_Bits
+      value: 2817
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
@@ -4242,12 +4262,12 @@ PrefabInstance:
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.94
+      value: 8.79
       objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.34
+      value: -2.38
       objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
@@ -4293,16 +4313,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTest
-      objectReference: {fileID: 0}
-    - target: {fileID: 6798928049399388275, guid: a546d506c50c4534da1fd1be1cf98511,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6798928049399388277, guid: a546d506c50c4534da1fd1be1cf98511,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}

@@ -222,8 +222,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2000
-  decideTimeMin: 1
-  decideTimeMax: 5
+  decideTimeMin: 2.5
+  decideTimeMax: 10
+  wallAvoidanceDist: 1.2
+  wallAvoidLayers:
+    serializedVersion: 2
+    m_Bits: 2305
 --- !u!114 &6798928049399388277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +235,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6798928049399388275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb163fc27d09814a9359790bb8bbfe9, type: 3}
   m_Name: 
