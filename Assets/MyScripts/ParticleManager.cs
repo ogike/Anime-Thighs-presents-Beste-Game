@@ -19,7 +19,7 @@ public class ParticleManager : MonoBehaviour
 		StartCoroutine( PlayParticleEffectCoroutine(particle, position) );
 	}
 
-	public IEnumerator PlayParticleEffectCoroutine (GameObject particle, Vector3 position)
+	private IEnumerator PlayParticleEffectCoroutine (GameObject particle, Vector3 position)
 	{
 		GameObject particleObject = GameObject.Instantiate(particle, position, Quaternion.identity);
 		ParticleSystem particleSystem = particleObject.GetComponent<ParticleSystem>();

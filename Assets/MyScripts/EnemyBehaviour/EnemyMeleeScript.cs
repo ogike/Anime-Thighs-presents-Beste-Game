@@ -16,6 +16,7 @@ public class EnemyMeleeScript : MonoBehaviour
     public int knockbackStrength = 0;
 
     public SoundClass meleeSound;
+    public GameObject targetHitPrefab;
 
     float curCooldown;
     bool isAttacking;
@@ -59,6 +60,7 @@ public class EnemyMeleeScript : MonoBehaviour
         playerHealth.TakeDamage(damage, knockbackDir, knockbackStrength);
 
         AudioManager.Instance.PlayFXSound(meleeSound);
+        ParticleManager.Instance.PlayParticleEffect(targetHitPrefab, playerTrans.position);
     }
 
     //the player enters the trigger
