@@ -20,6 +20,9 @@ public class BulletScript : MonoBehaviour
     public SoundClass targetImpactSound; //for when we hit our target
     public SoundClass wallImpactSound;
 
+    public GameObject targetImpactParticle; //prefab to spawn
+    public GameObject wallImpactParticle;
+
     [HideInInspector] public int knockbackStrength;
 
     // Start is called before the first frame update
@@ -48,12 +51,14 @@ public class BulletScript : MonoBehaviour
             targetHealth.TakeDamage(damage, knockbackDir, knockbackStrength);
 
             AudioManager.Instance.PlayFXSound(targetImpactSound);
+            ParticleManager.Instance.PlayParticleEffect(targetImpactParticle, myTrans.position);
         }
         else
 		{
-            //if not the targetm we probably hit a wall
+            //if not the target we probably hit a wall
             AudioManager.Instance.PlayFXSound(wallImpactSound);
-		}
+            ParticleManager.Instance.PlayParticleEffect(wallImpactParticle, myTrans.position);
+        }
 
         Destroy(gameObject);
     }

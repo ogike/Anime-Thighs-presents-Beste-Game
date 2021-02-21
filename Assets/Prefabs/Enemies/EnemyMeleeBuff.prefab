@@ -77,6 +77,8 @@ MonoBehaviour:
     name: 
     clip: {fileID: 8300000, guid: deb3390742aa5f04f82a0d2bb7730924, type: 3}
     volume: 0.722
+  targetHitPrefab: {fileID: 4097319305280026122, guid: e64409a1c1bdf5e4eba933d1f2158e67,
+    type: 3}
 --- !u!1 &6798928049399388275
 GameObject:
   m_ObjectHideFlags: 0
