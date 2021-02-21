@@ -110,7 +110,7 @@ MonoBehaviour:
     volume: 0.195
   targetImpactParticle: {fileID: 4097319305280026122, guid: e64409a1c1bdf5e4eba933d1f2158e67,
     type: 3}
-  wallImpactParticle: {fileID: 4097319305280026122, guid: e64409a1c1bdf5e4eba933d1f2158e67,
+  wallImpactParticle: {fileID: 3934865107461387832, guid: a7fb84d00bb1fad458566ae372ad0a76,
     type: 3}
   knockbackStrength: 0
 --- !u!61 &7064120841711388496

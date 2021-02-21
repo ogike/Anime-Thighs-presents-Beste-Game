@@ -108,9 +108,9 @@ MonoBehaviour:
     name: WallFireImpact
     clip: {fileID: 8300000, guid: f4f52ef8c69cba6449c45aeb18c1ca58, type: 3}
     volume: 0.555
-  targetImpactParticle: {fileID: 4097319305280026122, guid: e64409a1c1bdf5e4eba933d1f2158e67,
+  targetImpactParticle: {fileID: 4097319305280026122, guid: da06fc48506b7564a9a00e5bd543b00d,
     type: 3}
-  wallImpactParticle: {fileID: 4097319305280026122, guid: e64409a1c1bdf5e4eba933d1f2158e67,
+  wallImpactParticle: {fileID: 3934865107461387832, guid: a7fb84d00bb1fad458566ae372ad0a76,
     type: 3}
   knockbackStrength: 0
 --- !u!61 &2027405568320650751
