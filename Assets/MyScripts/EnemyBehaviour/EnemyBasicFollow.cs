@@ -35,8 +35,6 @@ public class EnemyBasicFollow : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody2D>();
 
         targetTrans = GameManagerScript.Instance.playerTransform; //automatically set it as the player thru the gameManager
-
-        myTrans.position = new Vector3(myTrans.position.x, myTrans.position.y, 0); //setting z position to be 0
     }
 
     // Update is called once per frame
