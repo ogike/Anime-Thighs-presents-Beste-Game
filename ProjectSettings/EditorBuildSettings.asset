@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/main.unity
     guid: 9c0927b8ea9822d4a9f907085fd8b402
+  - enabled: 0
+    path: Assets/Scenes/profilerTest.unity
+    guid: b44a97961e5c9cd42bd892a1f153e194
   m_configObjects: {}

@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 6798928049399388274}
   - component: {fileID: 6798928049399388276}
   - component: {fileID: 6798928049399388273}
+  - component: {fileID: 1433550890}
   m_Layer: 9
   m_Name: EnemyTest
   m_TagString: Enemy
@@ -142,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 6798928049399388275}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.0563915, y: 2.9241605, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 440967445764253399}
   - {fileID: 2869462472234086451}
@@ -173,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d86a7d7c4845044a8e47870483c955b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 20
   isPlayer: 0
   iTimeWhenDamageTaken: 0.3
   curHealth: 0
@@ -193,7 +194,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6798928049399388275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 731d29840f8a971449f024e0912a2887, type: 3}
   m_Name: 
@@ -222,12 +223,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2000
-  decideTimeMin: 2.5
-  decideTimeMax: 10
-  wallAvoidanceDist: 1.2
+  rotationSpeed: 3
+  decideTimeMin: 2
+  decideTimeMax: 7
+  wallAvoidanceDist: 1.5
   wallAvoidLayers:
     serializedVersion: 2
-    m_Bits: 2305
+    m_Bits: 2817
+  maxNumOfDecideTries: 50
 --- !u!114 &6798928049399388277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,7 +251,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6798928049399388275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -287,7 +290,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &6798928049399388273
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -339,3 +342,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1433550890
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798928049399388275}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.64

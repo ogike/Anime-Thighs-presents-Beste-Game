@@ -177,14 +177,14 @@ public class HealthScript : MonoBehaviour
         if (!isInvincible)
         {
             isInvincible = true;
-            Debug.Log("Invincible");
+            //Debug.Log("Invincible");
 
             
             yield return new WaitForSeconds(iTime);
 
 
             isInvincible = false;
-            Debug.Log("No longer invincible");
+            //Debug.Log("No longer invincible");
         }
     }
     

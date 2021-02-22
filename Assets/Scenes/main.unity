@@ -1825,7 +1825,7 @@ GameObject:
   - component: {fileID: 285128233}
   - component: {fileID: 285128232}
   - component: {fileID: 285128231}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4309,6 +4309,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6798928049399388274, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388275, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_Name
@@ -5713,6 +5718,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1035117604}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1433550881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6798928049399388275, guid: a546d506c50c4534da1fd1be1cf98511,
+    type: 3}
+  m_PrefabInstance: {fileID: 1035117604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1433550890
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433550881}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.64
 --- !u!1 &1467890554
 GameObject:
   m_ObjectHideFlags: 0

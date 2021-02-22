@@ -5,12 +5,15 @@ using UnityEngine;
 public class EnemyWander : MonoBehaviour
 {
     public float moveSpeed;
+    public float rotationSpeed;
 
     public float decideTimeMin;
     public float decideTimeMax;
 
     public float wallAvoidanceDist = 2f;
     public LayerMask wallAvoidLayers;
+
+    public int maxNumOfDecideTries = 20; //how many times we can try for a random direction before disabling
 
     float curDecideTime;
     Vector3 curDir;
@@ -42,6 +45,7 @@ public class EnemyWander : MonoBehaviour
         }
 
         MoveInCurDir();
+        LookInDir(curDir);
     }
 
 	private void FixedUpdate()
@@ -58,6 +62,7 @@ public class EnemyWander : MonoBehaviour
 	void ChooseNewdir ()
 	{
         bool isCorrectDir = true; //false if the next dir sends us into a wall
+        int curTries = 0;
 
         do
         {
@@ -73,6 +78,16 @@ public class EnemyWander : MonoBehaviour
                 //Debug.LogWarning("Wanderer found obstacle in dir: (" + curDir.x + ", " + curDir.y + "), with name: " + tempRayHit.transform.name);
 			}
 
+            curTries++;
+            if(curTries >= maxNumOfDecideTries) //if we are stuck in a n endless loop
+            {
+                //TEMPORARY 
+                    //this should later be set to automatically re-enable after a set time
+                Debug.LogWarning("This wanderers decision making is stuck in an endless loop, disabling");
+                this.enabled = false; //disabling this component
+                return;
+			}
+
         } while (!isCorrectDir);
 
         curDir.Normalize();
@@ -80,8 +95,18 @@ public class EnemyWander : MonoBehaviour
         curDecideTime = Random.Range(decideTimeMin, decideTimeMax);
     }
 
+    void LookInDir(Vector3 targDir)
+	{
+        float angleToTarget = Mathf.Atan2(targDir.x, targDir.y) * Mathf.Rad2Deg * (-1);
+        Quaternion targRot = Quaternion.Euler(0, 0, angleToTarget);
+
+        //???
+        myTrans.rotation = Quaternion.Slerp(myTrans.rotation, targRot, rotationSpeed * Time.deltaTime);
+    }
+
     void MoveInCurDir()
     {
-        myRigidbody.AddForce(curDir * moveSpeed * Time.deltaTime);
+        myRigidbody.AddForce(myTrans.up * moveSpeed * Time.deltaTime);
+        //myRigidbody.AddForce(curDir * moveSpeed * Time.deltaTime);
     }
 }
