@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 
 	public SoundClass mainMusic; //temporary
 
+	public bool isMuted = false;
+
 	[Range(0f, 1f)] public float sfxVolume;
 	[Range(0f, 1f)] public float musicVolume; 
 
@@ -47,13 +49,15 @@ public class AudioManager : MonoBehaviour
 	//for effects
 	public void PlayFXSound (SoundClass sound)
 	{
-		audioSourceSFX.PlayOneShot(sound.clip, sound.volume);
+		if(!isMuted)
+			audioSourceSFX.PlayOneShot(sound.clip, sound.volume);
 	}
 
 	//for music/themes
 	//we use seperate functions so different sounds can go to seperate mixers
     public void PlayMusic ()
 	{
-		audioSourceMusic.Play();
+		if (!isMuted)
+			audioSourceMusic.Play();
 	}
 }

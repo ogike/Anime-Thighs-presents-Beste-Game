@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 6798928049399388276}
   - component: {fileID: 6798928049399388273}
   - component: {fileID: 1433550890}
+  - component: {fileID: 8106961271810607674}
   m_Layer: 9
   m_Name: EnemyTest
   m_TagString: Enemy
@@ -226,11 +227,16 @@ MonoBehaviour:
   rotationSpeed: 3
   decideTimeMin: 2
   decideTimeMax: 7
+  collisionCheckTime: 0.075
   wallAvoidanceDist: 1.5
   wallAvoidLayers:
     serializedVersion: 2
     m_Bits: 2817
-  maxNumOfDecideTries: 50
+  wallAvoidanceSideVecDiff: 30
+  maxNumOfDecideTries: 25
+  timeUntilReenable: 2
+  debugVisuals: 1
+  debugLineTimes: 0.2
 --- !u!114 &6798928049399388277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +356,22 @@ CircleCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6798928049399388275}
   m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.64
+--- !u!58 &8106961271810607674
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798928049399388275}
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
