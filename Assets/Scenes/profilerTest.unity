@@ -1566,7 +1566,8 @@ MonoBehaviour:
   - {fileID: 2086836088}
   - {fileID: 1877907419602393390}
   rewards: []
-  enemiesInThisRoom: 0
+  numOfenemiesInThisRoom: 0
+  curEnemiesInThisRoom: []
   completed: 0
 --- !u!1001 &204531049
 PrefabInstance:
@@ -3607,7 +3608,8 @@ MonoBehaviour:
   - {fileID: 1618199547395706252, guid: a4275d05b819b234085f144f70a518a7, type: 3}
   - {fileID: 1618199547395706252, guid: 6eadc39147ac083418516b0950318693, type: 3}
   - {fileID: 3990487911384478674, guid: b9cf9f6c541f6784690f8ba5648aef92, type: 3}
-  enemiesInThisRoom: 0
+  numOfenemiesInThisRoom: 0
+  curEnemiesInThisRoom: []
   completed: 0
 --- !u!4 &314640988 stripped
 Transform:
@@ -6422,6 +6424,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 631537226}
     m_Modifications:
+    - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
@@ -6481,6 +6488,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTest (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: distance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: maxForce
+      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -8428,6 +8445,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 631537226}
     m_Modifications:
+    - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
@@ -8487,6 +8509,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTest (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: distance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: maxForce
+      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -8624,6 +8656,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 631537226}
     m_Modifications:
+    - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
@@ -8683,6 +8720,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTest (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: distance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: maxForce
+      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -10055,6 +10102,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: distance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: maxForce
+      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -14337,7 +14394,8 @@ MonoBehaviour:
   - {fileID: 5519364219447796310}
   - {fileID: 1989014941938373836}
   rewards: []
-  enemiesInThisRoom: 0
+  numOfenemiesInThisRoom: 0
+  curEnemiesInThisRoom: []
   completed: 0
 --- !u!4 &1425877368 stripped
 Transform:
@@ -15678,7 +15736,8 @@ MonoBehaviour:
   doors:
   - {fileID: 1877907419935538849}
   rewards: []
-  enemiesInThisRoom: 0
+  numOfenemiesInThisRoom: 0
+  curEnemiesInThisRoom: []
   completed: 0
 --- !u!1 &1523806005
 GameObject:
@@ -19322,6 +19381,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
       propertyPath: moveSpeed
       value: 2000
       objectReference: {fileID: 0}
@@ -19389,6 +19453,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTest (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: distance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: maxForce
+      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -20042,7 +20116,8 @@ MonoBehaviour:
   doors:
   - {fileID: 3384417854765322813}
   rewards: []
-  enemiesInThisRoom: 0
+  numOfenemiesInThisRoom: 0
+  curEnemiesInThisRoom: []
   completed: 0
 --- !u!1 &1892568086
 GameObject:

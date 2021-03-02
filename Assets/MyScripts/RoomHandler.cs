@@ -23,14 +23,23 @@ public class RoomHandler : MonoBehaviour
 
     public List<GameObject> rewards;
 
-    [HideInInspector] public int enemiesInThisRoom;
+    [HideInInspector] public int numOfenemiesInThisRoom;
+    public List<Transform> curEnemiesInThisRoom;
     [HideInInspector] public bool completed;
 
     public void Awake()
 	{
-        enemiesInThisRoom = enemiesToWakeOnEnter.transform.childCount;
+        Transform enemiesParent = enemiesToWakeOnEnter.transform;
 
-        if(enemiesInThisRoom == 0) //ha alapból nincs ellenség szobában, egybõl completed
+        numOfenemiesInThisRoom = enemiesParent.childCount;
+
+		//TODO: probably very performance heavy, should be baked in during editor-time with a burron or sth
+		for (int i = 0; i < numOfenemiesInThisRoom; i++)
+		{
+            curEnemiesInThisRoom.Add(enemiesParent.GetChild(i));
+        }
+
+        if(numOfenemiesInThisRoom == 0) //ha alapból nincs ellenség szobában, egybõl completed
 		{
             CompleteRoom();
         }
@@ -74,7 +83,7 @@ public class RoomHandler : MonoBehaviour
     public void CompleteRoom()
     {
         completed = true;
-        enemiesInThisRoom = 0;
+        numOfenemiesInThisRoom = 0;
 
         playerBlockers.SetActive(false); //deactivate the player blockers
         for (int i = 0; i < doors.Length; i++)
@@ -112,4 +121,31 @@ public class RoomHandler : MonoBehaviour
             doors[i].isActive = false; //set the doorscript variable to be false
         }
     }
+
+    public void EnemyDied(Transform deceased)
+	{
+        curEnemiesInThisRoom.Remove(deceased);
+	}
+
+    public void EnemySpawned(Transform spawned)
+	{
+        curEnemiesInThisRoom.Add(spawned);
+	}
+
+    public List<Transform> GetNeighbours (Transform orig, float maxDist)
+	{
+        Vector3 origPos = orig.position;
+
+        List<Transform> neighbours = new List<Transform>();
+
+		foreach (Transform enemy in curEnemiesInThisRoom)
+		{
+            if (enemy != orig && Vector2.Distance(origPos, enemy.position) < maxDist)
+			{
+                neighbours.Add(enemy);
+			}
+		}
+
+        return neighbours;
+	}
 }

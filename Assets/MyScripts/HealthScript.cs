@@ -38,6 +38,7 @@ public class HealthScript : MonoBehaviour
     SpriteRenderer myRenderer; //for temp health display
     Transform myTransform;
     Rigidbody2D myRigidbody;
+    RoomHandler myRoomHandler;
 
     // Start is called before the first frame update
     void Awake()
@@ -52,6 +53,10 @@ public class HealthScript : MonoBehaviour
         myTransform = GetComponent<Transform>();
 
         myRigidbody = GetComponent<Rigidbody2D>();
+
+        //TODO: check for errors (also dumb af)
+        if(!isPlayer)
+            myRoomHandler = myTransform.parent.parent.GetComponent<RoomHandler>();
     }
 
 	public void TakeDamage (int dmg, Vector2 knockbackDir, int knockbackStrength)
@@ -147,7 +152,9 @@ public class HealthScript : MonoBehaviour
             SpawnRandomObjects();
 
             //this has to be here otherwise doors open prematurely
-            RoomsManager.Instance.ChangeActiveEnemiesToCount(-1); //decreasing the current enemiesInThisRoom
+            RoomsManager.Instance.ChangeActiveEnemiesToCount(-1); //decreasing the current numOfenemiesInThisRoom
+
+            myRoomHandler.EnemyDied(myTransform);
 
             //gameObject: the GameObject this component is linked to
             //            is built in, doesnt need to be retrieved with GetComponent<>()
@@ -163,10 +170,11 @@ public class HealthScript : MonoBehaviour
             int chanceRoll = Random.Range(1, 100); // inlcusive has to be 1-100
             if (chanceRoll <= ObjectsToSpawn[i].Chance)
             {
-                Instantiate(ObjectsToSpawn[i].Object, myTransform.position, myTransform.rotation);
+                GameObject newObject = Instantiate(ObjectsToSpawn[i].Object, myTransform.position, myTransform.rotation);
                 if (ObjectsToSpawn[i].isEnemy)
                 {
-                    RoomsManager.Instance.ChangeActiveEnemiesToCount(+1); //increase the current enemiesInThisRoom
+                    RoomsManager.Instance.ChangeActiveEnemiesToCount(+1); //increase the current numOfenemiesInThisRoom
+                    myRoomHandler.EnemySpawned(newObject.transform);
                 }
             }
         }

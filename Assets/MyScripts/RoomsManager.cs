@@ -58,7 +58,7 @@ public class RoomsManager : MonoBehaviour
         GameManagerScript.Instance.SetPlayerPosition(newPlayerPosition);
         GameManagerScript.Instance.SetCameraPosition(rooms[curRoomIndex].cameraPosTrans.position);
 
-        curEnemyCountInRoom = rooms[curRoomIndex].enemiesInThisRoom; //updating the enemy counter to the new room
+        curEnemyCountInRoom = rooms[curRoomIndex].numOfenemiesInThisRoom; //updating the enemy counter to the new room
         rooms[curRoomIndex].EnterRoom();
     }
 
