@@ -9,6 +9,13 @@ using UnityEngine;
  * This should be added to every enemy!!
  */
 
+/* Now this is also a steering agent for now
+ * lol.
+ * Im just prototyping at this point
+ * 
+ * 
+ */
+
 public class EnemyHandler : MonoBehaviour
 {
     Transform targetTrans;

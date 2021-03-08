@@ -42,22 +42,27 @@ public class EnemySeparation : MonoBehaviour
         Vector3 newDir = Vector3.zero;
 
         neighbours = myRoomHandler.GetNeighbours(myTrans, distance);
-        curPos = myTrans.position;
 
-        foreach (Transform otherTrans in neighbours)
-		{
-            newDir += curPos - otherTrans.position;
+        if (neighbours.Count > 0)
+        {
+            curPos = myTrans.position;
+
+            foreach (Transform otherTrans in neighbours)
+            {
+                newDir += curPos - otherTrans.position;
+            }
+
+            newDir.z = 0; //cos 2d space
+
+            //TODO: this could be made smoother depending on distance
+            //separationDir = separationDir.normalized * maxForce;
+            //newDir.Normalize();
+            newDir /= neighbours.Count;
+
+            neighbours.Clear(); //resetting the cached memory
+
+            Debug.DrawLine(curPos, curPos + (newDir * debugLineLength), Color.magenta, Time.deltaTime);
         }
-
-        newDir.z = 0; //cos 2d space
-
-        //TODO: this could be made smoother depending on distance
-        //separationDir = separationDir.normalized * maxForce;
-        newDir.Normalize();
-
-        neighbours.Clear(); //resetting the cached memory
-
-        Debug.DrawLine(curPos, curPos + (newDir * debugLineLength), Color.magenta, Time.deltaTime);
 
         return newDir;
     }
