@@ -12,22 +12,27 @@ using UnityEngine;
 /* Now this is also a steering agent for now
  * lol.
  * Im just prototyping at this point
- * 
- * 
  */
 
 public class EnemyHandler : MonoBehaviour
 {
     Transform targetTrans;
     Transform myTrans;
+    Rigidbody2D myRigidbody;
 
     Vector3 dirToTarget; //the normalized direction to the player
     float distToTarget;  //the distance to the player
+
+    public Vector3 curSteerVel;
+    public float steerForce;
+    public float steerMaxVel;
+    public float rotationSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         myTrans = GetComponent<Transform>();
+        myRigidbody = GetComponent<Rigidbody2D>();
         targetTrans = GameManagerScript.Instance.playerTransform; //automatically set it as the player thru the gameManager
 
         myTrans.position = new Vector3(myTrans.position.x, myTrans.position.y, 0); //setting z position to be 0
@@ -41,6 +46,42 @@ public class EnemyHandler : MonoBehaviour
         dirToTarget = dirToTarget.normalized; //utána már csak a normalizált irányvektor érdekel minket
 
         //Debug.Log(dirToTarget.x + ", " + dirToTarget.y + " " + dirToTarget.z);
+    }
+
+	private void LateUpdate()
+	{
+        //after all the other calculations are done, we can move
+        Move();
+        LookInDir(curSteerVel.normalized); //TODO optimize
+        curSteerVel = Vector3.zero; //resetting for next frame
+    }
+
+	public void AddSteerDir(Vector3 plusDir, float weight)
+	{
+        curSteerVel += plusDir * weight;
+	}
+    void Move()
+	{
+        curSteerVel.z = 0; //safety, probably should be done better with proper types
+
+        //TODO: replace this with squared checks
+        /*if (curSteerVel.magnitude > steerMaxVel)
+            curSteerVel = curSteerVel.normalized * steerMaxVel;
+
+        myRigidbody.AddForce(curSteerVel * steerForce * Time.deltaTime);*/
+
+        myRigidbody.AddForce(myTrans.up * steerForce * Time.deltaTime); //just move forward
+
+        //curSteerVel = Vector3.zero; //resetting for next frame
+    }
+
+    void LookInDir(Vector3 targDir)
+    {
+        float angleToTarget = Mathf.Atan2(targDir.x, targDir.y) * Mathf.Rad2Deg * (-1);
+        Quaternion targRot = Quaternion.Euler(0, 0, angleToTarget);
+
+        //???
+        myTrans.rotation = Quaternion.Slerp(myTrans.rotation, targRot, rotationSpeed * Time.deltaTime);
     }
 
     public Vector3 GetDirToPlayer ()

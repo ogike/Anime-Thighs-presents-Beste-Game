@@ -6429,6 +6429,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerMaxVel
+      value: 4000
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
@@ -6498,6 +6508,16 @@ PrefabInstance:
         type: 3}
       propertyPath: maxForce
       value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerBehaviourWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346694262506960122, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -8450,6 +8470,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerMaxVel
+      value: 4000
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
@@ -8519,6 +8549,16 @@ PrefabInstance:
         type: 3}
       propertyPath: maxForce
       value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerBehaviourWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346694262506960122, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -8656,10 +8696,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 631537226}
     m_Modifications:
-    - target: {fileID: 2772526039812028606, guid: a546d506c50c4534da1fd1be1cf98511,
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: steerForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerMaxVel
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
@@ -8723,13 +8768,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
-      propertyPath: distance
-      value: 1.5
+      propertyPath: steerBehaviourWeight
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+    - target: {fileID: 8346694262506960122, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
-      propertyPath: maxForce
-      value: 4000
+      propertyPath: rotationSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -10102,16 +10147,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTest
-      objectReference: {fileID: 0}
-    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
-        type: 3}
-      propertyPath: distance
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
-        type: 3}
-      propertyPath: maxForce
-      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -18562,6 +18597,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 631537226}
     m_Modifications:
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerMaxVel
+      value: 4000
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
@@ -18621,6 +18666,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTest (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerBehaviourWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346694262506960122, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}
@@ -19394,6 +19449,16 @@ PrefabInstance:
       propertyPath: wallAvoidanceDist
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerForce
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2816921144513639867, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerMaxVel
+      value: 4000
+      objectReference: {fileID: 0}
     - target: {fileID: 6798928049399388272, guid: a546d506c50c4534da1fd1be1cf98511,
         type: 3}
       propertyPath: m_RootOrder
@@ -19463,6 +19528,16 @@ PrefabInstance:
         type: 3}
       propertyPath: maxForce
       value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613362647788954264, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: steerBehaviourWeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8346694262506960122, guid: a546d506c50c4534da1fd1be1cf98511,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a546d506c50c4534da1fd1be1cf98511, type: 3}

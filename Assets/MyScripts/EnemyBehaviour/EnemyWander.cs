@@ -7,6 +7,8 @@ public class EnemyWander : MonoBehaviour
     public float moveSpeed;
     public float rotationSpeed;
 
+    public float steerBehaviourWeight = 1;
+
     public float decideTimeMin;
     public float decideTimeMax;
 
@@ -34,6 +36,7 @@ public class EnemyWander : MonoBehaviour
 
     Rigidbody2D myRigidbody;
     Transform myTrans;
+    EnemyHandler myHandler;
 
     RaycastHit2D tempRayHit;
 
@@ -42,6 +45,7 @@ public class EnemyWander : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myTrans = GetComponent<Transform>();
+        myHandler = GetComponent<EnemyHandler>();
 
         //setting it to a random number at the start
         //so that different enemies wont visibly update at the same time
@@ -88,8 +92,8 @@ public class EnemyWander : MonoBehaviour
             ChooseNewdir();
         }
 
-        MoveInCurDir();
-        LookInDir(curDir);
+        myHandler.AddSteerDir(curDir, steerBehaviourWeight);
+        //LookInDir(curDir);
     }
 
 	private void FixedUpdate()
@@ -209,11 +213,11 @@ public class EnemyWander : MonoBehaviour
         myTrans.rotation = Quaternion.Slerp(myTrans.rotation, targRot, rotationSpeed * Time.deltaTime);
     }
 
-    void MoveInCurDir()
-    {
-        myRigidbody.AddForce(myTrans.up * moveSpeed * Time.deltaTime);
+   // void MoveInCurDir()
+    //{
+    //    myRigidbody.AddForce(myTrans.up * moveSpeed * Time.deltaTime);
         //myRigidbody.AddForce(curDir * moveSpeed * Time.deltaTime);
-    }
+    //}
 
     //for debug visuals
     void DebugUpdate ()

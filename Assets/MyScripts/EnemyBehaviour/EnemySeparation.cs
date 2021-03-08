@@ -9,6 +9,8 @@ public class EnemySeparation : MonoBehaviour
     public float maxForce;
     public float distance;
 
+    public float steerBehaviourWeight = 1;
+
     List<Transform> neighbours;
 
     Vector3 separationDir;
@@ -16,6 +18,7 @@ public class EnemySeparation : MonoBehaviour
     RoomHandler myRoomHandler;
     Transform myTrans;
     Rigidbody2D myRigidbody;
+    EnemyHandler myHandler;
     Vector3 curPos;
 
     // Start is called before the first frame update
@@ -23,6 +26,7 @@ public class EnemySeparation : MonoBehaviour
     {
         myTrans = GetComponent<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
+        myHandler = GetComponent<EnemyHandler>();
 
         //TODO expensive, should be set in enemyHandler
         myRoomHandler = myTrans.parent.parent.GetComponent<RoomHandler>();
@@ -34,7 +38,8 @@ public class EnemySeparation : MonoBehaviour
     {
         separationDir = CalcSeparationForce();
 
-        Move(separationDir);
+        myHandler.AddSteerDir(separationDir, steerBehaviourWeight);
+        //Move(separationDir);
     }
 
     Vector3 CalcSeparationForce()
@@ -68,8 +73,8 @@ public class EnemySeparation : MonoBehaviour
     }
 
     //should be modularized somewhere else
-    void Move(Vector3 dir)
-	{
-        myRigidbody.AddForce(dir * maxForce * Time.deltaTime);
-    }
+    //void Move(Vector3 dir)
+	//{
+    //    myRigidbody.AddForce(dir * maxForce * Time.deltaTime);
+    //}
 }

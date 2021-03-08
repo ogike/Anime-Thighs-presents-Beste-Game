@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 6798928049399388277}
   - component: {fileID: 6798928049399388274}
   - component: {fileID: 6798928049399388276}
+  - component: {fileID: 8346694262506960122}
   - component: {fileID: 6798928049399388273}
   - component: {fileID: 1433550890}
   - component: {fileID: 8106961271810607674}
@@ -164,6 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e45c47a01f3864782fd2236687416d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curSteerVel: {x: 0, y: 0, z: 0}
+  steerForce: 2000
+  steerMaxVel: 4000
+  rotationSpeed: 5
 --- !u!114 &6798928049399388279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2000
   rotationSpeed: 3
+  steerBehaviourWeight: 1
   decideTimeMin: 2
   decideTimeMax: 7
   collisionCheckTime: 0.075
@@ -253,6 +259,7 @@ MonoBehaviour:
   debugLineLength: 1
   maxForce: 4000
   distance: 1.5
+  steerBehaviourWeight: 1
 --- !u!114 &6798928049399388277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,6 +320,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &8346694262506960122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798928049399388275}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7258a6fdf2964c04da37ff8550795cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5
 --- !u!212 &6798928049399388273
 SpriteRenderer:
   m_ObjectHideFlags: 0
